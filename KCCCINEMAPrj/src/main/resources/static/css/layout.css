@@ -41,7 +41,7 @@
 #help {
 }
 #footer {
-  background: #211f1f;
+  background: #000048;
 }
 
 /* 가운데 영역 */
@@ -842,7 +842,7 @@
   padding-top: 5px;
 }
 .footer_sns .tel a {
-  color: #8f8f8f;
+  color: #ffffff;
   font-size: 21px;
 }
 .footer_sns .tel a em {
@@ -872,17 +872,17 @@
   top: 5px;
   width: 1px;
   height: 11px;
-  background: #8f8f8f;
+  background: #ffffff;
 }
 .footer_infor li:last-child:after {
   width: 0;
   height: 0;
 }
 .footer_infor li a {
-  color: #8f8f8f;
+  color: #ffffff;
 }
 .footer_infor address p {
-  color: #8f8f8f;
+  color: #ffffff;
   padding-bottom: 15px;
 }
 

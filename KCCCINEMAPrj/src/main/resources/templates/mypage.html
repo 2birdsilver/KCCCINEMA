@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <th:block th:replace="~{/include/header :: header}">
+ </th:block>
+ </head>
+<title>마이페이지</title>
+<body>
+	<div class="main_wrap" style="width:100vw;  border: solid purple 5px; height:500px; margin-top:60px;">
+	<div class="main_container" style="margin:20px auto 20px auto; height:80%; width:60%; border:solid blue 5px;">
+		<div class="page_title_container" style="border:solid green 5px;">
+			<h1>마이페이지</h1>
+			
+		</div><!-- pageTitleContainer div -->
+		
+		<div class="user_inform_container" style="width:80%; float:right; border:solid yellow 5px;">
+			<div class="user_profile" style="border-width:100px 100px 100px 100px; border:solid orange 5px;">
+			 <p>이곳에 이미지 표출할거임</p>
+			</div>
+		<th:h1>회원ID:머시기저시기</th:h1><br>
+		
+		
+		
+		</div><!-- userInformContainer div -->
+		
+		
+		<div class="left_menu_container"  style=" float:left; width:20%; border: solid red 5px;">
+			<ul id="mypageList">
+				<li>예매확인</li>
+				<li>회원정보
+					<ul>
+						<li>회원정보조회</li>
+						<li>회원정보수정</li>
+						<li>회원탈퇴</li>
+					</ul>
+				</li>
+	
+								
+			</ul>
+		</div> <!-- 좌측 세로메뉴바 div -->
+	
+	
+	</div><!-- main_container div  -->
+	</div><!-- main_wrap div -->
+
+	
+<footer th:replace="~{/include/footer :: footer}"></footer>
+</body>
+</html>

@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class KcccinemaController {
 	@RequestMapping("/")
 	public String home() {
-		return "mypage";
+		return "home";
 	}
 }

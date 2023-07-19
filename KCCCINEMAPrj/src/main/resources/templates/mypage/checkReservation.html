@@ -4,26 +4,37 @@
  <th:block th:replace="~{/include/header :: header}">
  </th:block>
  </head>
-<title>마이페이지</title>
+<title>예매확인</title>
 <body>
 	<div class="main_wrap" style="width:99.4%;  border: solid purple 5px; height:500px; margin-top:60px;">
 		<div class="main_container" style="position:relative; margin:20px auto 20px auto; height:80%; width:60%; border:solid blue 5px;">
 		
 			<div class="page_title_container" style="position:absolute; left:20%; border:solid green 5px;">
-				<h1>마이페이지</h1>
+				<h1>예매확인</h1>
 			</div><!-- pageTitleContainer div -->
 		
 			<div class="user_inform_container" style="width:500px; height:250px; float:right; position:relative; top:50px; right:250px; border:solid yellow 5px;">
 			
 				<div class="user_profile" style="position:absolute; width:150px; height:150px; border:solid orange 5px;">
-					<img src="./images/unknown.png" style="width:100px;">
+					<p>${영화 포스터} 들어가야함</p>
 				</div>
-				<div class="user_inform" style="width:250px;height:150px; position:absolute; left:200px; top: 50px; border:solid black 2px;">
-					<th:h1>회원ID:userId</th:h1><br>
-					<th:h1>회원이름:userName</th:h1><br>
-					<th:h1>회원나이:userAge</th:h1><br>
-					<th:h1>회원생일:userBirthDate</th:h1>
-				</div>
+				<th:foreach>
+					<div class="user_inform" style="width:250px;height:100%; position:absolute; left:200px;  border:solid black 2px;">
+						
+						<h1>예매영화 : <span  th:text="${movieTitle}"></span></h1>
+						<h1>장르 : <span  th:text="${movieCategory}"></span></h1>
+						<h1>상영날짜 : <span  th:text="${screenDate}"></span></h1>
+						<h1>러닝타임 : <span  th:text="${runningTime}"></span></h1>
+						<h1>시작시간 : <span  th:text="${startTime}"></span></h1>
+						<h1>관람극장 : <span  th:text="${cinemaName}"></span></h1>
+						<h1>극장주소 : <span  th:text="${cinemaLocation}"></span></h1>
+						<h1>예매회원ID : <span  th:text="${userId}"></span></h1>
+						<h1>예매회원이름 : <span  th:text="${userName}"></span></h1>
+						<h1>관람인원(성인) : <span  th:text="${adultNumber}"></span></h1>
+						<h1>관람인원(어린이) : <span  th:text="${childNumber}"></span></h1>
+						<h1>좌석 : <span  th:text="|${seatRowNo} ${seatColNo}|"></span></h1>
+					</div>
+					</th:foreach>
 			</div><!-- userInformContainer div  -->
 		
 		
@@ -35,8 +46,8 @@
 				</ul>
 			</div> <!-- 좌측 세로메뉴바 div -->
 			<div class="button_container" style="border:solid purple 2px; position:absolute; left:50%; bottom:50px;">
-				<button class="button1" style="margin-right:10px;">정보수정하기</button>
-				<button class="button1" >저장하기</button>
+				
+				<button class="button1" >예매취소</button>
 			</div><!-- button_container div  -->
 		</div><!-- main_container div  -->
 	</div><!-- main_wrap div -->

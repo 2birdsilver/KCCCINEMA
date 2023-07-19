@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<head>
+<th:block th:replace="~{/include/header :: header}">
+</th:block>
+</head>
+<title>마이페이지</title>
+<body>
+	<div class="main_wrap">
+		<div class="main_container">
+			<div class="page_title_container">
+				<h1>마이페이지</h1>
+			</div>
+			<!-- pageTitleContainer div -->
+			<div class="user_inform_container">
+				<div class="user_profile">
+					<img class="user_face" src="./images/unknown.png">
+				</div>
+				<div class="user_inform">
+
+					<th:h1>회원ID:userId</th:h1>
+					<br>
+					<th:h1>회원이름:userName</th:h1>
+					<br>
+					<th:h1>회원나이:userAge</th:h1>
+					<br>
+					<th:h1>회원생일:userBirthDate</th:h1>
+				</div>
+			</div>
+			<!-- userInformContainer div  -->
+
+
+			<div class="left_menu_container">
+
+				<nav class="left_nav" role="navigation">
+					<ul class="nav_list">
+
+						<li><input id="group_input" type="checkbox" hidden /> <label
+							class="user_info" for="group_input">회원정보 </label>
+							<ul class="group_list">
+								<li><a href="#">회원정보확인</a></li>
+								<li><a href="#">회원탈퇴</a></li>
+							</ul></li>
+						<li><label>예매확인</label></li>
+
+					</ul>
+				</nav>
+			</div>
+			<!-- 좌측 세로메뉴바 div -->
+			<div class="button_container">
+				<button class="button1">정보수정하기</button>
+				<button class="button1">저장하기</button>
+			</div>
+			<!-- button_container div  -->
+		</div>
+		<!-- main_container div  -->
+	</div>
+	<!-- main_wrap div -->
+
+
+	<footer th:replace="~{/include/footer :: footer}"></footer>
+</body>
+</html>

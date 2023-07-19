@@ -10,38 +10,7 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<!-- 표 -->
-	<!-- 		<table>
-			<tr>
-				<td>movie_id</td>
-				<td></td>
-				<td>movie_title</td>
-				<td></td>
-				<td>movie_category</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>opening_date</td>
-				<td></td>
-				<td>closing_date</td>
-				<td></td>
-				<td>running_time</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>movie_director</td>
-				<td></td>
-				<td>movie_poster</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>performer</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>movie_synopsis</td>
-			</tr>
-		</table> -->
+
 
 	<div id="container">
 		<aside id="sidebar">
@@ -49,13 +18,10 @@
 		</aside>
 		<section id="contents">
 			<h1>영화 등록</h1>
-			<!-- 			    <form id="myForm" th:action="@{/submit}" method="post">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
-    </form> -->
-			<form id="movieInfo" enctype="multipart/form-data">
-				<!-- <form id="movieInfo" th:action="@{/movie/insert}" method="post" enctype="multipart/form-data"> -->
+			<div th:text="${message}"></div>
+
+			<form th:action="@{/movie/insert}" method="post"
+				enctype="multipart/form-data">
 				<div id="wrapper">
 					<div class="box box1 label">영화 아이디</div>
 					<div class="box box2 ">
@@ -114,96 +80,7 @@
 				<button type="submit">등록하기</button>
 				<input type="reset" value="취소하기">
 			</form>
-			<script type="text/javascript">
-			$(document).ready(function() {
-	            $("#movieInfo").submit(function(e) {
-	                e.preventDefault();
-	                
-	                // 데이터를 객체로 만들기
-	                var formData = {
-	                    movieId: $("input[name='movieId']").val(),
-	                    movieTitle: $("input[name='movieTitle']").val(),
-	                    movieCategory: $("select[name='movieCategory']").val(),
-	                    openingDate: $("input[name='openingDate']").val(),
-	                    closingDate: $("input[name='closingDate']").val(),
-	                    runningTime: $("input[name='runningTime']").val(),
-	                    isAdultMovie: $("select[name='isAdultMovie']").val(),
-	                    movieDirector: $("input[name='movieDirector']").val(),
-	                    moviePoster: $("input[name='moviePoster']")[0].files[0], // File 객체를 바로 넣어줍니다.
-	                    performer: $("input[name='performer']").val(),
-	                    movieSynopsis: $("textarea[name='movieSynopsis']").val(),
-	                };
-															// 1. 영화 아이디 text
-															var movieId = $(
-																	"input[name='movieId']")
-																	.val();
-															// 2. 영화명 text
-															var movieTitle = $(
-																	"input[name='movieTitle']")
-																	.val();
-															// 3. 카테고리 select
-															var movieCategory = $(
-																	"select[name='movieCategory']")
-																	.val();
-															// 4. 상영 시작일 date
-															var openingDate = $(
-																	"input[name='openingDate']")
-																	.val();
-															// 5. 상영 종료일 date
-															var closingDate = $(
-																	"input[name='closingDate']")
-																	.val();
-															// 6. 상영 소요시간 number
-															var runningTime = $(
-																	"input[name='runningTime']")
-																	.val();
-															// 7. 감독 text
-															var movieDirector = $(
-																	"input[name='movieDirector']")
-																	.val();
-															// 8. 포스터 업로드 file
-															var moviePoster = new FormData();
-															moviePoster
-																	.append(
-																			'moviePoster',
-																			$('input[type=file]')[0].files[0]);
-															
-															// 9. 출연진 text
-															var performer = $(
-																	"input[name='performer']")
-																	.val();
-															// 10. 줄거리 text
-															var movieSynopsis = $(
-																	"textarea[name='movieSynopsis']")
-																	.val();
-															// 11. 시청 연령 select
-															var isAdultMovie = $(
-																	"select[name='isAdultMovie']")
-																	.val();
 
-															/*            var textData = $("input[name='textData']").val();
-															 var numberData = $("input[name='numberData']").val();
-															 var optionData = $("select[name='optionData']").val();
-															 var fileData = new FormData();
-															 fileData.append('file', $('input[type=file]')[0].files[0]); */		 
-															 
-													        $.ajax({
-													            url: "/movie/insert",
-													            method: "POST",
-													            data: formData, // 객체를 넘겨줍니다.
-													            processData: false,
-													            contentType: false,
-													            success: function(response) {
-													                console.log(response);
-													            },
-													            error: function(xhr, status, error) {
-													                console.error(error);
-													            }
-													        });
-													    });
-													});
-
-			</script>
 		</section>
 	</div>
 	<div>

@@ -8,7 +8,7 @@ INSERT INTO cinema
 VALUES (3, '구미', '경북', '054-1111-2222');
 
 INSERT INTO cinema
-VALUES (4, '부천', '경기도', '031-1111-2222');
+--VALUES (4, '부천', '경기도', '031-1111-2222');
 
 INSERT INTO cinema
 VALUES (5, '인천', '인천', '032-1111-2222');

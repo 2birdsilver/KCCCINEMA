@@ -51,7 +51,7 @@
   padding: 0 16px;
 }
 
-#check_box {
+#side_check_box {
   display: none;
 }
 #side_menu {
@@ -974,11 +974,11 @@ body.modal_on {
     left: 0px;
   }
   
-#check_box {
+#side_check_box {
   display: none;
 }
 
-#check_box + label {
+#side_check_box + label {
   position: absolute;
   top: 20px;
   display: block;
@@ -989,7 +989,7 @@ body.modal_on {
   z-index: 2;
 }
 
-#check_box + label > span {
+#side_check_box + label > span {
   position: absolute;
   display: block;
   width: 100%;
@@ -999,26 +999,26 @@ body.modal_on {
   transition: all 300ms;
 }
 
-#check_box:checked + label > span:nth-child(1) {
+#side_check_box:checked + label > span:nth-child(1) {
   top: 50%;
   transform: translate(0, -50%);
   transform: rotate(45deg);
 }
 
-#check_box + label > span:nth-child(2) {
+#side_check_box + label > span:nth-child(2) {
   top: 50%;
   transform: translate(0, -50%);
 }
 
-#check_box:checked + label > span:nth-child(2) {
+#side_check_box:checked + label > span:nth-child(2) {
   opacity: 0;
 }
 
-#check_box + label > span:nth-child(3) {
+#side_check_box + label > span:nth-child(3) {
   bottom: 0;
 }
 
-#check_box:checked + label > span:nth-child(3) {
+#side_check_box:checked + label > span:nth-child(3) {
   top: 50%;
   transform: translate(0, -50%);
   transform: rotate(-45deg);
@@ -1053,7 +1053,7 @@ body.modal_on {
 	color: #020281;
 }
 
-#check_box:checked + label + #side_menu {
+#side_check_box:checked + label + #side_menu {
   left: 75%;
 }
 
@@ -1138,7 +1138,7 @@ body.modal_on {
   body {
     background: #d9d7e0;
   }
-  #check_box:checked + label + #side_menu {
+  #side_check_box:checked + label + #side_menu {
   	left: 67%;
   }
   #movie {
@@ -1551,7 +1551,7 @@ body.modal_on {
 }
 
 @media (max-width: 480px) {
-  #check_box:checked + label + #side_menu {
+  #side_check_box:checked + label + #side_menu {
     left: 40%;
   }
 }

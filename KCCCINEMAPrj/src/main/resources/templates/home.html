@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<th:block th:replace="~{/include/header :: header}">\
-	<link rel="stylesheet" th:href="@{/css/home.css}">
-<!--     <link rel="stylesheet" th:href="@{/css/swiper.css}"> -->
-</head>
+<head th:replace="~{/include/header :: header}"></head>
 <body>
 	<div id="main_container">
 		<section id="banner">

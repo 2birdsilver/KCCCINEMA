@@ -14,7 +14,7 @@ import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
 
 @Controller
-@RequestMapping("/movie")
+@RequestMapping("/admin")
 public class movieController {
 	// 파일 업로드 폴더 경로
 	private static final String UPLOAD_POSTER = "C:/kcccinema/movieposter/";
@@ -23,17 +23,29 @@ public class movieController {
 	private IMovieRepository movieRepository;
 	@Autowired
 	private MovieVO movie;
+	
+	/* 관리자 페이지 */
+	
 
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String test() {
+		return "movie/index";
+	}
+	
+	@RequestMapping(value="/movie", method=RequestMethod.GET)
+	public String adminMovieList() {
+		return "movie/adminMovieList";
+	}
 
 
 	/* 영화 추가 페이지 */
-	@RequestMapping(value="/insert", method=RequestMethod.GET)
+	@RequestMapping(value="/movie/insert", method=RequestMethod.GET)
 	public String insertMovie()  {
-		return "movie/insertMovie";
+		return "movie/adminInsertMovie";
 	}
 
 	/* 새로운 영화 등록 */
-	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	@RequestMapping(value="/movie/insert", method=RequestMethod.POST)
 	public String insertMovie(MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
 
 		multipartRequest.setCharacterEncoding("utf-8");

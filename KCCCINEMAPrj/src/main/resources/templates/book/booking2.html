@@ -1,41 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta property="name" content="">
-<meta property="keywords" content="">
-<meta property="description" content="">
-<meta property="fb:app_id" id="fbAppId" content="">
-<meta property="fb:app_ver" id="fbAppVer" content="">
-<meta property="og:site_name" content="메가박스">
-<meta property="og:type" content="movie">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://img.megabox.co.kr">
 <title>좌석 선택</title>
-<link rel="stylesheet" href="/css/book.css" media="all">
-<script src="/js/jquery-1.12.4.js"></script>
-<script src="/js/jquery-ui.1.12.1.js"></script>
-<script src="/js/gsaps.js"></script>
-<script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/js/bootstrap-custom.js"></script>
-<script src="/js/bootstrap-select.js"></script>
-<script type="text/javascript" src="/js/netfunnel.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/js/netfunnel_skin.js"
-	charset="UTF-8"></script>
-<script type="text/javascript" src="/js/netfunnel_frm.js"
-	charset="UTF-8"></script>
-<script src="/js/megaboxCom.js"></script>
-<script src="/js/mega.prototype.js"></script>
-<script src="/js/commons.js"></script>
-<script src="/js/swiper.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/ui.common.js(2)"></script>
-<script src="/js/front.js(2)"></script>
-<script src="/js/booking/booking_2.js"></script>
+<link rel="stylesheet" th:href="@{/css/book.css}" media="all">
+<script th:src="@{/js/jquery-1.12.4.js}"></script>
+<script th:src="@{/js/jquery-ui.1.12.1.js}"></script>
+<script th:src="@{/js/gsaps.js}"></script>
+<script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/js/bootstrap-custom.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/netfunnel.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_skin.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_frm.js}" charset="UTF-8"></script>
+<script th:src="@{/js/megaboxCom.js}"></script>
+<script th:src="@{/js/mega.prototype.js}"></script>
+<script th:src="@{/js/commons.js}"></script>
+<script th:src="@{/js/swiper.min.js}"></script>
+<script th:src="@{/js/masonry.pkgd.min.js}"></script>
+<script th:src="@{/js/ui.common.js(2)}"></script>
+<script th:src="@{/js/front.js(2)}"></script>
+<script th:src="@{/js/booking/booking_2.js}"></script>
 <th:block th:replace="~{/include/header :: header}">
 </head>
 <body class="body-iframe">

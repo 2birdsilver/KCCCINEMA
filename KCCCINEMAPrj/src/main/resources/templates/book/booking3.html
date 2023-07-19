@@ -1,93 +1,20 @@
 <!DOCTYPE html>
-<!-- saved from url=(0062)https://www.megabox.co.kr/on/oh/ohz/PayBooking/completeSeat.do -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Megabox</title>
-<link rel="stylesheet" href="/css/book.css" media="all">
-<style type="text/css">
-/* FDK 결제용 CSS */
-/* table { margin: 1em; border-collapse: collapse; }
-	td, th { padding: .3em; border: 1px #ccc solid; font-size:12px; }
-	thead { background: #fc9; }
-	thead .white { background: #fff; }
-	input { background-color: #ffffff; border: #bbbbbb 1px solid; font-size: 9pt; height: 20px; width: 250px;}
-	select { background-color: #ffffff; border-bottom: #a5a4a4 1px solid; border-left: #a5a4a4  1px solid; border-right: #a5a4a4  1px solid; border-top: #a5a4a4 1px solid; font-size: 9pt; height: 20px } */
-
-/* LAYER POPUP STYLE START */
-.fdLayer {
-	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	height: auto;
-	background-color: #fff;
-	border: 5px solid rgb(0, 66, 101);
-	z-index: 10;
-}
-
-.fdLayer .fdContainer {
-	padding: 3px;
-}
-
-.fdLayer .fdBtn {
-	width: 100%;
-	margin: 10px 0 0;
-	padding-top: 10px;
-	border-top: 1px solid #DDD;
-	text-align: right;
-}
-
-a.closeBtn {
-	display: inline-block;
-	height: 25px;
-	padding: 0 14px 0;
-	border: 1px solid #304a8a;
-	background-color: rgb(0, 32, 61);
-	font-size: 13px;
-	color: #fff;
-	line-height: 25px;
-}
-
-a.closeBtn:hover {
-	border: 1px solid #091940;
-	background-color: #1f326a;
-	color: #fff;
-}
-
-#mask {
-	position: absolute;
-	left: 0;
-	top: 0;
-	z-index: 9;
-	background-color: #000;
-	display: none;
-}
-/* LAYER POPUP STYLE END */
-
-/* 할인수단 FONT size 변경처리 (기본15px;)*/
-span.txt {
-	font-size: 13px;
-}
-</style>
-<script src="./jquery-1.12.4.js.다운로드"></script>
-<script src="./jquery-ui.1.12.1.js.다운로드"></script>
-<script src="./gsaps.js.다운로드"></script>
-<script src="./megaboxCom.js.다운로드"></script>
-<script src="./mega.prototype.js.다운로드"></script>
-<script src="./commons.js.다운로드"></script>
-<script src="./bootstrap-custom.js.다운로드"></script>
-<script src="./bootstrap-select.js.다운로드"></script>
-<script type="text/javascript" src="./netfunnel.js.다운로드" charset="UTF-8"></script>
-<script type="text/javascript" src="./netfunnel_skin.js.다운로드"
-	charset="UTF-8"></script>
-<script type="text/javascript" src="./netfunnel_frm.js.다운로드"
-	charset="UTF-8"></script>
-<script type="text/javascript" src="./swiper.min.js.다운로드"></script>
+<title>결제</title>
+<link rel="stylesheet" th:href="@{/css/book.css}" media="all">
+<script th:src="@{/js/jquery-1.12.4.js}"></script>
+<script th:src="@{/js/jquery-ui.1.12.1.js}"></script>
+<script th:src="@{/js/gsaps.js}"></script>
+<script th:src="@{/js/megaboxCom.js}"></script>
+<script th:src="@{/js/mega.prototype.js}"></script>
+<script th:src="@{/js/commons.js}"></script>
+<script th:src="@{/js/bootstrap-custom.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/netfunnel.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_skin.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_frm.js}" charset="UTF-8"></script>
+<script th:src="@{/js/swiper.min.js}"></script>
 <script type="text/javascript">
 	var _init = {
 		cache	: Date.now(),
@@ -121,8 +48,6 @@ span.txt {
 			$(this).val(varArr.join("-"));
 	    })
 	};
-
-
 	//예매 금액 체크
 	$.fn.megaBoxCommaNumberCheck  = function() {
 	    $(this).on("keypress",function(e){
@@ -133,31 +58,20 @@ span.txt {
 	        $(this).val($(this).val().maskNumber() );
 	    })
 	};
-
     var _init = {
         cache	: Date.now(),
         path	: '/static/pc/js/'
     };
-
-
     document.write(
         '<script src="'+_init.path+'ui.common.js?v='+_init.cache+'"><\/script>'+
         '<script src="'+_init.path+'front.js?v='+_init.cache+'"><\/script>'
     );
-
     var arrEasypay = ['naverpay','kakaopay','payco','chai'];
     var selEasypay = '';
-
 	$(function() {
-
 		$(window).on('load', function(){
-
-			
 		});
 
-		
-		
-		
 		//페이지 나가는 경우 선점 취소(윈도우창 닫기에만 실행)
 		$(window).on("beforeunload", function (e){
 			var transNo = $("#transNo").val();
@@ -186,12 +100,10 @@ span.txt {
 			}
 		});
 
-
 		//다음에도 이 결제수단 사용 클릭
 		$("#same_use_payment").on('click', function() {
 			savePaymentSelect();
 		});
-
 		//결제수단 라디오버튼 클릭
 		$(':radio[name*="radio_payment"]').on('click', function() {
 			$('#lastPayMethod').val($(this).val());
@@ -253,8 +165,6 @@ span.txt {
 			}
 
 			fn_dispPayAlertMsg(); //알림 문구 노출
-
-
 		});
 
 		//최종 결제수단 변경시 명칭 세팅

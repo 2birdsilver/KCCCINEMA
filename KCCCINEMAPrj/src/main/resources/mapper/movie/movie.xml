@@ -4,24 +4,18 @@
 
 <mapper namespace="com.example.kcccinema.dao.IMovieRepository">
 
-<!-- 	<select id="inserMovie" resultType="com.example.kcccinema.model.MovieVO">
-	<![CDATA[
-		SELECT 
-			category_id				AS categoryId, 
-			category_name			AS categoryName, 
-			category_description	AS categoryDescription
-		FROM board_category
-		ORDER BY category_id
-	]]>
-	</select> -->
+	<!-- <select id="inserMovie" resultType="com.example.kcccinema.model.MovieVO"> 
+		<![CDATA[ SELECT category_id AS categoryId, category_name AS categoryName, 
+		category_description AS categoryDescription FROM board_category ORDER BY 
+		category_id ]]> </select> -->
 
-
-	<insert id="insertMovie" parameterType="com.example.kcccinema.model.MovieVO">
+	<!-- 새로운 영화 등록(포스터 제외) -->
+	<insert id="insertMovie"
+		parameterType="com.example.kcccinema.model.MovieVO">
 	<![CDATA[
 			INSERT INTO MOVIE (
 			movie_id, 
 			MOVIE_CATEGORY, 
-			MOVIE_POSTER, 
 			movie_title, 
 			opening_date, 
 			closing_date, 
@@ -34,7 +28,6 @@
 		VALUES (
 			#{movieId}, 
 			#{movieCategory}, 
-			#{moviePoster}, 
 			#{movieTitle}, 
 			#{openingDate}, 
 			#{closingDate}, 
@@ -46,24 +39,23 @@
 		)
 	]]>
 	</insert>
-	
-<!-- 	<update id="updateCategory" parameterType="com.example.myapp.board.model.BoardCategory">
-	<![CDATA[
-		UPDATE board_category
-		SET
-			category_name = #{categoryName}, 
-			category_description = #{categoryDescription}
-		WHERE
-			category_id = #{categoryId}
-	]]>
-	</update>
 
-	<delete id="deleteCategory" parameterType="int">
-	<![CDATA[
-		DELETE board_category 
-		WHERE category_id = #{categoryId}
-	]]>
-	</delete> -->
-
+	<!-- 영화 포스터 업로드 -->
+	<insert id="insertMoviePoster"
+		parameterType="com.example.kcccinema.model.MovieVO">
+    <![CDATA[
+        UPDATE movie SET movie_poster = #{moviePoster, jdbcType=BLOB} WHERE movie_title = #{movieTitle}
+        ]]>
+	</insert>
 </mapper>
+
+<!-- INSERT INTO movie (movie_poster) VALUES (#{moviePoster, jdbcType=BLOB}) 
+	WHERE movie_title = #{movieTitle} -->
+
+<!-- <update id="updateCategory" parameterType="com.example.myapp.board.model.BoardCategory"> 
+	<![CDATA[ UPDATE board_category SET category_name = #{categoryName}, category_description 
+	= #{categoryDescription} WHERE category_id = #{categoryId} ]]> </update> 
+	<delete id="deleteCategory" parameterType="int"> <![CDATA[ DELETE board_category 
+	WHERE category_id = #{categoryId} ]]> </delete> -->
+
 

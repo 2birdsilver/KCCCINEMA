@@ -1,3 +1,5 @@
+-------------------------------------------------- MOVIE 테이블 --------------------------------------------------
+
 create table movie (
     movie_id number not null primary key,
     movie_title varchar2(20) not null,
@@ -11,6 +13,12 @@ create table movie (
     movie_synopsis varchar2(50) not null,
     performer varchar2(50) not null
 );
+
+--- performer컬럼 입력 용량 너무 작아서 타입 변경(varchar(50) -> varchar(100))
+ALTER TABLE movie MODIFY performer VARCHAR2(100); 
+
+
+-------------------------------------------------- schedule 테이블 --------------------------------------------------
 
 create table schedule (
     schedule_id number not null primary key,

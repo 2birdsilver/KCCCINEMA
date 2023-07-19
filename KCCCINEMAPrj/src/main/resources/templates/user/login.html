@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/include/header :: header}">
+	<title th:text="#{title}">KCCCINEMA</title>
+</head>
+<body>
+	<div id="login_container">
+		<div class="login">
+			<h1>로그인</h1>
+			<div class="login_input">
+				<p>아이디</p>
+				<input type="text"/>
+				<p>비밀번호</p>
+				<input type="text"/>
+			</div>
+			<button>로그인</button>
+		</div>
+	</div>
+	
+	<footer th:replace="~{/include/footer :: footer}"></footer>
+</body>
+</html>

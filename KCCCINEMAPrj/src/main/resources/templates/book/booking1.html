@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<link rel="shortcut icon"
-	href="https://www.megabox.co.kr/static/pc/images/favicon.ico">
 <title>예매하기</title>
-<link rel="stylesheet" href="/css/book.css" media="all">
-<script src="./jquery-1.12.4.js.다운로드"></script>
-<script src="./jquery-ui.1.12.1.js.다운로드"></script>
-<script src="./gsaps.js.다운로드"></script>
-<script src="./jquery.mCustomScrollbar.concat.min.js.다운로드"></script>
-<script src="./megaboxCom.js.다운로드"></script>
-<script src="./mega.prototype.js.다운로드"></script>
-<script src="./commons.js.다운로드"></script>
-<script src="./bootstrap-custom.js.다운로드"></script>
-<script src="./bootstrap-select.js.다운로드"></script>
-<script type="text/javascript" src="./netfunnel.js.다운로드" charset="UTF-8"></script>
-<script type="text/javascript" src="./netfunnel_skin.js.다운로드"
-	charset="UTF-8"></script>
-<script type="text/javascript" src="./netfunnel_frm.js.다운로드"
-	charset="UTF-8"></script>
+<link rel="stylesheet" th:href="@{/css/book.css}" media="all">
+<script th:src="@{/js/jquery-1.12.4.js}"></script>
+<script th:src="@{/js/jquery-ui.1.12.1.js}"></script>
+<script th:src="@{/js/gsaps.js}"></script>
+<script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/js/megaboxCom.js}"></script>
+<script th:src="@{/js/mega.prototype.js}"></script>
+<script th:src="@{/js/commons.js}"></script>
+<script th:src="@{/js/bootstrap-custom.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/netfunnel.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_skin.js}" charset="UTF-8"></script>
+<script th:src="@{/js/netfunnel_frm.js}" charset="UTF-8"></script>
 
-<!-- 2019.07.30 hjchoi 예매관련 팝업 js분리 -->
-<script src="./megabox-simpleBokd.js.다운로드"></script>
-
-
-<script src="./ui.common.js(1).다운로드"></script>
-<script src="./front.js(1).다운로드"></script>
+<!-- 예매관련 팝업 js -->
+<script src="/js/megabox-simpleBokd.js"></script>
+<script src="/js/ui.common.js(1)"></script>
+<script src="/js/front.js(1)"></script>
 <th:block th:replace="~{/include/header :: header}">
 </head>
 <body class="body-iframe">
@@ -38,9 +28,9 @@
 			<div class="page-util" style="">
 				<div class="inner-wrap">
 					<div class="location">
-						<span>Home</span> <a href="https://www.megabox.co.kr/booking"
+						<span>Home</span> <a href="/book"
 							title="예매 페이지로 이동">예매</a> <a
-							href="https://www.megabox.co.kr/booking" title="빠른예매 페이지로 이동">빠른예매</a>
+							href="/book" title="빠른예매 페이지로 이동">빠른예매</a>
 					</div>
 				</div>
 			</div>
@@ -52,7 +42,6 @@
 
 				<script>
 					$(function() {
-
 						$.ajax({
 							url : "/regionLists",
 							type : "POST",
@@ -64,24 +53,18 @@
 								alert("1");
 							}
 						});
-
 					});
 				</script>
 
 				<script>
 					function sendIt() {
-
 						var f = document.myForm;
-
 						f.action = "/booking_1_ok";
-
 						f.submit();
-
 					}
 				</script>
 
 				<form action="" method="post" name="myForm">
-
 					<!-- quick-reserve -->
 					<div class="quick-reserve">
 						<div class="tit-util">
@@ -590,9 +573,13 @@
 							<!--// quick-reserve-area -->
 						</div>
 						<!--// mege-quick-reserve-inculde : 다른 페이지에서 iframe 으로 설정될 영역 -->
-
 					</div>
 					<!--// quick-reserve -->
+					<div class="seat_choice_btn_wrap" style="width:100%; height: 100px; margin:10px 0 10px 0;text-align:center;">
+						<button class="seat_choice_btn" style="border-radius:5px; width:20%; height:80px; background-color: #000048; text-align:center;"> 
+							<div style="font-size: 200%; color:white; font-weight:bold;">좌석 선택</div>
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

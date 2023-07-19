@@ -4,30 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title th:text="${title}"></title>
+    <title th:text="#{title}">KCCCINEMA</title>
     
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/swiper.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
     
     <!-- 파비콘 -->
-    <link rel="shortcut icon" href="assets/icons/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" href="assets/icons/favicon_72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="96x96" href="assets/icons/favicon_96.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/icons/favicon_144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="192x192" href="assets/icons/favicon_192.png" />
-    
-<!--     페이스북 메타 태그
-    <meta property="og:title" content="메가박스 사이트 만들기" />
-    <meta property="og:url" content="https://github.com/webstoryboy/megabox2019" />
-    <meta property="og:image" content="https://webstoryboy.github.io/megabox2019/mega.jpg" />
-   
-    트위터 메타 태그
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="메가박스 사이트 만들기">
-    <meta name="twitter:url" content="https://github.com/webstoryboy/megabox2019/">
-    <meta name="twitter:image" content="https://webstoryboy.github.io/megabox2019/mega.jpg"> -->
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}">
     
     <!-- 웹 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean" rel="stylesheet">
@@ -39,16 +25,12 @@
             <div class="row">
                 <div class="header clearfix">
                     <h1>
-                        <a href="#">
+                        <a href="/">
                             <em><img src="/images/logo.png" alt="KCCCINEMA"></em>
                         </a>
                     </h1>
-                    <!--<nav id="mNav">
-                        <h2 class="ir_so">전체 메뉴</h2>
-                        <a href="#" class="ham"><span></span></a>
-                    </nav>-->
-                    <input type="checkbox" id="check_box" />
-				    <label for="check_box">
+                    <input type="checkbox" id="side_check_box" />
+				    <label for="side_check_box">
 				      <span></span>
 				      <span></span>
 				      <span></span>
@@ -58,8 +40,8 @@
 				        <li><a href="#">영화</a></li>
 				        <li><a href="/book">예매</a></li>
 				        <li><a href="#">이벤트</a></li>
-				        <li><a href="#">로그인</a></li>
-				        <li><a href="#">회원가입</a></li>
+				        <li><a href="/login">로그인</a></li>
+				        <li><a href="/signup">회원가입</a></li>
 				      </ul>
 				    </div>
                     <nav class="nav">
@@ -67,8 +49,8 @@
                             <li><a href="#">영화</a></li>
                             <li><a href="/book">예매</a></li>
                             <li><a href="#">이벤트</a></li>
-                            <li><a href="#">로그인</a></li>
-                            <li><a href="#">회원가입</a></li>
+                            <li><a href="/login">로그인</a></li>
+                            <li><a href="/signup">회원가입</a></li>
                         </ul>
                     </nav>
                 </div>

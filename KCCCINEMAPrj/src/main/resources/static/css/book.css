@@ -152,6 +152,9 @@ template {
 .body-iframe {
 	margin:60px 0 0 0;
 }
+#body-frame {
+	margin:150px 0 0 0;
+}
 .ui-draggable-handle {
     -ms-touch-action: none;
     touch-action: none;
@@ -11239,6 +11242,7 @@ body.body-iframe .modal-layer {
 }
 .inner-wrap {
     width: 1100px;
+    height: 100vh;
     margin: 0 auto;
 }
 .inner-wrap:after,
@@ -18281,6 +18285,16 @@ body.body-iframe .modal-layer2 {
     border: 1px solid #d9d8dd;
     border-bottom: 1px solid #666;
     background-color: #fff;
+}
+
+#moviePopular {
+	left: 0;
+    top: 0;
+}
+
+#movieAlpha {
+	left:115px;
+	top:0;
 }
 .quick-reserve-area .list-area .btn-tab.on {
     border-color: #666;
@@ -33387,3 +33401,4 @@ a.closeBtn:hover {
 span.txt {
 	font-size: 13px;
 }
+

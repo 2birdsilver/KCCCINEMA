@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.container {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+#footer {
+	height: 300px !important;
+}
+
+.body-wrap {
+	height: auto !important;
+	margin: 10px 0;
+}
+
+#footer .container {
+	margin: 0 auto !important;
+}
+
+.board-form td > input, select {
+height: 35px !important;
+padding: 0 5px !important;
+border-radius: 7px !important;
+}
+
+/* 캘린더 부분 */
+.time-schedule .date-list {
+	    width: 700px !important;
+}
+
+
+
+.time-schedule .year {
+	    left: 710px !important;
+}
+
+#first-year {
+	 left: 30px !important;
+}
+
+/* 영화관 부분 */
+.reserve.theater-list-box {
+	margin-bottom: 100px;
+}
+
+/* 상영 시간 등록 */
+.btn-group, .pt40 {
+	margin-bottom: 100px !important;
+}

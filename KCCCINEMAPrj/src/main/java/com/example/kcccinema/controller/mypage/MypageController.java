@@ -11,9 +11,19 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
-	@RequestMapping("/check")
+	@RequestMapping("/checkReservation")
 	public String checkReservation() {
-		return "mypage/checkReservation";
+		return "mypage/checkReservation"; 
+	}
+	
+	@RequestMapping("/userupdate")
+	public String userUpdate() {
+		return "mypage/userupdate";
+	}
+	
+	@RequestMapping("/userquit")
+	public String userQuit() {
+		return "mypage/userquit";
 	}
 
 }

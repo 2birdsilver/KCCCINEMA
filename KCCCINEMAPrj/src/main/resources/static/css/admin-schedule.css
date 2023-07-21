@@ -1,9 +1,19 @@
 @charset "UTF-8";
 
+/* header부분 */
+h1 {
+	left: 120px;
+}
+
+/* body-wrap부분 */
 .container {
 	padding: 0 !important;
 	margin: 0 !important;
 }
+
+/* #contents.location-fixed {
+    padding-top: 50px !important;
+} */
 
 #footer {
 	height: 300px !important;

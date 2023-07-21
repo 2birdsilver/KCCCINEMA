@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+form[name=regFrm] {
+	margin-top: 50px;
+}
+
+/* 입력폼 */
+.textarea .input-textarea {
+	resize: none;
+	border-radius: 5px !important;
+}
+
+input {
+	height: 35px;
+	border-color: #ccc;
+	border-radius: 5px !important;
+}
+
+input[name=movieDirector], [name=performer], [name=movieTitle] {
+	width: 660px;
+}

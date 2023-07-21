@@ -1,65 +1,35 @@
-package com.example.kcccinema.controller.movie;
+package com.example.kcccinema.service.movie;
 
-import java.io.File;    
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
 
-@Controller
-@RequestMapping("/admin")
-public class movieController {
-	// 파일 업로드 폴더 경로
+@Service
+public class MovieService implements IMovieService{
 	private static final String UPLOAD_POSTER = "C:/kcccinema/movieposter/";
-
 	@Autowired
 	private IMovieRepository movieRepository;
 	@Autowired
-	private MovieVO movie;
-	
-	/* ----- 사용자 페이지 ----- */
-	
-	/* 전체 영화 조회 */
-	@RequestMapping(value="/movie/list", method=RequestMethod.GET)
-	public String movielist()  {
-		return "movie/all-movielist";
+	MovieVO movie;
+
+	/* 영화 추가 기능 */
+	public void insertMovie(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
+		String movieTitle = insertMovieInfo(file, multipartRequest, modelAndView);
+		uploadPoster(file, movieTitle);
 	}
 	
 	
-	
-	/* ----- 관리자 페이지 ----- */
-	
-	/* 영화 관리 */
-
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String test() {
-		return "movie/index";
-	}
-	
-	/* 상영했던 영화들 목록 페이지 */
-	@RequestMapping(value="/movie", method=RequestMethod.GET)
-	public String adminMovieList() {
-		return "admin/screening-movie-list";
-	}
-
-
-	/* 영화 추가 페이지 */
-	@RequestMapping(value="/movie/insert", method=RequestMethod.GET)
-	public String insertMovie()  {
-		return "admin/adminInsertMovie";
-	}
-
-	/* 새로운 영화 등록 기능 */
-	@RequestMapping(value="/movie/insert", method=RequestMethod.POST)
-	public String insertMovie(MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
-
+	public String insertMovieInfo(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
 
 		// 1. 아이디
@@ -86,29 +56,30 @@ public class movieController {
 		movie.setIsAdultMovie(multipartRequest.getParameter("isAdultMovie"));
 
 		System.out.println(movie);
-		
+
 		movieRepository.insertMovie(movie);
-		uploadPoster(multipartRequest, movie.getMovieTitle());
+		uploadPoster(file, movie.getMovieTitle());
 		
-		return "home";
+		return movie.getMovieTitle();
 	}
 
 	/* 영화 포스터 등록 */
-	public void uploadPoster(MultipartHttpServletRequest  multipartRequest, String movieTitle) throws Exception {
-		multipartRequest.setCharacterEncoding("utf-8");
-		MultipartFile file = multipartRequest.getFile("moviePoster");
-		System.out.println("영화 포스터:" + file);
+	public void uploadPoster(@RequestParam("moviePoster") MultipartFile file, String movieTitle ) {
+		movie.setOriginalFilename(file.getOriginalFilename());
+		movie.setContentType(file.getContentType());
+
+		/* System.out.println("영화 포스터:" + file); */
+
+		/* 파일 로컬에 저장 */
 		try {
-			// 파일 저장 경로 설정
 			String filePath = UPLOAD_POSTER + file.getOriginalFilename();
-			// 파일 저장
 			file.transferTo(new File(filePath));
 		} catch (IOException e) {
-			System.out.println("파일로 저장 실패!");
+			System.out.println("로컬 저장 실패!");
 			e.printStackTrace();
 		}
 
-		// 이미지 파일을 byte 배열로 변환
+		//		이미지 파일을 byte 배열로 변환
 		byte[] fileBytes = null;
 		try {
 			fileBytes = file.getOriginalFilename().getBytes("utf-8");
@@ -120,23 +91,18 @@ public class movieController {
 		}
 
 		// 파일 정보 및 바이트 배열 저장
-		MovieVO movieVO = new MovieVO();
-		movieVO.setMoviePoster(fileBytes);
-		movieVO.setMovieTitle(movieTitle);
-		System.out.println("movieVO: " + movieVO);
+		movie.setMoviePoster(fileBytes);
+		movie.setMovieTitle(movieTitle);
+		//		System.out.println("movieVO: " + movie);
 
-		movieRepository.insertMoviePoster(movieVO);
+		movieRepository.insertMoviePoster(movie);
 
 		//        return "File uploaded successfully!";
+
 	}
-	
-	
-	/* 상영 시간 관리 페이지 */
-	@RequestMapping(value="/schedule", method=RequestMethod.GET)
-	public String movieSchedule() {
-		return "admin/screening-schedule";
-	}
+
+
+	/* 영화 정보 가져오기 */
+
+
 }
-
-
-

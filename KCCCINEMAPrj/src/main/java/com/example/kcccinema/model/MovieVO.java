@@ -20,10 +20,12 @@ public class MovieVO {
 	private String movieDirector;
 	private String movieSynopsis;
 	private String performer;
-	private String isAdultMovie; // 1이면 true, 0이면 false (db랑 데이터타입 맞추기 위해서 char타입으로 설정)
+	private String isAdultMovie; // 1이면 true, 0이면 false 
 	
 	/* 이미지 파일 */
 	private byte[] moviePoster;
+	private String originalFilename;
+	private String contentType;
 	
 	/*
 	 * private String movieId; private String movieTitle; private String

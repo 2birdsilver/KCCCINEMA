@@ -6,8 +6,10 @@
 <head>
 
 <!-- CSS -->
-<link rel="stylesheet" th:href="@{/css/common-movielist.css}" media="all">
-<link rel="stylesheet" th:href="@{/css/common-mymovielist.css}" media="all">
+<link rel="stylesheet" th:href="@{/css/common-movielist.css}"
+	media="all">
+<link rel="stylesheet" th:href="@{/css/common-mymovielist.css}"
+	media="all">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -2961,10 +2963,15 @@ function fn_movieSerach(paging) {
 				<!-- 조회 카테고리 -->
 				<div class="tab-list fixed">
 					<ul id="topMenu">
-						<li class="on"><a id="boxoffice" href="all-movielist.html" title="박스오피스 탭으로 이동">박스오피스</a></li>
-						<li><a id="ticket-ranking" href="ticket-ranking-movielist.html" title="상영예정작 탭으로 이동">예매 순위별 조회</a></li>
-						<li><a id="wanted-ranking" href="#" title="특별상영 탭으로 이동">찜한 순위별 조회</a></li>
-						<li><a id="review-ranking" href="#" title="필름소사이어티 탭으로 이동">관람평 순위별 조회</a></li>
+						<li class="on"><a id="boxoffice" href="all-movielist.html"
+							title="박스오피스 탭으로 이동">박스오피스</a></li>
+						<li><a id="ticket-ranking"
+							href="ticket-ranking-movielist.html" title="상영예정작 탭으로 이동">예매
+								순위별 조회</a></li>
+						<li><a id="wanted-ranking" href="#" title="특별상영 탭으로 이동">찜한
+								순위별 조회</a></li>
+						<li><a id="review-ranking" href="#" title="필름소사이어티 탭으로 이동">관람평
+								순위별 조회</a></li>
 						<!-- <li><a href="#" title="클래식소사이어티 탭으로 이동">클래식소사이어티</a></li> -->
 
 					</ul>
@@ -3070,13 +3077,23 @@ function fn_movieSerach(paging) {
 				<!-- movie-list -->
 				<div class="movie-list">
 					<ol class="list" id="movieList">
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
+
+						<!-- Thymeleaf 문법을 사용하여 영화 목록을 동적으로 생성합니다. -->
+						<!-- 						<div th:each="movie : ${movieList}" class="movie">
+							<img th:src="${movie.moviePoster}" th:alt="${movie.movieTitle}">
+							<div>
+								<strong th:text="${movie.title}" class="title"></strong> <em
+									th:text="${movie.genre}" class="genre"></em>
+							</div>
+						</div> -->
+
+						<li th:each="movie : ${movieList}" tabindex="0" class="no-img"><div
+								class="movie-list-info">
 								<p class="rank" style="">
 									1<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="바비" class="poster lozad" onerror="noImg(this)">
+								<img th:src="${movie.moviePoster}" th:alt="${movie.movieTitle}"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3094,14 +3111,12 @@ function fn_movieSerach(paging) {
 								<div class="movie-score" style="opacity: 0;">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="wrap movieBtn" data-no="23049400" title="바비 상세보기">
-										<div class="summary">원하는 무엇이든 될 수 있는 '바비랜드'에서 살아가던 '바비'가
-											현실 세계와 이어진 포털의 균열을 발견하게 되고, 이를 해결하기 위해 '켄'과 예기치 못한 여정을 떠나면서
-											펼쳐지는 이야기</div>
+										<div th:text="${movie.movieSynopsis}" class="summary"></div>
 										<div class="my-score big">
 											<div class="preview">
 												<p class="tit">관람평</p>
-												<p class="number">
-													8.6<span class="ir">점</span>
+												<p th:text="${movie.movieScore}" class="number">
+													<span class="ir">점</span>
 												</p>
 											</div>
 										</div>
@@ -3110,12 +3125,11 @@ function fn_movieSerach(paging) {
 							</div>
 							<div class="tit-area">
 								<p class="movie-grade age-12">,</p>
-								<p title="바비" class="tit">바비</p>
-							</div>
-							<div class="rate-date">
+								<p th:text="${movie.movieTitle}" title="바비" class="tit">바비</p>
+							</div> <!-- 							<div class="rate-date">
 								<span class="rate">예매율 20.1%</span> <span class="date">개봉일
 									2023.07.19</span>
-							</div>
+							</div> -->
 							<div class="btn-util">
 								<button type="button" class="button btn-like" data-no="23049400">
 									<i title="보고싶어 안함"
@@ -3125,8 +3139,8 @@ function fn_movieSerach(paging) {
 								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
-								
-<!-- 								<div class="case col-2 movieStat3" style="">
+
+								<!-- 								<div class="case col-2 movieStat3" style="">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23049400"
 										title="영화 예매하기">예매</a> <a
@@ -3135,20 +3149,21 @@ function fn_movieSerach(paging) {
 										th:src="@{/images/poster.jpg}"
 										alt="dolby 버튼"></a> 
 								</div> -->
-								
+
 								<div class="case movieStat4" style="">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23049400"
 										title="영화 예매하기">예매</a>
 								</div>
-								
+
 							</div></li>
+
+
 						<li tabindex="0" class="no-img"><div class="movie-list-info">
 								<p class="rank" style="">
 									2<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
+								<img th:src="@{/images/barbie-poster.jpg}"
 									alt="미션 임파서블: 데드 레코닝 PART ONE" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -3203,7 +3218,7 @@ function fn_movieSerach(paging) {
 								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
-<!-- 								<div class="case col-2 movieStat3" style="">
+								<!-- 								<div class="case col-2 movieStat3" style="">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23048900"
 										title="영화 예매하기">예매</a> <a
@@ -3222,9 +3237,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									3<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="명탐정코난: 흑철의 어영" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{/images/barbie-poster.jpg}" alt="명탐정코난: 흑철의 어영"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3281,7 +3295,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23047900"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23047900"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3297,9 +3312,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									4<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="밀수" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{/images/barbie-poster.jpg}" alt="밀수"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3353,7 +3367,7 @@ function fn_movieSerach(paging) {
 								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
-<!-- 								<div class="case col-2 movieStat3" style="">
+								<!-- 								<div class="case col-2 movieStat3" style="">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23029300"
 										title="영화 예매하기">예매</a> <a
@@ -3372,9 +3386,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									5<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="엘리멘탈" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{/images/barbie-poster.jpg}" alt="엘리멘탈"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3429,7 +3442,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23034900"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23034900"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3445,9 +3459,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									6<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="인시디어스: 빨간 문" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{/images/barbie-poster.jpg}" alt="인시디어스: 빨간 문"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3499,7 +3512,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23050900"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23050900"> <img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3515,8 +3529,7 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									7<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
+								<img th:src="@{/images/barbie-poster.jpg}"
 									alt="극장판 슈퍼윙스: 맥시멈 스피드" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -3573,7 +3586,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23049200"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23049200"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3589,9 +3603,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									8<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{/images/barbie-poster.jpg}"
-									alt="비공식작전" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{/images/barbie-poster.jpg}" alt="비공식작전"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3648,7 +3661,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23048800"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23048800"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3664,9 +3678,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									9<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="여름날 우리" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="여름날 우리"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3718,7 +3731,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23035100"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23035100"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3734,9 +3748,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									10<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="슈퍼 키드 헤일리" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="슈퍼 키드 헤일리"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3792,7 +3805,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23047800"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23047800"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3808,8 +3822,7 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									11<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
+								<img th:src="@{images/barbie-poster.jpg}"
 									alt="스파이더맨: 어크로스 더 유니버스" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -3865,7 +3878,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23028800"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23028800"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3881,9 +3895,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									12<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="더 퍼스트 슬램덩크" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="더 퍼스트 슬램덩크"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -3935,7 +3948,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="22103500"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="22103500"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -3951,9 +3965,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									13<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="영웅" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="영웅"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -4012,7 +4025,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="22085800"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="22085800"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -4028,9 +4042,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									14<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="더 문" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="더 문"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -4086,7 +4099,7 @@ function fn_movieSerach(paging) {
 								<p class="txt movieStat2" style="display: none">8월 개봉예정</p>
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
-<!-- 								<div class="case col-2 movieStat3" style="">
+								<!-- 								<div class="case col-2 movieStat3" style="">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23035200"
 										title="영화 예매하기">예매</a> <a
@@ -4105,8 +4118,7 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									15<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
+								<img th:src="@{images/barbie-poster.jpg}"
 									alt="[2023 잘츠부르크 페스티벌] 틸레만 &amp; 빈 필하모닉" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -4178,7 +4190,7 @@ function fn_movieSerach(paging) {
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
 								<div class="case col-2 movieStat3" style="">
-				<!-- 					<a href="https://www.megabox.co.kr/movie#"
+									<!-- 					<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23050500"
 										title="영화 예매하기">예매</a> <a
 										href="https://www.megabox.co.kr/movie#"
@@ -4196,8 +4208,7 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									16<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
+								<img th:src="@{images/barbie-poster.jpg}"
 									alt="[내 생애 첫 미술관] 루브르 박물관" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -4268,7 +4279,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23048200"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23048200"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -4284,9 +4296,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									17<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="보 이즈 어프레이드" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="보 이즈 어프레이드"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -4339,7 +4350,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23040000"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23040000"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -4355,9 +4367,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									18<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="범죄도시3" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="범죄도시3"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -4412,7 +4423,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23035600"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23035600"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -4428,8 +4440,7 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									19<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
+								<img th:src="@{images/barbie-poster.jpg}"
 									alt="[내 생애 첫 미술관] 오르세 미술관" class="poster lozad"
 									onerror="noImg(this)">
 								<div class="curation">
@@ -4498,7 +4509,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23048300"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23048300"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
@@ -4514,9 +4526,8 @@ function fn_movieSerach(paging) {
 								<p class="rank" style="">
 									20<span class="ir">위</span>
 								</p>
-								<img
-									th:src="@{images/barbie-poster.jpg}"
-									alt="아버지의 마음" class="poster lozad" onerror="noImg(this)">
+								<img th:src="@{images/barbie-poster.jpg}" alt="아버지의 마음"
+									class="poster lozad" onerror="noImg(this)">
 								<div class="curation">
 									<p class="film" style="display: none">필름 소사이어티</p>
 									<p class="classic" style="display: none">클래식 소사이어티</p>
@@ -4575,7 +4586,8 @@ function fn_movieSerach(paging) {
 								<div class="case col-2 movieStat3" style="display: none">
 									<a href="https://www.megabox.co.kr/movie#"
 										class="button purple bokdBtn" data-no="23042200"
-										title="영화 예매하기">예매</a> <!-- <a
+										title="영화 예매하기">예매</a>
+									<!-- <a
 										href="https://www.megabox.co.kr/movie#"
 										class="button purple img splBtn" data-no="23042200"><img
 										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"

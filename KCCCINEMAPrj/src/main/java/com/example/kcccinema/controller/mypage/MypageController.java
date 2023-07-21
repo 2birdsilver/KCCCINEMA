@@ -13,7 +13,7 @@ public class MypageController {
 	
 	@RequestMapping("/checkReservation")
 	public String checkReservation() {
-		return "mypage/checkReservation";
+		return "mypage/checkReservation"; 
 	}
 	
 	@RequestMapping("/userupdate")

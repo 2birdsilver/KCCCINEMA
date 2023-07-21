@@ -18296,6 +18296,11 @@ body.body-iframe .modal-layer2 {
 	left:115px;
 	top:0;
 }
+
+.quick-reserve-area .list-area .list .scroll ul li :hover {
+	color:white;
+	background-color: #000048;
+}
 .quick-reserve-area .list-area .btn-tab.on {
     border-color: #666;
     border-bottom: 0;
@@ -18303,7 +18308,7 @@ body.body-iframe .modal-layer2 {
 .quick-reserve-area .list-area .list {
     display: block;
     width: 100%;
-    height: 320px;
+    height: 100%;
     margin-top: 10px;
 }
 .quick-reserve-area .list-area .list .scroll {
@@ -18344,10 +18349,9 @@ body.body-iframe .modal-layer2 {
     margin: 0 2px 0 0;
 }
 .quick-reserve-area .list-area .list .scroll ul li button.on {
-    color: #fff;
     font-weight: 400;
-    background-color: #666;
 }
+
 .quick-reserve-area .list-area .list .scroll ul li button.disabled {
     color: #666;
     opacity: 0.5;

@@ -1,3 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.book.booking1Mapper"></mapper>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.kcccinema.dao.book.IBooking1Repository">
+
+	<select id="getMovieList" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.MovieVO">
+	<![CDATA[
+		select
+			movie_id		as "movieId",
+			movie_title		as "movieTitle",
+			movie_category	as "movieCategory",
+			movie_score		as "movieScore",
+			opening_date	as "openingDate",
+			closing_date	as "closingDate",
+			running_time	as "runningTime",
+			movie_director	as "movieDirector",
+			movie_synopsis	as "movieSynopsis",
+			performer		as "performer",
+			is_adult_movie	as "isAdultMovie",
+			movie_poster	as "moviePoster"
+		from movie
+	]]>
+	</select>
+	
+	<select id="getCinemaList" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.CinemaVO">
+	<![CDATA[
+		select
+			cinema_id		as "cinemaId",
+			cinema_name		as "cinemaName",
+			cinema_location as "cinemaLocation"
+		from cinema
+	]]>
+	</select>
+	
+	<select id="getTheaterList" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.TheaterVO">
+	<![CDATA[
+		select
+			theater_id		as "theaterId",
+			cinema_id		as "cinemaId",
+			theater_no		as "theaterNo"
+		from theater
+	]]>	
+	</select>
+	
+</mapper>

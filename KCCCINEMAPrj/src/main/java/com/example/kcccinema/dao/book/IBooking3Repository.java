@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface IBook3Repository {
+public interface IBooking3Repository {
 
 }

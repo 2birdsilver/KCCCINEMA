@@ -66,7 +66,7 @@
 				<script>
 					function sendIt() {
 						var f = document.myForm;
-						f.action = "/bookking2";
+						f.action = "/booking2";
 						f.submit();
 					}
 				</script>
@@ -320,10 +320,10 @@
 														style="max-height: none;" tabindex="0">
 														<div id="mCSB_1_container" class="mCSB_container"
 															style="position: relative; top: 0; left: 0;" dir="ltr">
-															<ul th:each="movie : ${movieList}">
-																<li>
+															<ul>
+																<li th:each="movie : ${movieList}">
 																	<button type="button" class="btn on">
-																		<span class="movie-grade small age-12" th:t>12세이상관람가</span>
+																		<span class="movie-grade small age-12" th:text="${movie.isAdultMovie}">12세이상관람가</span>
 																		<span class="txt" th:text="${movie.movieTitle}">루이스
 																			웨인: 사랑을 그린 고양이 화가</span>
 																	</button>

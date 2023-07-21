@@ -20,6 +20,7 @@ import com.example.kcccinema.model.CinemaVO;
 import com.example.kcccinema.model.DateVO;
 import com.example.kcccinema.model.MovieTitleVO;
 import com.example.kcccinema.model.MovieVO;
+import com.example.kcccinema.model.TheaterVO;
 import com.example.kcccinema.service.book.IBooking1Service;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class Booking1Controller {
 	private IBooking1Service booking1Service;
 	
 	
-	@RequestMapping("/booking1")
+	@RequestMapping("/book")
 	public String book1(HttpSession session, Model model) {
 		//예매화면 처음 들어올 때 화면
 		
@@ -51,6 +52,8 @@ public class Booking1Controller {
 			movieTitleVO.setTitle(movieVO.getMovieTitle());
 			movieTitleList.add(movieTitleVO);
 		}
+		//영화를 model 에 저장해서 전달.
+		model.addAttribute("movieList", movieList);
 		
 		//영화이름들 model에 저장해서 전달.
 		model.addAttribute("movieTitleList", movieTitleList);
@@ -58,6 +61,10 @@ public class Booking1Controller {
 		//극장 객체들 리스트로 가져와서 모델에 저장해 전달.
 		List<CinemaVO> cinemaList = booking1Service.getCinemaList();
 		model.addAttribute("cinemaList", cinemaList);
+		
+		//상영관 시간들 다 가져와서 모델에 저장해 전달.
+		List<TheaterVO> theaterList = booking1Service.getTheaterList();
+		model.addAttribute("theaterList", theaterList);
 		
 		//오늘날짜 구하기
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy,MM,dd,HH,mm");
@@ -109,9 +116,9 @@ public class Booking1Controller {
 			dateVO.setMonth(strMonth);
 			dateVO.setDay(Integer.toString(preDay + i));
 
-			LocalDate date = LocalDate.of(year, month, preDay + i);
-			DayOfWeek dayOfWeek = date.getDayOfWeek();
-			dateVO.setDayOfweek(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN).substring(0, 1));			
+//			LocalDate date = LocalDate.of(year, month, preDay + i);
+//			DayOfWeek dayOfWeek = date.getDayOfWeek();
+//			dateVO.setDayOfweek(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN).substring(0, 1));			
 			
 			dayWeekList.add(dateVO);
 		}

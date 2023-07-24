@@ -20,7 +20,7 @@ import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
 
 @Service
-public class MovieService {
+public class MovieService{
 	private static final String UPLOAD_POSTER = "C:/kcccinema/movieposter/";
 	@Autowired
 	private IMovieRepository movieRepository;

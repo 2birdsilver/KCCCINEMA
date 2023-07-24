@@ -11,4 +11,5 @@ public interface IBooking1Service {
 	List<CinemaVO> getCinemaList();
 	MovieVO getMovieData(int mnNum);
 	List<TheaterVO> getTheaterList();
+	List<String> getCinemaName(String cinemaLocation);
 }

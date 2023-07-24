@@ -29,7 +29,6 @@
 <script th:src="@{https://code.jquery.com/jquery-3.2.1.js}"></script>
 <script
 	th:src="@{resources/js/plugin/datepicker/bootstrap-datepicker.js}"></script>
-
 <th:block th:replace="~{/include/header :: header}">
 </head>
 <body class="body-iframe">
@@ -49,28 +48,26 @@
 				<input type="hidden" id="playDe" name="playDe" value="2022.04.11">
 				<input type="hidden" id="crtDe" name="crtDe" value="2022.04.11">
 				<script>
-					$(function() {
+				var movieTitleFinal = "";
+				var theaterFinal = "";
+				var timeFinal = "";
+				
+				const seatChoiceBtn = document.querySelector('.seat_choice_btn');
+				seatChoiceBtn.addEventListener('click', function(){
 						$.ajax({
-							url : "/regionLists",
-							type : "POST",
-							dataType : "json",
-							data : {
-								id : "test"
+							url: "/booking2",
+							async: false,
+							method: "POST",
+							data: {cinemaLocation: cinemaLocation},
+							success: function(data){
+								console.log("good");
 							},
-							success : function(data) {
-								alert("1");
+							error: function(error){
+								console.log("error: ", error)
 							}
 						});
 					});
 				</script>
-				<script>
-					function sendIt() {
-						var f = document.myForm;
-						f.action = "/booking2";
-						f.submit();
-					}
-				</script>
-
 				<form action="" method="post" name="myForm">
 					<!-- quick-reserve -->
 					<div class="quick-reserve">
@@ -257,8 +254,7 @@
 									<div class="bg-line">
 										<input type="hidden" id="datePicker" value="2023-07-19"
 											class="hasDatepicker">
-										<button type="button" id="calendar"
-											th:onclick=""
+										<button type="button" id="calendar" th:onclick=""
 											class="btn-calendar-large" title="달력보기">달력보기</button>
 									</div>
 
@@ -310,8 +306,7 @@
 									<!-- list-area -->
 									<div class="list-area">
 										<div class="all-list">
-											<button type="button" class="btn-tab on" id="moviePopular">인기순</button>
-											<button type="button" class="btn-tab on" id="movieAlpha">가나다순</button>
+											<button type="button" class="btn-tab on" id="moviePopular">최신순</button>
 											<div class="list">
 												<div class="scroll m-scroll mCustomScrollbar _mCS_1"
 													id="movieList">
@@ -320,10 +315,16 @@
 														style="max-height: none;" tabindex="0">
 														<div id="mCSB_1_container" class="mCSB_container"
 															style="position: relative; top: 0; left: 0;" dir="ltr">
-															<ul>
-																<li th:each="movie : ${movieList}">
-																	<button type="button" class="btn on">
-																		<span class="movie-grade small age-12" th:text="${movie.isAdultMovie}">12세이상관람가</span>
+															<ul id="movie_lists">
+																<li class="movie_choice_btn"
+																	th:each="movie : ${movieList}">
+																	<button type="button" class="movie_list btn on">
+																		<img class="age_img"
+																			th:if="${movie.isAdultMovie eq '1'}"
+																			th:src="@{/images/adult.png}" /> <img
+																			class="age_img" th:if="${movie.isAdultMovie eq '0'}"
+																			th:src="@{/images/all.png}"
+																			style="background-color: #98f556; border-radius: 50%;" />
 																		<span class="txt" th:text="${movie.movieTitle}">루이스
 																			웨인: 사랑을 그린 고양이 화가</span>
 																	</button>
@@ -337,6 +338,34 @@
 
 									</div>
 									<!--// list-area -->
+
+									<script>
+										const movieLists = document.querySelectorAll('#movie_lists li');
+										movieLists.forEach(item => {
+											item.addEventListener('click', () => {
+											removeSelectedClass();
+											item.classList.add('selected_movie');
+											var spanChild=item.querySelector('.movie_list .txt');
+											spanChild.classList.add('selected_movie_title');
+											
+											var movieTitle= spanChild.innerText;
+											movieTitleFinal = movieTitle;
+											const moviespan = document.querySelectorAll('.movie_title_time');
+											for(var i=0; i<moviespan.length; i++){
+												moviespan[i].innerText = movieTitle;
+											}
+											});
+											console.log(movieTitleFinal);
+										});
+	
+										function removeSelectedClass() {
+											movieLists.forEach(item => {
+												item.classList.remove('selected_movie');
+												var spanChild=item.querySelector('.movie_list .txt');
+												spanChild.classList.remove('selected_movie_title');
+        								});
+    									}
+									</script>
 
 									<!-- view-area -->
 									<div class="view-area">
@@ -365,8 +394,9 @@
 												<div class="scroll" id="brchList">
 													<ul>
 														<li>
-															<button type="button" class="btn on" id="10">
-																<span class="txt">서울</span>
+															<button th:each="cinema : ${cinemaList}" type="button"
+																id="cinema_location" class="btn on">
+																<span class="txt" th:text="${cinema.cinemaLocation}">서울</span>
 															</button>
 															<div class="depth on">
 																<div
@@ -378,38 +408,8 @@
 																			style="position: relative; top: 0; left: 0;"
 																			dir="ltr">
 																			<ul>
-																				<li>
-																					<button id="btn" type="button" brch-no="1372"
-																						brch-nm="강남" brch-eng-nm="Gangnam" form-at="N"
-																						area-cd="10" area-cd-nm="서울" spclb-yn="N"
-																						brch-bokd-unable-at="N" brch-popup-at="Y"
-																						brch-popup-no="998" class="on">강남</button>
-																				</li>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</li>
-														<li>
-															<button type="button" class="btn on" id="10">
-																<span class="txt">경기</span>
-															</button>
-															<div class="depth on">
-																<div
-																	class="detail-list m-scroll area-cd10 mCustomScrollbar _mCS_4">
-																	<div id="mCSB_4"
-																		class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
-																		style="max-height: none;" tabindex="0">
-																		<div id="mCSB_4_container" class="mCSB_container"
-																			style="position: relative; top: 0; left: 0;"
-																			dir="ltr">
-																			<ul>
-																				<li>
-																					<button id="btn" type="button" brch-no="1372"
-																						brch-nm="강남" brch-eng-nm="Gangnam" form-at="N"
-																						area-cd="10" area-cd-nm="서울" spclb-yn="N"
-																						brch-bokd-unable-at="N" brch-popup-at="Y"
-																						brch-popup-no="998" class="on">부천</button>
+																				<li class="cinema_name_list"><span
+																					id="cinema_name" type="button" class="on">강남</span>
 																				</li>
 																			</ul>
 																		</div>
@@ -423,6 +423,31 @@
 										</div>
 									</div>
 									<!--// list-area -->
+
+									<script>
+										const cinemaLists = document.querySelectorAll('#cinema_location');
+										for(var i=0; i<cinemaLists.length; i++){
+											cinemaLists[i].addEventListener('click', function(){
+												var oneCinema = this.querySelector('.txt');
+												const cinemaLocation = oneCinema.innerText;
+												
+												$.ajax({
+													url: "/book/cinema",
+													async: true,
+													method: "GET",
+													data: {cinemaLocation: cinemaLocation},
+													success: function(data){
+														console.log(data[0]);
+														const cinemaButton =document.querySelector('#cinema_name');
+														cinemaButton.innerText=data[0];
+													},
+													error: function(error){
+														console.log("error: ", error)
+													}
+												});
+											});
+										}
+									</script>
 
 
 								</div>
@@ -535,26 +560,56 @@
 														class="mCSB_container mCS_no_scrollbar_y"
 														style="position: relative; top: 0; left: 0;" dir="ltr">
 														<ul>
-															<li><button type="button" class="btn on"
-																	id="2204111371025" play-start-time="2145"
-																	play-de="20220411" play-seq="6"
-																	rpst-movie-no="22004701" brch-no="1371" theab-no="05"
-																	play-schdl-no="2204111371025" rest-seat-cnt="83"
-																	ctts-ty-div-cd="MVCT01" theab-popup-at="N"
-																	theab-popup-no="0" onclick="sendIt();">
+															<li>
+																<button type="button" class="btn on" onclick="sendIt();">
 																	<div class="legend"></div>
-																	<span class="time"><strong title="상영 시작">21:45</strong><em
-																		title="상영 종료">~23:46</em></span><span class="title"><strong
-																		title="루이스 웨인: 사랑을 그린 고양이 화가">루이스 웨인: 사랑을 그린
-																			고양이 화가</strong><em>2D(자막)</em></span>
+																	<span class="time"> <strong title="상영 시작">09:00</strong>
+																		<em title="상영 종료">~23:46</em>
+																	</span> <span class="title"> <strong
+																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
+																			화가</strong> <em>2D(자막)</em></span>
 																	<div class="info">
-																		<span class="theater" title="극장">센트럴<br>더부티크
-																			105호
+																		<span class="theater" title="극장">센트럴<br>1관
 																		</span><span class="seat"><strong class="now"
 																			title="잔여 좌석">83</strong><span>/</span><em
 																			class="all" title="전체 좌석">118</em></span>
 																	</div>
-																</button></li>
+																</button>
+															</li>
+
+															<li>
+																<button type="button" class="btn on" onclick="sendIt();">
+																	<div class="legend"></div>
+																	<span class="time"> <strong title="상영 시작">15:00</strong>
+																		<em title="상영 종료">~23:46</em>
+																	</span> <span class="title"> <strong
+																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
+																			화가</strong> <em>2D(자막)</em></span>
+																	<div class="info">
+																		<span class="theater" title="극장">센트럴<br>2관
+																		</span><span class="seat"><strong class="now"
+																			title="잔여 좌석">83</strong><span>/</span><em
+																			class="all" title="전체 좌석">118</em></span>
+																	</div>
+																</button>
+															</li>
+
+															<li>
+																<button type="button" class="btn on" onclick="sendIt();">
+																	<div class="legend"></div>
+																	<span class="time"> <strong title="상영 시작">19:00</strong>
+																		<em title="상영 종료">~23:46</em>
+																	</span> <span class="title"> <strong
+																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
+																			화가</strong> <em>2D(자막)</em></span>
+																	<div class="info">
+																		<span class="theater" title="극장">센트럴<br>3관
+																		</span><span class="seat"><strong class="now"
+																			title="잔여 좌석">83</strong><span>/</span><em
+																			class="all" title="전체 좌석">118</em></span>
+																	</div>
+																</button>
+															</li>
 														</ul>
 													</div>
 
@@ -578,8 +633,7 @@
 						<button class="seat_choice_btn"
 							style="border-radius: 5px; width: 20%; height: 80px; background-color: #000048; text-align: center;">
 							<div style="font-size: 200%; color: white; font-weight: bold;">
-								좌석 선택
-							</div>
+								좌석 선택</div>
 						</button>
 					</div>
 				</form>

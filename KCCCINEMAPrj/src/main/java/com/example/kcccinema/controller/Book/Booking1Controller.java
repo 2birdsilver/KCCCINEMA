@@ -14,7 +14,11 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.kcccinema.model.CinemaVO;
 import com.example.kcccinema.model.DateVO;
@@ -22,6 +26,8 @@ import com.example.kcccinema.model.MovieTitleVO;
 import com.example.kcccinema.model.MovieVO;
 import com.example.kcccinema.model.TheaterVO;
 import com.example.kcccinema.service.book.IBooking1Service;
+import com.example.kcccinema.service.movie.IMovieService;
+import com.example.kcccinema.service.movie.MovieService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,13 +38,15 @@ public class Booking1Controller {
 	@Autowired
 	private IBooking1Service booking1Service;
 	
+	@Autowired
+	private MovieService movieService;
 	
-	@RequestMapping("/book")
+	@RequestMapping("/booking1")
 	public String book1(HttpSession session, Model model) {
 		//예매화면 처음 들어올 때 화면
 		
 		//영화 객체를 리스트로 가져옴.
-		List<MovieVO> movieList = booking1Service.getMovieList();
+		List<MovieVO> movieList = movieService.getMovieListByDate();
 		
 		//영화 이름만 담을 리스트 생성.
 		List<MovieTitleVO> movieTitleList = new ArrayList<MovieTitleVO>();
@@ -139,6 +147,19 @@ public class Booking1Controller {
 		model.addAttribute("timeList", timeList);
 		
 		return "book/booking1";
+	}
+	
+	@RequestMapping(value ="/booking1", method=RequestMethod.POST)
+	public String book1(MovieVO movieVO, HttpSession session, Model model) {
+		
+		return "book/booking1";
+	}
+	
+	@RequestMapping(value="/book/cinema", method=RequestMethod.GET)
+	@ResponseBody
+	public List<String> cinemaName(@RequestParam String cinemaLocation) {
+		List<String> cinemaName = booking1Service.getCinemaName(cinemaLocation);
+		return cinemaName;
 	}
 	
 	@RequestMapping("/movieData")

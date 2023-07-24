@@ -16,4 +16,5 @@ public interface IBooking1Repository {
 	List<CinemaVO> getCinemaList();
 	MovieVO getMovieData();
 	List<TheaterVO> getTheaterList();
+	List<String> getCinemaName(String cinemaLocation);
 }

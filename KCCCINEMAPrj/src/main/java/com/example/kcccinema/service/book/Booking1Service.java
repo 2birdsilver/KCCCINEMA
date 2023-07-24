@@ -36,4 +36,9 @@ public class Booking1Service implements IBooking1Service {
 		return booking1Repository.getTheaterList();
 	}
 
+	@Override
+	public List<String> getCinemaName(String cinemaLocation) {
+		return booking1Repository.getCinemaName(cinemaLocation);
+	}
+
 }

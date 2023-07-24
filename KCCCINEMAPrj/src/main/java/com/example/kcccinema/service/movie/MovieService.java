@@ -1,8 +1,21 @@
 package com.example.kcccinema.service.movie;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +28,7 @@ import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
 
 @Service
-public class MovieService implements IMovieService{
+public class MovieService{
 	private static final String UPLOAD_POSTER = "C:/kcccinema/movieposter/";
 	@Autowired
 	private IMovieRepository movieRepository;
@@ -23,86 +36,84 @@ public class MovieService implements IMovieService{
 	MovieVO movie;
 
 	/* 영화 추가 기능 */
-	public void insertMovie(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
-		String movieTitle = insertMovieInfo(file, multipartRequest, modelAndView);
-		uploadPoster(file, movieTitle);
+	public void insertMovie(MovieVO movie) throws Exception {
+		insertMovieInfo(movie);
+		uploadPoster(movie);
 	}
-	
-	
-	public String insertMovieInfo(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
-		multipartRequest.setCharacterEncoding("utf-8");
 
-		// 1. 아이디
-		movie.setMovieId(Integer.parseInt(multipartRequest.getParameter("movieId")));
-		// 2. 제목
-		movie.setMovieTitle(multipartRequest.getParameter("movieTitle"));
-		// 3. 카테고리
-		movie.setMovieCategory(multipartRequest.getParameter("movieCategory"));
-		// 4. 상영 시작일
-		Date openingDate = Date.valueOf(multipartRequest.getParameter("openingDate"));
-		movie.setOpeningDate(openingDate);
-		// 5. 상영 종료일
-		Date closingDate = Date.valueOf(multipartRequest.getParameter("closingDate"));
-		movie.setClosingDate(closingDate);
-		// 6. 상영 소요시간
-		movie.setRunningTime(Integer.parseInt(multipartRequest.getParameter("runningTime")));
-		// 7. 영화감독
-		movie.setMovieDirector(multipartRequest.getParameter("movieDirector"));
-		// 8. 영화 줄거리
-		movie.setMovieSynopsis(multipartRequest.getParameter("movieSynopsis"));
-		// 9. 출연진
-		movie.setPerformer(multipartRequest.getParameter("performer"));
-		// 10. 시청연령
-		movie.setIsAdultMovie(multipartRequest.getParameter("isAdultMovie"));
-
-		System.out.println(movie);
-
+	public void insertMovieInfo(MovieVO movie) throws Exception {
 		movieRepository.insertMovie(movie);
-		uploadPoster(file, movie.getMovieTitle());
-		
-		return movie.getMovieTitle();
 	}
 
-	/* 영화 포스터 등록 */
-	public void uploadPoster(@RequestParam("moviePoster") MultipartFile file, String movieTitle ) {
-		movie.setOriginalFilename(file.getOriginalFilename());
-		movie.setContentType(file.getContentType());
-
-		/* System.out.println("영화 포스터:" + file); */
-
-		/* 파일 로컬에 저장 */
-		try {
-			String filePath = UPLOAD_POSTER + file.getOriginalFilename();
-			file.transferTo(new File(filePath));
-		} catch (IOException e) {
-			System.out.println("로컬 저장 실패!");
-			e.printStackTrace();
-		}
-
-		//		이미지 파일을 byte 배열로 변환
-		byte[] fileBytes = null;
-		try {
-			fileBytes = file.getOriginalFilename().getBytes("utf-8");
-		} catch (IOException e) {
-			// 에러 처리
-			//            return "File upload failed!";
-			System.out.println("byte배열로 변환 실패!");
-			e.printStackTrace();
-		}
-
-		// 파일 정보 및 바이트 배열 저장
-		movie.setMoviePoster(fileBytes);
-		movie.setMovieTitle(movieTitle);
-		//		System.out.println("movieVO: " + movie);
-
+	public void uploadPoster(MovieVO movie) {
 		movieRepository.insertMoviePoster(movie);
-
-		//        return "File uploaded successfully!";
-
 	}
 
 
-	/* 영화 정보 가져오기 */
+	/* 전체 영화 조회 */
+	public List<MovieVO> getAllMovieList() {
+		List<MovieVO> allMovieList = movieRepository.selectAllMovieList();
+
+		Date currentDate = new Date(System.currentTimeMillis());
+		for (MovieVO movie : allMovieList) {
+			String base64Image = Base64.getEncoder().encodeToString(movie.getMoviePoster());
+			movie.setBase64Image(base64Image);
+			
+			if (movie.getOpeningDate().after(currentDate)) {
+				movie.setScreening("상영예정");
+			} else if(movie.getClosingDate().after(currentDate)) {
+				movie.setScreening("상영중");
+			} else {
+				movie.setScreening("상영종료");
+			}
+		}
+		return allMovieList;
+	}
+	
+	public List<MovieVO> getMoviesByStatus(String status) {
+		List<MovieVO> movieListByStatus = new ArrayList<MovieVO>();
+		List<MovieVO> allMovieList = getAllMovieList();
+		for (MovieVO movie : allMovieList) {
+			if(movie.getScreening().equals(status)) {
+				movieListByStatus.add(movie);
+			}
+		}
+		return movieListByStatus;
+	}
+
+	private static byte[] compressImage(byte[] imageData, double compressionQuality) {
+		try (InputStream inputStream = new ByteArrayInputStream(imageData)) {
+			BufferedImage originalImage = ImageIO.read(inputStream);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+			// Create a new BufferedImage with the same dimensions and type as the original image
+			BufferedImage compressedImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), originalImage.getType());
+
+			// Get the Graphics2D object of the compressed image
+			Graphics2D g = compressedImage.createGraphics();
+
+			// Draw the original image on the compressed image with the specified compression quality
+			g.drawImage(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), null);
+
+			// Encode the compressed image to JPEG format with the specified compression quality
+			ImageIO.write(compressedImage, "jpeg", outputStream);
+
+			return outputStream.toByteArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return imageData; // Return the original image data if compression fails
+		}
+	}
+
+	/* 영화 검색 */
+	public List<MovieVO> searchMovies(String searchWord) throws Exception{
+		List<MovieVO> movieList = movieRepository.selectMoviesBySearchWord(searchWord);
+		for (MovieVO movie : movieList) {
+			String base64Image = Base64.getEncoder().encodeToString(movie.getMoviePoster());
+			movie.setBase64Image(base64Image);
+		}
+		return movieList;
+	}
 
 
 }

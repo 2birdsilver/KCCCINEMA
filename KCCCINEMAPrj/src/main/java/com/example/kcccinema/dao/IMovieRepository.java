@@ -17,5 +17,8 @@ public interface IMovieRepository {
 	
 	/* 전체 영화 조회 */
 	public List<MovieVO> selectAllMovieList() throws DataAccessException;
+	
+	/* 영화 검색 */
+	public List<MovieVO> selectMoviesBySearchWord(String searchWord) throws DataAccessException;
 
 }

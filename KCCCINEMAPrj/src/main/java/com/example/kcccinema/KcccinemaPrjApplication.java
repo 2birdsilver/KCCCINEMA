@@ -8,6 +8,7 @@ public class KcccinemaPrjApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KcccinemaPrjApplication.class, args);
+
 	}
 
 }

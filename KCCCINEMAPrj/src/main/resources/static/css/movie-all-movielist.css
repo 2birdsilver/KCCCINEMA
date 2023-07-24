@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.container {
+	padding: 0px;
+}
+
+.body-wrap {
+	height: 60px;
+}
+
+.page-util {
+	width: 100%;
+}
+
+.inner-wrap {
+	width: 1250px;
+}
+
+#footer {
+	height: 300px;
+	margin-top: 200px;
+}
+
+#footer p {
+	padding-bottom: 15px;
+}
+
+#movieList {
+	margin-left: 0px;
+}
+
+/* .movie-list ol li .btn-util .case.col-2 .button {
+	display:none;
+} */
+p[name="dbcScrean"], [name="mxScreen"] {
+	display: none !important;
+}
+
+/* .movie-list ol li .movie-list-info .screen-type2 p {
+	display:hidden;
+} */
+
+/* 영화 포스터 마우스 오버하면 설명 나타남 */
+
+/* 초기에는 추가 정보 숨기기 */
+.movie-list-info .additional-info {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	/* 배경 색상을 흰색의 반투명한 색상으로 설정 */
+	padding: 15px; /* 내용을 적절히 감싸기 위해 패딩 추가 */
+	z-index: 1; /* 다른 요소들보다 위에 위치하도록 z-index 설정 */
+	color: white;
+	font-size: 13px;
+	width: 100%; /* 가로 크기를 100%로 설정하여 부모 요소에 맞게 크기 조정 */
+	height: 100%; /* 세로 크기를 100%로 설정하여 부모 요소에 맞게 크기 조정 */
+	overflow: hidden; /* 내용이 넘칠 경우 숨기기 */
+	text-overflow: ellipsis; /* 내용이 넘칠 경우 "..." 표시 */
+}
+
+/* 마우스 오버 시 추가 정보 보이도록 설정 */
+#movieList li:hover .additional-info {
+	display: block !important;
+}
+
+.adult-image {
+	position: absolute;
+	left: 0;
+	width: 25px;
+	height: 25px;
+	background-color: #98f556;
+	border-radius: 50%;
+	margin-top: 3px;
+}
+
+.adult-image [alt="Adult Movie Image"] {
+	background-color: white;
+}
+
+/* 영화 목록 */
+.movie-list {
+	padding-top: 100px !important;
+}

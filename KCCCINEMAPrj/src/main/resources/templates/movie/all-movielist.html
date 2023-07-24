@@ -6,9 +6,9 @@
 <head>
 
 <!-- CSS -->
-<link rel="stylesheet" th:href="@{/css/common-movielist.css}"
-	media="all">
-<link rel="stylesheet" th:href="@{/css/common-mymovielist.css}"
+<link rel="stylesheet"
+	th:href="@{/css/movie-original-all-movielist.css}" media="all">
+<link rel="stylesheet" th:href="@{/css/movie-all-movielist.css}"
 	media="all">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -109,6 +109,7 @@
 <script th:src="@{/static/js/movie/megabox-simpleBokd.js}"></script>
 <script th:src="@{/static/js/movie/persona.js}"></script>
 <script th:src="@{/static/js/movie/ui.common.js}"></script>
+<script th:src="@{/static/js/movie/all-movielist.js}"></script>
 
 <script src="../../static/js/movie.front.js"></script>
 
@@ -2672,54 +2673,6 @@ var tabIdx = 1;
 	'장르모아보기 < 영화 | MEET PLAY SHARE, 메가박스'
 ]; */
 
-$(function() {
-	// 검색 버튼
-	$('#btnSearch').on('click', function() {
-		/* if($('#ibxMovieNmSearch').val() == '')
-			return gfn_alertMsgBox('영화명을 입력해주세요.');
-		*/
-		// 메타 테그 URL 설정
-		$('#fbUrl').attr('content', fn_getMetaShareURL(tabIdx));
-		$('#currentPage').val("1");
-		fn_movieSerach();
-	});
-
-	// 검색 input enter key 이벤트
-	$('#ibxMovieNmSearch').on('keydown', function(e) {
-		if(e.keyCode == 13) {
-			/* if($('#ibxMovieNmSearch').val() == '') gfn_alertMsgBox('영화명을 입력해주세요.');
-			else fn_movieSerach(); */
-			$('#currentPage').val("1");
-			fn_movieSerach();
-		}
-	});
-
-	// 더보기 버튼
-	$('#btnAddMovie').on('click', function() {
-		fn_movieSerach(true);
-	});
-
-	// 상단 탭 버튼
-	/* $('#topMenu a').on('click', function(e) {
-
-		/e.preventDefault();
-
-		tabIdx = $(this).parent().index() + 1;
-
-		// 메타 테그 URL 설정
-		$('#fbUrl').attr('content', fn_getMetaShareURL(tabIdx));
-		$('#ibxMovieNmSearch').val('');
-
-		document.title = tabTitle[tabIdx - 1]; // 브라우저 타이틀 변경
-
-		fn_init(); // 페이지 초기화
-	}); */
-
-	$('#ibxMovieNmSearch').val('');
-
-	fn_init(); // 페이지 초기화
-});
-
 // 페이지 초기화
 function fn_init() {
 	$('.topSort').hide();
@@ -2864,13 +2817,13 @@ function fn_movieSerach(paging) {
 	gfn_logdingModal(); // 로딩바 호출
 
 	// 특별상영 검색을 위해
-	var specialYn = "N";
+/* 	var specialYn = "N";
 
 	if(tabIdx == "3"){
 		specialYn = "Y";
-	}
+	} */
 
-	$.ajaxMegaBox({
+/*  	$.ajaxMegaBox({
         url: '/on/oh/oha/Movie/selectMovieList.do',
 		data: JSON.stringify({
 			currentPage: currentPage + '',
@@ -2881,8 +2834,8 @@ function fn_movieSerach(paging) {
 			specialType: $('#specialType').val(),
 			specialYn : specialYn
 
-		}),
-        success: function (d) {
+		}), 
+
         	var currentHeight = document.documentElement.scrollTop;
 
         	MegaboxUtil.Movie.setImgSvrUrl(d.imgSvrUrl); // 이미지 서버 URL 설정
@@ -2924,11 +2877,11 @@ function fn_movieSerach(paging) {
         	$('#totCnt').html(totalCnt || 0);
 
         	gfn_logdingModal(); // 로딩바 호출
-        },
+   
         error: function() {
         	gfn_logdingModal(); // 로딩바 호출
         }
-    });
+    }); */
 };
 </script>
 
@@ -3061,1553 +3014,125 @@ function fn_movieSerach(paging) {
 					<!--// 검색결과 없을 때 -->
 
 					<div class="movie-search">
+						<form action="/movies/search" method="GET" id="movieSearchForm">
+							<input type="text" title="영화명을 입력하세요" id="ibxMovieNmSearch"
+								name="searchWord" placeholder="영화명 검색" class="input-text">
+							<button type="submit" class="btn-search-input">검색</button>
+						</form>
+					</div>
+
+					<!-- 					<div class="movie-search">
 						<input type="text" title="영화명을 입력하세요" id="ibxMovieNmSearch"
 							name="ibxMovieNmSearch" placeholder="영화명 검색" class="input-text">
 						<button type="button" class="btn-search-input" id="btnSearch">검색</button>
 					</div>
-				</div>
-				<!--// movie-list-util -->
+				</div> -->
+					<!--// movie-list-util -->
 
-				<div class="bg-loading" style="display: none;">
-					<div class="spinner-border" role="status">
-						<span class="sr-only">Loading...</span>
+					<div class="bg-loading" style="display: none;">
+						<div class="spinner-border" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
 					</div>
-				</div>
 
-				<!-- movie-list -->
-				<div class="movie-list">
-					<ol class="list" id="movieList">
-
-						<!-- Thymeleaf 문법을 사용하여 영화 목록을 동적으로 생성합니다. -->
-						<!-- 						<div th:each="movie : ${movieList}" class="movie">
-							<img th:src="${movie.moviePoster}" th:alt="${movie.movieTitle}">
-							<div>
-								<strong th:text="${movie.title}" class="title"></strong> <em
-									th:text="${movie.genre}" class="genre"></em>
-							</div>
-						</div> -->
-
-						<li th:each="movie : ${movieList}" tabindex="0" class="no-img"><div
-								class="movie-list-info">
-								<p class="rank" style="">
-									1<span class="ir">위</span>
-								</p>
-								<img th:src="${movie.moviePoster}" th:alt="${movie.movieTitle}"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23049400" title="바비 상세보기">
-										<div th:text="${movie.movieSynopsis}" class="summary"></div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p th:text="${movie.movieScore}" class="number">
-													<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p th:text="${movie.movieTitle}" title="바비" class="tit">바비</p>
-							</div> <!-- 							<div class="rate-date">
-								<span class="rate">예매율 20.1%</span> <span class="date">개봉일
-									2023.07.19</span>
-							</div> -->
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23049400">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>1k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-
-								<!-- 								<div class="case col-2 movieStat3" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23049400"
-										title="영화 예매하기">예매</a> <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23049400"><img
-										th:src="@{/images/poster.jpg}"
-										alt="dolby 버튼"></a> 
-								</div> -->
-
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23049400"
-										title="영화 예매하기">예매</a>
-								</div>
-
-							</div></li>
-
-
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									2<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}"
-									alt="미션 임파서블: 데드 레코닝 PART ONE" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23048900"
-										title="미션 임파서블: 데드 레코닝 PART ONE 상세보기">
-										<div class="summary">가장 위험한 작전, 그의 마지막 선택 모든 인류를 위협할 새로운
-											무기를 추적하게 된 에단 헌트(톰 크루즈)와 IMF팀은 이 무기가 인류의 미래를 통제할 수 있다는 사실을 알게
-											된다. 전 세계가 위태로운 상황에 처한 가운데, 이를 추적하던 에단 헌트에게 어둠의 세력까지 접근하고 마침내
-											미스터리하고 강력한 빌런과 마주하게 된 그는 가장 위험한 작전을 앞두고 자신이 아끼는 사람들의 생명과 중요한
-											임무 사이에서 선택을 해야 하는 상황에 놓이게 되는데...</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.3<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-15">,</p>
-								<p title="미션 임파서블: 데드 레코닝 PART ONE" class="tit">미션 임파서블: 데드
-									레코닝 PART ONE</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 19.8%</span> <span class="date">개봉일
-									2023.07.12</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23048900">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>1.4k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<!-- 								<div class="case col-2 movieStat3" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048900"
-										title="영화 예매하기">예매</a> <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23048900"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> 
-								</div> -->
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048900"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									3<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}" alt="명탐정코난: 흑철의 어영"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23047900"
-										title="명탐정코난: 흑철의 어영 상세보기">
-										<div class="summary">인터폴의 최첨단 정보 해양 시설인 ‘퍼시픽 부이’. 일본과
-											유럽의 CCTV 정보를 확인할 수 있을 뿐 아니라, 장기 수배범이나 유괴당한 피해자를 전 세계에서 찾아낼 수
-											있는 ‘전연령 인식’이라는 획기적인 AI 기술을 개발 중이다. 그러던 중 독일에서 검은 조직에 의해 유로폴
-											직원이 살해되는 사건이 발생하고 뒤를 이어 ‘전연령 인식’의 핵심 기술자가 납치된다. 나이와 상관없이 안면
-											인식이 가능한 기술이 검은 조직의 손에 들어가면 독약 APTX4869(아포톡신 4869) 개발 후 사망한
-											것으로 알려진 코드명 ‘셰리’이자 하이바라 아이도 위험하게 되는데! 코난, FBI, CIA, 공안 경찰이
-											합세, 하이바라 아이와 함께 전 세계를 위험에 빠지게 할 절체절명의 오션 배틀 로열이 시작된다!</div>
-										<div class="my-score big" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.4<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="명탐정코난: 흑철의 어영" class="tit">명탐정코난: 흑철의 어영</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 16.5%</span> <span class="date">개봉일
-									2023.07.20</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23047900">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>2.2k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23047900"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23047900"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23047900"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									4<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}" alt="밀수"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23029300" title="밀수 상세보기">
-										<div class="summary">열길 물속은 알아도 한길 사람 속은 모른다! 평화롭던 바닷가
-											마을 군천에 화학 공장이 들어서면서 하루아침에 일자리를 잃은 해녀들. 먹고 살기 위한 방법을 찾던 승부사
-											'춘자'(김혜수)는 바다 속에 던진 물건을 건져 올리기만 하면 큰돈을 벌 수 있다는 밀수의 세계를 알게 되고
-											해녀들의 리더 '진숙'(염정아)에게 솔깃한 제안을 한다. 위험한 일임을 알면서도 생계를 위해 과감히 결단을
-											내린 해녀 '진숙'은 전국구 밀수왕 '권 상사'를 만나게 되면서 확 커진 밀수판에 본격적으로 빠지게 된다.
-
-											그러던 어느 날, 일확천금을 얻을 수 있는 일생일대의 기회가 찾아오고 사람들은 서로를 속고 속이며 거대한
-											밀수판 속으로 휩쓸려 들어가기 시작하는데... 물길을 아는 자가 돈길의 주인이 된다!</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-15">,</p>
-								<p title="밀수" class="tit">밀수</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 13.4%</span> <span class="date">개봉일
-									2023.07.26</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23029300">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>982</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<!-- 								<div class="case col-2 movieStat3" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23029300"
-										title="영화 예매하기">예매</a> <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23029300"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> 
-								</div> -->
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23029300"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									5<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}" alt="엘리멘탈"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23034900" title="엘리멘탈 상세보기">
-										<div class="summary">디즈니·픽사의 놀라운 상상력! 올여름, 세상이 살아 숨 쉰다
-											불, 물, 공기, 흙 4개의 원소들이 살고 있는 ‘엘리멘트 시티’ 재치 있고 불처럼 열정 넘치는 ‘앰버'는
-											어느 날 우연히 유쾌하고 감성적이며 물 흐르듯 사는 '웨이드'를 만나 특별한 우정을 쌓으며, 지금껏 믿어온
-											모든 것들이 흔들리는 새로운 경험을 하게 되는데... 제76회 칸 영화제 폐막작 선정! &lt;굿
-											다이노&gt; 피터 손 감독 연출 &lt;인사이드 아웃&gt;, &lt;소울&gt; 피트 닥터 제작 참여 6월
-											14일 극장 대개봉, 웰컴 투 ‘엘리멘트 시티’!</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.3<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="엘리멘탈" class="tit">엘리멘탈</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 9.2%</span> <span class="date">개봉일
-									2023.06.14</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23034900">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>3k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">6월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23034900"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23034900"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23034900"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									6<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}" alt="인시디어스: 빨간 문"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23050900"
-										title="인시디어스: 빨간 문 상세보기">
-										<div class="summary">&lt;인시디어스: 두번째 집&gt; 이후 램버트 가족이 다시
-											겪게 되는 끔찍한 악몽에 대한 이야기를 그린 영화</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													7.3<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-15">,</p>
-								<p title="인시디어스: 빨간 문" class="tit">인시디어스: 빨간 문</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 7.2%</span> <span class="date">개봉일
-									2023.07.19</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23050900">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>221</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23050900"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23050900"> <img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a>  -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23050900"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									7<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}"
-									alt="극장판 슈퍼윙스: 맥시멈 스피드" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23049200"
-										title="극장판 슈퍼윙스: 맥시멈 스피드 상세보기">
-										<div class="summary">세상에서 가장 빠른 비행기 ‘호기’ 장난감 악당에 맞서 지구를
-											구해줘! 누구보다 빠른 스피드로 사람들에게 꿈과 희망을 배달하는 ‘호기’! 장난감이 인기가 없어져 버린
-											세상에서 악당 ‘빌리윌리’는 유튜브 스타들을 납치해 우주로 날려버릴 무시무시한 음모를 세운다. 100만 유튜버
-											‘다인’은 납치된 엄마를 구하기 위해 ‘호기’와 함께 ‘빌리윌리’를 찾아나서는데…! 과연, ‘호기’는 ‘맥시멈
-											스피드’로 지구를 구할 수 있을까?</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="극장판 슈퍼윙스: 맥시멈 스피드" class="tit">극장판 슈퍼윙스: 맥시멈 스피드</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 3.4%</span> <span class="date">개봉일
-									2023.07.20</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23049200">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>80</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23049200"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23049200"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23049200"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									8<span class="ir">위</span>
-								</p>
-								<img th:src="@{/images/barbie-poster.jpg}" alt="비공식작전"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23048800" title="비공식작전 상세보기">
-										<div class="summary">“비공식적으로? 알아서 해라? 여기는 하루하루가 지뢰밭이에요”
-
-											1987년, 5년째 중동과를 벗어나지 못하고 있는 외교관 ‘민준’(하정우). 어느 날 수화기 너머로 20개월
-											전 레바논에서 실종된 외교관의 암호 메시지가 들려온다. 성공하면 미국 발령이라는 희망찬 포부에 가득 찬 그는
-											비공식적으로 동료를 구출하는 임무에 자원해 레바논으로 향한다. 공항 도착 직후, 몸값을 노리는 공항 경비대의
-											총알 세례를 피해 우연히 한국인 택시기사 ‘판수’(주지훈)의 차를 타게 된 ‘민준’. 갱단까지 돈을 노리고
-											그를 쫓는 지뢰밭 같은 상황 속, 기댈 곳은 유일한 한국인인 ‘판수’ 뿐이다. 그런데 돈만 주면 뭐든 하는
-											수상쩍은 이 인간, 과연 함께 동료를 구할 수 있을까?</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="비공식작전" class="tit">비공식작전</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 1.9%</span> <span class="date">개봉일
-									2023.08.02</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23048800">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>468</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">8월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048800"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23048800"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048800"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									9<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="여름날 우리"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23035100" title="여름날 우리 상세보기">
-										<div class="summary">처음이었다, 사랑이 싹트는 기분 너에게 풍덩 빠져버렸던 17살의
-											여름. 너를 두고 아무것도 할 수 없었던 21살의 여름. 그리고 몇 번의 여름이 지나고 다시 만난 너, 이젠
-											놓치지 않을 거야. “널 만난 건 내 인생 최고의 행운이었어”</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													8.6<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="여름날 우리" class="tit">여름날 우리</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 1.2%</span> <span class="date">개봉일
-									2023.06.28</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23035100">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>956</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">6월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035100"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23035100"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035100"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									10<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="슈퍼 키드 헤일리"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23047800"
-										title="슈퍼 키드 헤일리 상세보기">
-										<div class="summary">안녕? 내 이름은 헤일리, ‘슈퍼 라이언’이야! 아기 혼자 탄
-											유모차가 움직이고 있어요 악동 여우원숭이가 동물원을 탈출했어요 기차의 브레이크가 고장나서 멈추지 않아요 마을의
-											안전과 평화를 지키는 슈퍼 히어로, ‘슈퍼 라이언’의 정체는 바로 우리 가족이야. 수백 년 전부터 할머니,
-											아빠까지 대대로 ‘슈퍼 라이언’이 되어 마을을 지키고 있지. 이제는 내가 그 자리를 물려 받을 차례! 그런데
-											사촌 아드리안이 탐내고 있다고? 비록 난 운동신경도 꽝, 초능력도 꽝이지만… 내가 진짜 ‘슈퍼 라이언’이라는
-											걸 증명해내겠어!</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="슈퍼 키드 헤일리" class="tit">슈퍼 키드 헤일리</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 1.1%</span> <span class="date">개봉일
-									2023.07.20</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23047800">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>41</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23047800"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23047800"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23047800"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									11<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}"
-									alt="스파이더맨: 어크로스 더 유니버스" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23028800"
-										title="스파이더맨: 어크로스 더 유니버스 상세보기">
-										<div class="summary">스파이더맨 VS 스파이더맨?! 여러 성장통을 겪으며 새로운
-											스파이더맨이 된 ‘마일스 모랄레스’. 그 앞에 다른 평행세계의 스파이더우먼 ‘ 그웬’이 다시 나타난다. 모든
-											차원의 멀티버스 속 스파이더맨들을 만나게 되지만 , 질서에 대한 신념이 부딪히며 예상치 못한 균열이 생기는데…
-											상상 그 이상을 넘어서는 멀티버스의 세계가 열린다!</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.1<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="스파이더맨: 어크로스 더 유니버스" class="tit">스파이더맨: 어크로스 더 유니버스</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 1.1%</span> <span class="date">개봉일
-									2023.06.21</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23028800">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>2.3k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">6월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23028800"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23028800"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23028800"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									12<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="더 퍼스트 슬램덩크"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="22103500"
-										title="더 퍼스트 슬램덩크 상세보기">
-										<div class="summary">전국 제패를 꿈꾸는 북산고 농구부 5인방의 꿈과 열정, 멈추지
-											않는 도전을 그린 영화</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.5<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="더 퍼스트 슬램덩크" class="tit">더 퍼스트 슬램덩크</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 1%</span> <span class="date">개봉일
-									2023.01.04</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="22103500">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>6.1k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">1월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="22103500"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="22103500"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="22103500"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									13<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="영웅"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="22085800" title="영웅 상세보기">
-										<div class="summary">어머니 ‘조마리아’(나문희)와 가족들을 남겨둔 채 고향을 떠나온
-											대한제국 의병대장 ‘안중근’(정성화). 동지들과 함께 네 번째 손가락을 자르는 단지동맹으로 조국 독립의 결의를
-											다진 안중근은 조선 침략의 원흉인 ‘이토 히로부미’를 3년 내에 처단하지 못하면 자결하기로 피로 맹세한다. 그
-											약속을 지키기 위해 블라디보스토크를 찾은 안중근. 오랜 동지 ‘우덕순’(조재윤), 명사수 ‘조도선’(배정남),
-											독립군 막내 ‘유동하’(이현우), 독립군을 보살피는 동지 ‘마진주’(박진주)와 함께 거사를 준비한다. 한편
-											자신의 정체를 감춘 채 이토 히로부미에게 접근해 적진 한복판에서 목숨을 걸고 정보를 수집하던 독립군의 정보원
-											‘설희’(김고은)는 이토 히로부미가 곧 러시아와의 회담을 위해 하얼빈을 찾는다는 일급 기밀을 다급히 전한다.
-											드디어 1909년 10월 26일, 이날만을 기다리던 안중근은 하얼빈역에 도착한 이토 히로부미를 향해 주저 없이
-											방아쇠를 당긴다. 현장에서 체포된 그는 전쟁 포로가 아닌 살인의 죄목으로, 조선이 아닌 일본 법정에 서게
-											되는데… 누가 죄인인가, 누가 영웅인가!</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9.2<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="영웅" class="tit">영웅</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.5%</span> <span class="date">개봉일
-									2022.12.21</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="22085800">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>1.9k</span>
-								</button>
-								<p class="txt movieStat1" style="">상영예정</p>
-								<p class="txt movieStat2" style="display: none">12월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="22085800"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="22085800"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="22085800"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									14<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="더 문"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23035200" title="더 문 상세보기">
-										<div class="summary">2029년, 대한민국의 달 탐사선 우리호가 달을 향한 여정에
-											나선다. 위대한 도전에 전 세계가 주목하지만 태양 흑점 폭발로 인한 태양풍이 우리호를 덮치고
-											‘황선우’(도경수) 대원만이 홀로 남겨진다. 대한민국의 우주선이 달로 향한 것이 이번이 처음은 아니었다. 5년
-											전, 원대한 꿈을 안고 날아올랐지만 모두가 지켜보고 있는 가운데 공중 폭발로 산산이 부서졌던 나래호. 또다시
-											일어난 비극에 유일한 생존자인 선우를 지키기 위해 나로 우주센터 관계자들과 정부는 총력을 다하고 온 국민이
-											그의 생존을 염원한다. 선우를 무사 귀환시키기 위해서 5년 전 나래호 사고의 책임을 지고 산에 묻혀 지내던
-											전임 센터장 ‘김재국’(설경구)이 다시 합류하지만, 그의 힘만으로는 역부족이다. 선우를 구출할 또 다른 희망인
-											NASA 유인 달 궤도선 메인 디렉터 ‘윤문영’(김희애)에게 도움을 청해보지만 그마저 쉽지 않다. 재국은
-											또다시 누군가를 잃지 않기 위해 마지막으로 자신의 모든 것을 걸어 보는데…. 우주에 홀로 고립된 대원과 그의
-											무사 귀환에 모든 것을 건 남자 살기 위한, 살려내기 위한 고군분투가 시작된다.</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-12">,</p>
-								<p title="더 문" class="tit">더 문</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.5%</span> <span class="date">개봉일
-									2023.08.02</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23035200">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>959</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">8월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<!-- 								<div class="case col-2 movieStat3" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035200"
-										title="영화 예매하기">예매</a> <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23035200"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> 
-								</div> -->
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035200"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									15<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}"
-									alt="[2023 잘츠부르크 페스티벌] 틸레만 &amp; 빈 필하모닉" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23050500"
-										title="[2023 잘츠부르크 페스티벌] 틸레만 &amp; 빈 필하모닉 상세보기">
-										<div class="summary">스크린으로 만나는 지상 최대 클래식 페스티벌 모차르트의 고향,
-											잘츠부르크에서 열리는 지휘자 틸레만 &amp; 빈 필하모닉 콘서트 [공연 정보] - 공연 명칭 : 2023
-											잘츠부르크 페스티벌: 틸레만 &amp; 빈 필하모닉 - 상영 일시 : 2023년 7월 30일(일) 19:00
-											* 딜레이 중계 - 공연 시간 : 약 80분 / 인터미션 없음 *** 본 상영은 위성 중계 상영작으로, 음향
-											및 화질이 고르지 못할 수 있습니다. *** 현지 공연 사정 및 중계 상황에 따라 프로그램 및 러닝타임이
-											변경될 수 있습니다. *** 본 상영은 클래식음악 공연으로 자막이 제공되지 않습니다. [페스티벌 소개]
-											1920년부터 시작한 잘츠부르크 페스티벌은 매년 여름 모차르트의 고향 오스트리아 잘츠부르크에서 열리는 세계적인
-											클래식 음악 축제이다. 오페라, 연극, 콘서트 등 세계 최고의 연주자와 프로덕션이 모여 높은 인기를 자랑할 뿐
-											아니라 매해 음악계의 판도를 가늠하는 자리이기도 하다. 올해는 잘츠부르크 페스티벌의 공동 창립자이면서 무대
-											연출가였던 막스 라인하르트의 탄생 150주년이자 사망 80주년을 맞아 극장의 영원성을 믿었던 그를 기리며 예술
-											작품의 불멸에 대해 논하는 자리를 마련한다. [작품 소개] 독일의 대표 지휘자 크리스티안 틸레만은 드레스덴
-											슈타츠카펠레 상임 지휘자를 맡고 있다. 균형과 조화를 추구하는 틸레만의 지휘 아래 변치 않는 ‘빈 필
-											사운드’가 브람스의 최대 역작을 펼쳐낼 예정으로 많은 클래식 팬의 기대를 모은다. 「독일 레퀴엠」은 브람스가
-											10여 년에 걸쳐 탄생시킨 대작으로 모든 존재의 필멸, 죽음의 두려움 후 찾아오는 영원한 안식, 남겨진 자들을
-											향한 위로를 노래한다. [제작 및 출연] - 지휘: 크리스티안 틸레만 Christian Thielemann -
-											오케스트라: 빈 필하모닉 Vienna Philharmonic - 소프라노: 엘사 드레이지 Elsa
-											Dreisig - 바리톤: 미카엘 폴레 Michael Volle - 합창단: 빈 악우협회 합창단 Wiener
-											Singverein - 합창 지휘자: 요하네스 프린츠 Johannes Prinz Chorus Master -
-											장소: 잘츠부르크 대축전극장 Grosses Festspielhaus [프로그램] - 브람스, 독일 레퀴엠
-											JOHANNES BRAHMS, Ein deutsches Requiem (A German Requiem) for
-											soprano, baritone, mixed choir and orchestra op. 45</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="[2023 잘츠부르크 페스티벌] 틸레만 &amp; 빈 필하모닉" class="tit">[2023
-									잘츠부르크 페스티벌] 틸레만 &amp; 빈 필하모닉</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.4%</span> <span class="date">개봉일
-									2023.07.30</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23050500">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>48</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="">
-									<!-- 					<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23050500"
-										title="영화 예매하기">예매</a> <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23050500"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a>  -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23050500"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									16<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}"
-									alt="[내 생애 첫 미술관] 루브르 박물관" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23048200"
-										title="[내 생애 첫 미술관] 루브르 박물관 상세보기">
-										<div class="summary">스스로 미술작품을 감상하고 상상하는 힘을 기르는 “내 생애 첫
-											미술관“ 우리 자녀들에게 보여주고 싶은 세계 유수의 미술관, 어떻게 제대로 즐길 수 있을까? 이번 여름방학에는
-											자녀들과 함께 극장으로 미술관 나들이 오세요. 어린이의 눈높이에 맞춰 쉽고 재미있게 예술 이야기를 전달할
-											4인의 현직 도슨트들이 기다립니다. [내 생애 첫 미술관] 루브르 박물관 Louvre Museum ■ 강연장소
-											및 일시 - 메가박스 코엑스 : 7월 27일(목) 오전 11시 - 메가박스 고양스타필드 : 7월 29일(토)
-											오전 11시 ■ 예매오픈 - 예매오픈 : 7월 6일(목) 오후 1시 ■ 강연시간 - 60분 (별도의 인터미션
-											없이 진행됩니다) ○ 강연 주제 프랑스 파리 중심에 위치한 거대한 유리 피라미드 건축물, 세계에서 가장
-											방문객이 많은 박물관! 루브르 박물관을 여행합니다. 루브르 박물관은 원래 왕궁이었다는 사실 알고 있었나요?
-											어떤 작품들이 우리를 기다리고 있을까요? 레오나르도 다빈치의 &lt;모나리자&gt;, &lt;밀로의
-											비너스&gt;, &lt;함무라비 법전&gt;, 안토니오 카노바의 &lt;큐피드의 키스로 환생한 프시케&gt;,
-											자크 루이 다비드의 &lt;나폴레옹 1세의 대관식&gt; 등 대표 작품에 대해 집중 탐구하며 루브르 박물관에
-											담긴 역사와 문화 예술을 생생하게 느껴보아요. ○ 도슨트 : 채보미 루브르 박물관으로 여러분을 안내해 드릴
-											채보미 도슨트입니다. 어린이의 눈높이에 맞춰 쉽고 흥미로운 미술 작품들을 소개하고, 생동감있게 수업을
-											진행합니다. [대표 약력] 소마미술관 &lt;다시보다:한국근현대미술전&gt; 마이아트뮤지엄&lt;피카소와
-											20세기 거장들&gt; 외 다수 도슨트 서울시민대학 동남권캠퍼스 강사 * 본 프로그램은 예술 작품들의 이미지
-											및 동영상을 활용한 강의로, 영화/공연의 상영이 아닙니다. * 강연 일정은 강사 사정에 따라 변동될 수
-											있습니다. * 강연 3일전 ~ 1일전 취소 및 환불시 수수료가 10% 발생되며, 당일 취소는 불가 합니다. *
-											사전 광고없이 정시에 시작되므로 10분전 착석 부탁드립니다.</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="[내 생애 첫 미술관] 루브르 박물관" class="tit">[내 생애 첫 미술관] 루브르
-									박물관</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.3%</span> <span class="date">개봉일
-									2023.07.27</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23048200">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>74</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048200"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23048200"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048200"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									17<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="보 이즈 어프레이드"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23040000"
-										title="보 이즈 어프레이드 상세보기">
-										<div class="summary">편집증을 앓는 ‘보’와 그를 집착적으로 사랑하는 엄마 ‘모나’
-
-											엄마를 무조건 만나러 가야 하는 보의 기억과 환상, 현실이 뒤섞인 공포를 경험하게 되는 기이한 여정</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													7.6<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-19">,</p>
-								<p title="보 이즈 어프레이드" class="tit">보 이즈 어프레이드</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.3%</span> <span class="date">개봉일
-									2023.07.05</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23040000">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>874</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23040000"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23040000"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23040000"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									18<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="범죄도시3"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23035600" title="범죄도시3 상세보기">
-										<div class="summary">대체불가 괴물형사 마석도, 서울 광수대로 발탁! 베트남 납치
-											살해범 검거 후 7년 뒤, ‘마석도’(마동석)는 새로운 팀원들과 함께 살인사건을 조사한다. 사건 조사 중,
-											‘마석도’는 신종 마약 사건이 연루되었음을 알게 되고 수사를 확대한다. 한편, 마약 사건의 배후인
-											'주성철'(이준혁)은 계속해서 판을 키워가고 약을 유통하던 일본 조직과 '리키'(아오키 무네타카)까지 한국에
-											들어오며 사건의 규모는 점점 더 커져가는데... 나쁜 놈들 잡는 데 이유 없고 제한 없다 커진 판도 시원하게
-											싹 쓸어버린다!</div>
-										<div class="my-score big">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													9<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-15">,</p>
-								<p title="범죄도시3" class="tit">범죄도시3</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.3%</span> <span class="date">개봉일
-									2023.05.31</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23035600">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>2.2k</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">5월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035600"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23035600"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23035600"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									19<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}"
-									alt="[내 생애 첫 미술관] 오르세 미술관" class="poster lozad"
-									onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23048300"
-										title="[내 생애 첫 미술관] 오르세 미술관 상세보기">
-										<div class="summary">스스로 미술작품을 감상하고 상상하는 힘을 기르는 “내 생애 첫
-											미술관“ 우리 자녀들에게 보여주고 싶은 세계 유수의 미술관, 어떻게 제대로 즐길 수 있을까? 이번 여름방학에는
-											자녀들과 함께 극장으로 미술관 나들이 오세요. 어린이의 눈높이에 맞춰 쉽고 재미있게 예술 이야기를 전달할
-											4인의 현직 도슨트들이 기다립니다. [내 생애 첫 미술관] 오르세 미술관 Orsay Museum ■ 강연장소
-											및 일시 - 메가박스 코엑스 : 8월 3일(목) 오전 11시 - 메가박스 고양스타필드 : 8월 5일(토) 오전
-											11시 ■ 예매오픈 - 예매오픈 : 7월 13일(목) 오후 1시 ■ 강연시간 - 60분 (별도의 인터미션 없이
-											진행됩니다) ○ 강연 주제 프랑스 파리에 위치한 세계적인 미술관 중 하나인 오르세 미술관. 과거에 기차역이었던
-											건물이 미술관으로 변했다고? 프랑스 파리의 3대 미술관 중 하나인 오르세 미술관에서 마네, 모네, 고흐 등
-											19세기 꽃피던 인상주의 화가들을 처음 마주하는 시간! 빛과 색채의 세계에 여러분을 초대합니다. ○ 도슨트 :
-											유제희 미술관에서 쉽고 재미난 예술 이야기를 전달하고 있는 전시해설가 유제희입니다. 많은 이들의 일상에 예술이
-											꽃피길 꿈꾸며 예술 이야기가 필요한 곳은 어디든지 함께 합니다. [대표 약력] 예술의 전당
-											&lt;앤서니브라운전&gt; 외 다수 도슨트 용인포은아트홀 아카데미 &lt;도슨트의 명작 컬렉팅&gt; 강사
-											CBS &lt;이강민의 잡지사&gt; 라디오 패널 등 * 본 프로그램은 예술 작품들의 이미지 및 동영상을
-											활용한 강의로, 영화/공연의 상영이 아닙니다. * 강연 일정은 강사 사정에 따라 변동될 수 있습니다. * 강연
-											3일전 ~ 1일전 취소 및 환불시 수수료가 10% 발생되며, 당일 취소는 불가 합니다. * 사전 광고없이
-											정시에 시작되므로 10분전 착석 부탁드립니다.</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="[내 생애 첫 미술관] 오르세 미술관" class="tit">[내 생애 첫 미술관] 오르세
-									미술관</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.2%</span> <span class="date">개봉일
-									2023.08.03</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23048300">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>59</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">8월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048300"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23048300"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23048300"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
-						<li tabindex="0" class="no-img"><div class="movie-list-info">
-								<p class="rank" style="">
-									20<span class="ir">위</span>
-								</p>
-								<img th:src="@{images/barbie-poster.jpg}" alt="아버지의 마음"
-									class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="display: none">
-										<img src="./MEET PLAY SHARE, 메가박스_files/mov_top_tag_mx.png"
-											alt="mx">
-									</p>
-								</div>
-								<div class="movie-score" style="opacity: 0;">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="wrap movieBtn" data-no="23042200" title="아버지의 마음 상세보기">
-										<div class="summary">행복하지 않다고 말하는 시대에 살고 있는 우리는 행복한 삶을
-											추구한다. 하지만 자신의 노력으로 더 나은 미래를 만들 수 없다고 느낄 때, 행복을 박탈당하게 된다. 늪에서
-											헤어 나오지 못하는 이들을 향해 마음을 주는 사람들. 절망의 늪에서 펼쳐지는 기적의 이야기 71년 전,
-											굶주림과 추위 속에서 죽어가는 한국전쟁고아를 아버지의 마음으로 바라보며 눈물 훔치던 이가 있었는데 에버렛
-											스완슨(Everett Swanson, 1913-1965) 이었다. 그가 한국전쟁고아를 향한 연민으로 시작하게
-											된 컴패션 Compassion은 한국인 고아 캐시를 비롯해 10만 명 이상의 한국 어린이에게 기적을 선물했다.
-											또한 그가 품었던 아버지 마음은 전 세계 아이들을 향해 흘러갔다. 1994년 아버지를 잃은 르완다 소년
-											메소드와 2020년, 아들을 잃은 한국 아버지 황태환의 이야기 한 사람의 힘으로 세상을 바꾸고 선한 영향력을
-											끼치는 사랑의 릴레이 그것은 주는 사람, 받는 사람이 함께 성장하는 희망과 감동의 이야기다 자, 그렇다면
-											이제부터 우리는 무엇을 해야 할까?</div>
-										<div class="my-score equa" style="display: none;">
-											<div class="preview">
-												<p class="tit">관람평</p>
-												<p class="number">
-													0<span class="ir">점</span>
-												</p>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="tit-area">
-								<p class="movie-grade age-all">,</p>
-								<p title="아버지의 마음" class="tit">아버지의 마음</p>
-							</div>
-							<div class="rate-date">
-								<span class="rate">예매율 0.2%</span> <span class="date">개봉일
-									2023.07.20</span>
-							</div>
-							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23042200">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span>49</span>
-								</button>
-								<p class="txt movieStat1" style="display: none">상영예정</p>
-								<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-								<p class="txt movieStat5" style="display: none">개봉예정</p>
-								<p class="txt movieStat6" style="display: none">상영종료</p>
-								<div class="case col-2 movieStat3" style="display: none">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23042200"
-										title="영화 예매하기">예매</a>
-									<!-- <a
-										href="https://www.megabox.co.kr/movie#"
-										class="button purple img splBtn" data-no="23042200"><img
-										src="./MEET PLAY SHARE, 메가박스_files/mov_list_db_btn.png"
-										alt="dolby 버튼"></a> -->
-								</div>
-								<div class="case movieStat4" style="">
-									<a href="https://www.megabox.co.kr/movie#"
-										class="button purple bokdBtn" data-no="23042200"
-										title="영화 예매하기">예매</a>
-								</div>
-							</div></li>
+					<!-- movie-list -->
+					<div class="movie-list">
+						<ol class="list" id="movieList">
+							<li th:each="movie : ${movieList}" tabindex="0" class="no-img">
+								<div class="movie-list-info">
+									<div class="additional-info" style="display: none;">
+										<p th:text="${movie.movieSynopsis}"></p>
+									</div>
+									<img th:src="'data:image/jpeg;base64,' + ${movie.base64Image}"
+										alt="Image">
+									<div th:text="${movie.movieSynopsis}" class="summary"></div>
+								</div>
+					<div class="tit-area">
+						<div class="adult-image">
+							<!-- 성인 영화인 경우 1일 때의 이미지 -->
+							<img th:src="@{/images/adult.png}" alt="Adult Movie Image"
+								th:if="${movie.isAdultMovie eq '1'}">
+							<!-- 성인 영화가 아닌 경우 0일 때의 이미지 -->
+							<img th:src="@{/images/all.png}" alt="Non-Adult Movie Image"
+								th:if="${movie.isAdultMovie eq '0'}">
+						</div>
+						<p th:text="${movie.movieTitle}" title="바비" class="tit"></p>
+					</div>
+					<div class="btn-util">
+						<button type="button" class="button btn-like" data-no="23049400">
+							<i title="보고싶어 안함"
+								class="iconset ico-heart-toggle-gray intrstType"></i> <span>1k</span>
+						</button>
+						<p class="txt movieStat1" style="display: none">상영예정</p>
+						<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
+						<p class="txt movieStat5" style="display: none">개봉예정</p>
+						<p class="txt movieStat6" style="display: none">상영종료</p>
+						<div class="case movieStat4" style="">
+							<a href="https://www.megabox.co.kr/movie#"
+								class="button purple bokdBtn" data-no="23049400" title="영화 예매하기">예매</a>
+						</div>
+					</div>
+					</li>
 					</ol>
 				</div>
 				<!--// movie-list -->
 
 				<div class="btn-more v1" id="addMovieDiv" style="">
-					<button type="button" class="btn" id="btnAddMovie">
+					<button type="button" class="btn" id="loadMoreBtn">
 						더보기 <i class="iconset ico-btn-more-arr"></i>
 					</button>
 				</div>
+
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script>
+$(document).ready(function() {
+  // Number of movie items to show initially and the number of movie items to load each time the button is clicked
+  var itemsToShowInitially = 20;
+  var itemsToLoad = 20;
+
+  // Hide all movie items except the first 'itemsToShowInitially' items
+  $("#movieList li").hide();
+  $("#movieList li:lt(" + itemsToShowInitially + ")").show();
+
+  // When the "더보기" button is clicked
+  $("#loadMoreBtn").click(function() {
+    // Calculate the next index to show
+    var nextIndex = $("#movieList li:visible").length + itemsToLoad;
+
+    // Show the next 'itemsToLoad' movie items
+    $("#movieList li:lt(" + nextIndex + ")").show();
+
+    // Hide the "더보기" button if there are no more movie items to load
+    if ($("#movieList li").length <= nextIndex) {
+      $("#loadMoreBtn").hide();
+    }
+  });
+});
+</script>
+
+				<!-- 마우스 오버 하면 영화 설명 게시 -->
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script>
+				$(document).ready(function() {
+  // 마우스 오버 시 설명 보이기
+/*    $("#movieList li").on("mouseover", function() {
+    $(this).find(".movie-list-info").css("opacity", "0.3");
+  });  */
+
+  // 마우스 아웃 시 설명 숨기기
+   $("#movieList li").on("mouseout", function() {
+    $(this).find(".movie-list-info").css("opacity", "1");
+  });
+});  
+</script>
+
+
+
+				<!-- 	<div class="btn-more v1" id="addMovieDiv" style="">
+					<button type="button" class="btn" id="btnAddMovie">
+						더보기 <i class="iconset ico-btn-more-arr"></i>
+					</button>
+				</div> -->
 
 				<!-- 검색결과 없을 때 -->
 				<div class="movie-list-no-result" id="noDataDiv"

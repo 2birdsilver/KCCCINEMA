@@ -1,32 +1,19 @@
+$(document).ready(function() {
+  $("#btnSearch").on("click", function() {
+    var searchTerm = $("#ibxMovieNmSearch").val();
 
-/*동적 영화 리스트*/
-const movieData = [
-	{
-		title: "lee is the best",
-		genre: "액션"
-	},
-	{
-		title: "developer",
-		genre: "코미디"
-	}
-	// 추가적인 영화 데이터를 원하는 만큼 배열에 추가할 수 있습니다.
-];
-
-function createMovieElement(movie) {
-	const li = document.createElement("li");
-	li.className = "movie";
-	div.innerHTML = `
-        <img src="${movie.image}" alt="${movie.title}">
-        <div>
-          <strong class="title">${movie.title}</strong>
-          <em class="genre">${movie.genre}</em>
-        </div>
-      `;
-	return li;
-}
-
-const movieContainer = document.getElementById("movieContainer");
-movieData.forEach((movie) => {
-	const movieElement = createMovieElement(movie);
-	movieContainer.appendChild(movieElement);
+    // AJAX 요청
+    $.ajax({
+      url: "/movies/search", // 서버 URL
+      method: "POST",
+      data: { searchWord: searchTerm }, // 검색어를 데이터로 전송
+      success: function(response) {
+        // 서버에서 응답받은 HTML을 검색 결과를 표시할 공간에 추가하여 렌더링
+        $("#movieList").html(response);
+      },
+      error: function(error) {
+        console.log("Error occurred:", error);
+      }
+    });
+  });
 });

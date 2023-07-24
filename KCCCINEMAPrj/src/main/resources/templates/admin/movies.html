@@ -3,10 +3,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <!--<![endif]-->
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" th:href="@{/css/admin-movies.css}"> 
-<link rel="stylesheet" th:href="@{/css/admin-schedule.css}"> 
+<link rel="stylesheet" th:href="@{/css/admin-movies.css}">
+<link rel="stylesheet" th:href="@{/css/admin-schedule.css}">
 <link rel="stylesheet" th:href="@{/css/megabox.min.css}">
 <link rel="stylesheet" th:href="@{/css/original-timetable.css}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
@@ -1747,268 +1749,21 @@ $(function(){
 											<!--비밀번호를 입력하세요-->
 											<div class="alert"></div>
 
-											<!-- chk-util -->
-											<div class="chk-util">
-												<div class="left">
-													<input id="chkIdSave" type="checkbox"> <label
-														for="chkIdSave">아이디 저장<!--아이디 저장--></label>
-												</div>
-
-												<div class="right">
-													<div class="hp-ad">
-														<a
-															href="https://www.sepay.org/spm/join?regSiteCode=XF&amp;ctgCode=1&amp;subCode=1"
-															title="휴대폰 간편 로그인 선택" target="_blank"><span>휴대폰
-																간편로그인<!--휴대폰 간편로그인-->
-														</span> <em>광고<!--광고--></em></a>
-													</div>
-												</div>
-											</div>
-											<!--// chk-util -->
-
 											<button id="btnLogin" type="button"
 												class="button purple large btn-login" disabled="disabled">
 												로그인
 												<!--로그인-->
 											</button>
-
-											<div class="link">
-												<a href="https://www.megabox.co.kr/user-find"
-													title="ID/PW 찾기 선택">ID/PW 찾기<!--ID/PW 찾기--></a> <a
-													href="https://www.megabox.co.kr/join" title="회원가입 선택">회원가입<!--회원가입--></a>
-												<a
-													href="https://www.megabox.co.kr/on/oh/ohg/MbLogin/viewNonMbLogin.rest"
-													title="비회원 예매확인 선택">비회원 예매확인<!--비회원 예매확인--></a>
-											</div>
-
-											<div class="sns-login">
-												<!-- <a href="javaScript:void(0)" lnkgTy="FACEBOOK" title="페이스북으로 로그인 선택"><img src="../../../static/pc/images/member/ico-facebook.png"  alt="페이스북">페이스북으로 로그인</a>-->
-												<a href="javaScript:void(0)" lnkgty="NAVER"
-													title="네이버로 로그인 선택"><img
-													src="./MEET PLAY SHARE, 메가박스_files/ico-naver.png" alt="네이버">
-													<!--네이버--> 네이버로 로그인<!--네이버로 로그인--></a> <a
-													href="javaScript:void(0)" lnkgty="KAKAO"
-													title="카카오톡으로 로그인 선택"><img
-													src="./MEET PLAY SHARE, 메가박스_files/ico-kakao.png"
-													alt="카카오톡"> <!--카카오톡--> 카카오톡으로 로그인<!--카카오톡으로 로그인--></a> <a
-													href="javaScript:void(0)" lnkgty="PAYCO"
-													title="페이코로 로그인 선택"><img
-													src="./MEET PLAY SHARE, 메가박스_files/ico-payco.png" alt="페이코">
-													<!--페이코--> 페이코로 로그인<!--페이코로 로그인--></a>
-											</div>
 										</div>
-									</div>
-
-									<div class="col right">
-										<div class="login-ad" id="Rw6jtk0hQTuOBSzFbvGGlw"></div>
 									</div>
 								</div>
 								<!--// col-wrap -->
 							</div>
 						</div>
-						<!--// tab 회원 로그인 -->
-
-						<!-- tab 비회원 로그인 -->
-						<div id="login_tab_02" class="tab-cont">
-							<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-								class="ir"></a><a
-								href="https://www.megabox.co.kr/mypage/additionalinfo"
-								class="ir" title="비회원 로그인"></a>
-
-							<div class="login-member col-2">
-								<!-- col-wrap -->
-								<div class="col-wrap">
-									<div class="col left">
-
-										<div class="no-member-login-table">
-											<table
-												summary="이름, 생년월일, 휴대폰번호, 인증번호, 비밀번호, 비밀번호 확인 항목을 가진 비회원 로그인 입력 표">
-												<caption>
-													이름, 생년월일, 휴대폰번호, 인증번호, 비밀번호, 비밀번호 확인 항목을 가진 비회원 로그인 입력 표
-													<!--이름, 생년월일, 휴대폰번호, 인증번호, 비밀번호, 비밀번호 확인 항목을 가진 비회원 로그인 입력 표-->
-												</caption>
-												<colgroup>
-													<col style="width: 110px;">
-													<col>
-												</colgroup>
-												<tbody>
-													<tr>
-														<th scope="row"><label for="ibxNonMbNm">이름<!--이름--></label>
-														</th>
-														<td><input maxlength="20" id="ibxNonMbNm" type="text"
-															placeholder="이름" class="input-text"> <!--이름--></td>
-													</tr>
-													<tr>
-														<th scope="row"><label for="ibxNonMbByymmdd">생년월일<!--생년월일--></label>
-														</th>
-														<td><input maxlength="6" id="ibxNonMbByymmdd"
-															type="text" placeholder="생년월일 앞6자리" class="input-text">
-															<!--주민번호 앞 6자리--></td>
-													</tr>
-													<tr>
-														<th scope="row"><label for="ibxNonMbTelno">휴대폰번호<!--휴대폰번호--></label>
-														</th>
-														<td>
-															<div class="hp-input">
-																<input maxlength="11" id="ibxNonMbTelno" type="text"
-																	placeholder="- 없이 입력" class="input-text">
-																<!--- 없이 입력-->
-																<button id="nonMbCertNoSend" type="button"
-																	class="button gray" disabled="disabled">
-																	인증요청
-																	<!--인증요청-->
-																</button>
-															</div>
-															<div id="mblpInput-error-text" class="alert"></div>
-														</td>
-													</tr>
-													<tr id="nonMbCertRow">
-														<th scope="row"><label for="mblpCharCertNo">인증번호<!--인증번호--></label>
-														</th>
-														<td>
-															<div class="chk-num">
-																<div class="line">
-																	<input maxlength="4" id="mblpCharCertNo" type="text"
-																		class="input-text">
-
-																	<div class="time-limit" id="timer">3:00</div>
-																</div>
-
-																<button id="btnMblpCharCert" type="button"
-																	class="button purple" disabled="disabled">
-																	확인
-																	<!--확인-->
-																</button>
-															</div>
-															<div id="nonMbCert-error-text" class="alert"></div>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row"><label for="ibxNonMbPwd">비밀번호</label>
-															<!--비밀번호--></th>
-														<td><input maxlength="4" id="ibxNonMbPwd"
-															type="password" placeholder="비밀번호(숫자 4자리)"
-															class="input-text"> <!--비밀번호(숫자 4자리)--></td>
-													</tr>
-													<tr>
-														<th scope="row"><label for="ibxNonMbPwdConfirm">비밀번호<!--비밀번호-->확인<!--확인--></label>
-														</th>
-														<td><input maxlength="4" id="ibxNonMbPwdConfirm"
-															type="password" placeholder="비밀번호(숫자 4자리) 확인"
-															class="input-text"> <!--비밀번호(숫자 4자리) 확인-->
-															<div id="nonMbPwdErrText" class="alert"></div></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-
-									<div class="col right">
-
-										<div class="no-member-privacy-rule">
-											<p class="tit">
-												비회원예매 개인정보 처리방침
-												<!--비회원예매 개인정보 처리방침-->
-											</p>
-
-											<div class="cont">
-												<dl>
-													<dt>수집목적</dt>
-													<dd>비회원예매 서비스 제공 / 이용자식별 / 구매 및 결제</dd>
-													<dt>수집항목</dt>
-													<dd>이름, 생년월일, 휴대폰번호, 비밀번호</dd>
-													<dt>보유기간</dt>
-													<dd class="ismsimp">관람 또는 취소 후 7일 이내</dd>
-													<!--<dt>수집목적</dt><dd>비회원예매 서비스 제공 / 이용자식별 / 구매 및  결제</dd><dt>수집항목</dt><dd>이름, 생년월일, 휴대폰번호, 비밀번호</dd><dt>보유기간</dt><dd>관람 또는 취소 후 7일 이내</dd>-->
-												</dl>
-
-												<div class="btn-agree">
-													<input type="radio" id="chkNonMbBokdPersonInfoProcTrue"
-														name="chkNonMbBokdPersonInfoProc"> <label
-														for="chkNonMbBokdPersonInfoProcTrue">동의<!--동의--></label> <input
-														type="radio" id="chkNonMbBokdPersonInfoProcFalse"
-														name="chkNonMbBokdPersonInfoProc" class="ml20"> <label
-														for="chkNonMbBokdPersonInfoProcFalse">미동의<!--미동의--></label>
-												</div>
-
-												<ul class="dot-list gblue mt20">
-													<li class="font-gblue">정보수집에 동의를 거부할 수 있으며, 동의하지 않을 경우
-														비회원 예매서비스를 이용하실 수 없습니다.<!--정보수집에 동의를 거부할 수 있으며, 동의하지 않을 경우 비회원 예매서비스를 이용하실 수 없습니다.-->
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--// col-wrap -->
-
-								<div class="btn-group">
-									<button id="btnChkNonMbLogin" type="button"
-										class="button purple" disabled="disabled">확인</button>
-									<a id="aNonMbLogin"
-										href="https://www.megabox.co.kr/mypage/additionalinfo#layer_no_member_chk"
-										class="button purple btn-modal-open" w-data="600" h-data="320"
-										style="display: none;"></a>
-								</div>
-							</div>
-						</div>
-						<!--// tab 비회원 로그인 -->
 					</div>
 					<!--// tab-cont-wrap -->
 				</div>
 
-				<button type="button" class="btn-modal-close">
-					레이어 닫기
-					<!--레이어 닫기-->
-				</button>
-			</div>
-		</section>
-
-		<section id="layer_no_member_chk" class="modal-layer">
-			<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-				class="focus">레이어로 포커스 이동 됨</a>
-			<div class="wrap">
-				<!-- 				<header class="layer-header">
-					<h3 class="tit">알림</h3>
-				</header> -->
-
-				<div class="layer-con">
-					<p>티켓 발권을 위한 입력정보를 확인해 주세요.</p>
-
-					<div class="table-wrap v1">
-						<table class="data-table"
-							summary="이름, 생년월일, 휴대폰번호 항목을 가진 비회원 티켓 발권을 위한 입력정보 표">
-							<caption>이름, 생년월일, 휴대폰번호 항목을 가진 비회원 티켓 발권을 위한 입력정보 표</caption>
-							<colgroup>
-								<col style="width: 80px;">
-								<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th scope="row" class="a-l">이름</th>
-									<td></td>
-								</tr>
-								<tr>
-									<th scope="row" class="a-l">생년월일</th>
-									<td></td>
-								</tr>
-								<tr>
-									<th scope="row" class="a-l">휴대폰번호</th>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-				<div class="btn-group-fixed">
-					<button type="button" class="button close-layer small">취소</button>
-					<button id="btnNonMbLogin" type="button"
-						class="button purple small" disabled="disabled">확인</button>
-				</div>
-
-				<button id="btnNonMbModalClose" type="button"
-					class="btn-modal-close">레이어 닫기</button>
 			</div>
 		</section>
 		<!--  ko_KR -->
@@ -2146,185 +1901,7 @@ $(function(){
 				</div>
 			</div>
 		</div>
-		<!--// ie-update : ie 9 이하 일때만 출력 -->
-		<!--// 브라우저 다운로드 -->
 
-		<!-- topGnb -->
-
-
-
-
-		<!-- 2019-04-15 마크업 수정 : 고객요청  -->
-		<!-- 		<div class="util-area">
-			<div class="left-link">
-				<a href="https://www.megabox.co.kr/benefit/viplounge"
-					title="VIP LOUNGE">VIP LOUNGE</a> <a
-					href="https://www.megabox.co.kr/benefit/membership" title="멤버십">멤버십</a>
-				<a href="https://www.megabox.co.kr/support" title="고객센터">고객센터</a>
-			</div>
-
-			<div class="right-link">
-				로그인전
-				<div class="before" style="display: none">
-					<a
-						href="javaScript:fn_viewLoginPopup(&#39;default&#39;,&#39;pc&#39;)"
-						title="로그인">로그인</a> <a href="https://www.megabox.co.kr/join"
-						title="회원가입">회원가입</a>
-				</div>
-
-				로그인후
-				<div class="after" style="">
-					<a href="https://www.megabox.co.kr/on/oh/ohg/MbLogin/mbLogout.do"
-						class="" title="로그아웃">로그아웃</a> <a
-						href="https://www.megabox.co.kr/mypage/additionalinfo"
-						class="notice" title="알림">알림</a>
-
-					layer-header-notice
-					<div class="layer-header-notice">
-						<div class="notice-wrap">
-							<p class="tit-notice">알림함</p>
-
-							<div class="count">
-								<p class="left">
-									전체 <em class="totalCnt">0</em> 건
-								</p>
-
-								<p class="right">* 최근 30일 내역만 노출됩니다.</p>
-							</div>
-
-							scroll
-							<div
-								class="scroll m-scroll mCustomScrollbar _mCS_1 mCS_no_scrollbar">
-								<div id="mCSB_1"
-									class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
-									style="max-height: none;" tabindex="0">
-									<div id="mCSB_1_container"
-										class="mCSB_container mCS_no_scrollbar_y"
-										style="position: relative; top: 0; left: 0;" dir="ltr">
-										<ul class="list">
-											<li class="no-list">알림 내역이 없습니다.</li>
-										</ul>
-									</div>
-									<div id="mCSB_1_scrollbar_vertical"
-										class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical">
-										<div class="mCSB_draggerContainer">
-											<div id="mCSB_1_dragger_vertical" class="mCSB_dragger"
-												style="position: absolute; min-height: 30px; display: none; top: 0px;">
-												<div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
-											</div>
-											<div class="mCSB_draggerRail"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notice-list-more">
-								<button type="button" class="button btn-more-notice-list">
-									더보기 <i class="iconset ico-btn-more-arr"></i>
-								</button>
-							</div>
-							// scroll
-							<button type="button" class="btn-close-header-notice">알림
-								닫기</button>
-						</div>
-						// notice-wrap
-						// layer-header-notice
-					</div>
-
-				</div>
-
-				<a href="https://www.megabox.co.kr/booking">빠른예매</a>
-			</div>
-		</div> -->
-		<!--// 2019-04-15 마크업 수정 : 고객요청  -->
-
-		<!-- 		<div class="link-area">
-			<a
-				href="https://www.megabox.co.kr/mypage/additionalinfo#layer_sitemap"
-				class="header-open-layer btn-layer-sitemap" title="사이트맵">사이트맵</a> <a
-				href="https://www.megabox.co.kr/mypage/additionalinfo#layer_header_search"
-				class="header-open-layer btn-layer-search" title="검색">검색</a> <a
-				href="https://www.megabox.co.kr/booking/timetable"
-				class="link-ticket" title="상영시간표">상영시간표</a> <a
-				href="https://www.megabox.co.kr/mypage/additionalinfo#layer_mymega2"
-				class="header-open-layer btn-layer-mymega" title="나의 메가박스">나의
-				메가박스</a>
-		</div> -->
-
-		<!-- gnb -->
-		<!--
-        2019-04-15 마크업 수정 : 고객요청
-        1뎁스 a 태그에 각각 다른 class 추가
-    -->
-
-		<!-- 		<nav id="gnb">
-			<ul class="gnb-depth1">
-				<li><a href="https://www.megabox.co.kr/movie"
-					class="gnb-txt-movie" title="영화">영화</a>
-					<div class="gnb-depth2">
-						<ul>
-							<li><a href="https://www.megabox.co.kr/movie" title="전체영화">전체영화</a></li>
-
-
-							<li><a
-								href="https://www.megabox.co.kr/curation/specialcontent"
-								title="큐레이션">큐레이션</a></li>
-
-							<li id="festivalArea" style="display: none;"><a
-								href="https://www.megabox.co.kr/festival" title="영화제">영화제</a></li>
-							<li><a href="https://www.megabox.co.kr/moviepost/all"
-								title="무비포스트">무비포스트</a></li>
-						</ul>
-					</div></li>
-				<li><a href="https://www.megabox.co.kr/booking"
-					class="gnb-txt-reserve" title="예매">예매</a>
-					<div class="gnb-depth2">
-						<ul>
-							<li><a href="https://www.megabox.co.kr/booking" title="빠른예매">빠른예매</a></li>
-							<li><a href="https://www.megabox.co.kr/booking/timetable"
-								title="상영시간표">상영시간표</a></li>
-							<li><a
-								href="https://www.megabox.co.kr/booking/privatebooking"
-								title="더 부티크 프라이빗 예매">더 부티크 프라이빗 예매</a></li>
-						</ul>
-					</div></li>
-				<li><a href="https://www.megabox.co.kr/theater/list"
-					class="gnb-txt-theater" title="극장">극장</a>
-					<div class="gnb-depth2">
-						<ul>
-							<li><a href="https://www.megabox.co.kr/theater/list"
-								title="전체극장">전체극장</a></li>
-							<li><a href="https://www.megabox.co.kr/specialtheater/list"
-								title="특별관">특별관</a></li>
-						</ul>
-					</div></li>
-				<li><a href="https://www.megabox.co.kr/event"
-					class="gnb-txt-event" title="이벤트">이벤트</a>
-					<div class="gnb-depth2">
-						<ul>
-							<li><a href="https://www.megabox.co.kr/event"
-								title="진행중 이벤트">진행중 이벤트</a></li>
-							<li><a href="https://www.megabox.co.kr/event/end"
-								title="지난 이벤트">지난 이벤트</a></li>
-							<li><a href="https://www.megabox.co.kr/event/winner/list"
-								title="당첨자발표">당첨자발표</a></li>
-						</ul>
-					</div></li>
-				<li><a href="https://www.megabox.co.kr/store"
-					class="gnb-txt-store" title="스토어">스토어</a></li>
-				<li><a href="https://www.megabox.co.kr/benefit/membership"
-					class="gnb-txt-benefit" title="혜택">혜택</a>
-					<div class="gnb-depth2">
-						<ul>
-							<li><a href="https://www.megabox.co.kr/benefit/membership"
-								title="메가박스 멤버십">메가박스 멤버십</a></li>
-							<li><a
-								href="https://www.megabox.co.kr/benefit/discount/guide"
-								title="제휴/할인">제휴/할인</a></li>
-						</ul>
-					</div></li>
-			</ul>
-		</nav> -->
-		<!--// gnb -->
 		<script type="text/javascript">
         $(document).ready(function() {
             var filmCheck = MegaboxUtil.Common.moveMovieFilmCheckGnb(); // 영화제 존재여부 체크
@@ -2335,332 +1912,6 @@ $(function(){
             }
         });
     </script>
-		<!--// topGnb -->
-
-		<!-- 레이어 : 사이트맵 -->
-
-
-
-
-		<div id="layer_sitemap" class="header-layer layer-sitemap">
-			<!-- wrap -->
-			<div class="wrap">
-				<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-					class="link-acc" title="사이트맵 레이어 입니다.">사이트맵 레이어 입니다.</a>
-
-				<p class="tit">SITEMAP</p>
-
-				<div class="list position-1">
-					<p class="tit-depth">영화</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/movie" title="전체영화">전체영화</a></li>
-						<li><a
-							href="https://www.megabox.co.kr/curation/specialcontent"
-							title="큐레이션">큐레이션</a></li>
-						<li><a href="javascript:void(0)"
-							onclick="javascript:MegaboxUtil.Common.moveMovieFilmCheck();"
-							title="영화제">영화제</a></li>
-						<li><a href="https://www.megabox.co.kr/moviepost/all"
-							title="무비포스트">무비포스트</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-2">
-					<p class="tit-depth">예매</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/booking" title="빠른예매">빠른예매</a></li>
-						<li><a href="https://www.megabox.co.kr/booking/timetable"
-							title="상영시간표">상영시간표</a></li>
-						<li><a
-							href="https://www.megabox.co.kr/booking/privatebooking"
-							title="더 부티크 프라빗 예매">더 부티크 프라이빗 예매</a></li>
-						<!-- <li><a href="/booking?megaboxLanguage=en" title="English Ticketing">English Ticketing</a></li> -->
-					</ul>
-				</div>
-
-				<div class="list position-3">
-					<p class="tit-depth">극장</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/theater/list"
-							title="전체극장">전체극장</a></li>
-						<li><a href="https://www.megabox.co.kr/specialtheater/list"
-							title="특별관">특별관</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-4">
-					<p class="tit-depth">이벤트</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/event" title="진행중 이벤트">진행중
-								이벤트</a></li>
-						<li><a href="https://www.megabox.co.kr/event/end"
-							title="지난 이벤트">지난 이벤트</a></li>
-						<li><a href="https://www.megabox.co.kr/event/winner/list"
-							title="당첨자발표">당첨자발표</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-5">
-					<p class="tit-depth">스토어</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/store" title="새로운 상품">새로운
-								상품</a></li>
-						<li><a href="https://www.megabox.co.kr/store/megaticket"
-							title="메가티켓">메가티켓</a></li>
-						<li><a href="https://www.megabox.co.kr/store/popcorn"
-							title="팝콘/음료/굿즈">팝콘/음료/굿즈</a></li>
-						<li><a href="https://www.megabox.co.kr/store/pointmall"
-							title="포인트몰">포인트몰</a></li>
-					</ul>
-				</div>
-				<div class="list position-6">
-					<p class="tit-depth">나의 메가박스</p>
-					<ul class="list-depth mymage">
-
-
-
-						<li><a href="https://www.megabox.co.kr/mypage"
-							title="나의 메가박스 홈">나의 메가박스 홈</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/bookinglist"
-							title="예매/구매내역">예매/구매내역</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/movie-coupon"
-							title="영화관람권">영화관람권</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/store-coupon"
-							title="스토어교환권">스토어교환권</a></li>
-						<li><a
-							href="https://www.megabox.co.kr/mypage/discount-coupon"
-							title="할인/제휴쿠폰">할인/제휴쿠폰</a></li>
-						<!-- <li><a href="/on/oh/ohh/Mvtckt/GiftCardL.do">기프트카드</a></li> -->
-						<li><a href="https://www.megabox.co.kr/mypage/point-list"
-							title="멤버십포인트">멤버십포인트</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/moviestory"
-							title="나의 무비스토리">나의 무비스토리</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/myevent"
-							title="나의 이벤트 응모내역">나의 이벤트 응모내역</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/myinquiry"
-							title="나의 문의내역">나의 문의내역</a></li>
-						<li><a href="https://www.megabox.co.kr/mypage/mydiscount"
-							title="자주쓰는 할인카드">자주쓰는 할인카드</a></li>
-						<li><a
-							href="https://www.megabox.co.kr/on/oh/ohh/Mypage/mainPage.do?returnURL=info"
-							title="회원정보">회원정보</a></li>
-
-
-					</ul>
-				</div>
-
-				<div class="list position-7">
-					<p class="tit-depth">혜택</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/benefit/membership"
-							title="멤버십 안내">멤버십 안내</a></li>
-						<li><a href="https://www.megabox.co.kr/benefit/viplounge"
-							title="VIP LOUNGE">VIP LOUNGE</a></li>
-						<li><a
-							href="https://www.megabox.co.kr/benefit/discount/guide"
-							title="제휴/할인">제휴/할인</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-8">
-					<p class="tit-depth">고객센터</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/support"
-							title="고객센터 홈">고객센터 홈</a></li>
-						<li><a href="https://www.megabox.co.kr/support/faq"
-							title="자주묻는질문">자주묻는질문</a></li>
-						<li><a href="https://www.megabox.co.kr/support/notice"
-							title="공지사항">공지사항</a></li>
-						<li><a href="https://www.megabox.co.kr/support/inquiry"
-							title="1:1문의">1:1문의</a></li>
-						<li><a href="https://www.megabox.co.kr/support/rent"
-							title="단체/대관문의">단체/대관문의</a></li>
-						<li><a href="https://www.megabox.co.kr/support/lost"
-							title="분실물문의">분실물문의</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-9">
-					<p class="tit-depth">회사소개</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/megaboxinfo"
-							target="_blank" title="메가박스소개">메가박스소개</a></li>
-						<li><a href="https://www.megabox.co.kr/socialcontribution"
-							target="_blank" title="사회공헌">사회공헌</a></li>
-						<li><a href="https://www.megabox.co.kr/advertize"
-							target="_blank" title="홍보자료">홍보자료</a></li>
-						<li><a href="https://www.megabox.co.kr/partner"
-							target="_blank" title="제휴/부대사업문의">제휴/부대사업문의</a></li>
-						<li><a href="https://www.megabox.co.kr/onlinereport"
-							target="_blank" title="온라인제보센터">온라인제보센터</a></li>
-						<li><a href="https://www.megabox.co.kr/ir" target="_blank"
-							title="자료">IR자료</a></li>
-						<li><a href="https://www.megabox.co.kr/recruit"
-							target="_blank" title="인재채용림">인재채용</a></li>
-						<li><a href="https://jebo.joonganggroup.com/main.do"
-							target="_blank" title="윤리경영">윤리경영</a></li>
-					</ul>
-				</div>
-
-				<div class="list position-10">
-					<p class="tit-depth">이용정책</p>
-
-					<ul class="list-depth">
-						<li><a href="https://www.megabox.co.kr/support/terms"
-							title="이용약관">이용약관</a></li>
-						<li><a href="https://www.megabox.co.kr/support/lcinfo"
-							title="위치기반서비스 이용약관">위치기반서비스 이용약관</a></li>
-						<li><a href="https://www.megabox.co.kr/support/privacy"
-							title="개인정보처리방침">개인정보처리방침</a></li>
-						<li><a href="https://www.megabox.co.kr/support/screenrule"
-							title="스크린수배정에관한기준">스크린수배정에관한기준</a></li>
-					</ul>
-				</div>
-
-				<div class="ir">
-					<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-						class="layer-close" title="레이어닫기">레이어닫기</a>
-				</div>
-			</div>
-			<!--// wrap -->
-		</div>
-		<!--// 레이어 : 사이트맵 -->
-
-		<!-- 레이어 : 검색 -->
-		<div id="layer_header_search" class="header-layer layer-header-search"></div>
-		<!--// 레이어 : 검색 -->
-
-		<!-- 레이어 : 마이페이지 -->
-
-
-
-
-
-		<div id="layer_mymega2" class="header-layer layer-mymege2">
-			<a href="https://www.megabox.co.kr/mypage/additionalinfo" class="ir"
-				title="나의 메가박스 레이어 입니다.">나의 메가박스 레이어 입니다.</a>
-
-			<!-- wrap-->
-			<div class="wrap" style="">
-
-				<div class="login-after" style="">
-					<div class="couponpass" style="display: none;">
-						<span>쿠폰패스 이용고객이시군요!!쿠폰패스로 발급된 쿠폰을 확인해보세요~ </span>
-					</div>
-					<!-- 					<div class="inner">
-						<div class="box">
-							<div class="mbimg">
-								<img src="https://www.megabox.co.kr/mypage/additionalinfo"
-									alt="">
-							</div>
-							<div class="name">
-								<span></span>님
-							</div>
-
-							<a href="https://www.megabox.co.kr/mypage" class="linkBtn"
-								title="나의  메가박스">나의 메가박스</a>
-						</div>
-
-						<div class="box">
-							<div class="tit">
-								<span>스페셜 멤버십</span>
-							</div>
-							<ul class="membership">
-								<li class="txt">가입된 스페셜 멤버십이 없어요!</li>
-							</ul>
-						</div>
-
-
-						<div class="box point">
-							<div class="tit">
-								<a class="linkA"
-									href="https://www.megabox.co.kr/mypage/point-list"
-									title="멤버십 포인트"><span>포인트</span></a>
-							</div>
-							<div class="count">0</div>
-						</div>
-
-						<div class="box coupon">
-							<div class="tit">
-								<a class="linkA"
-									href="https://www.megabox.co.kr/mypage/discount-coupon"
-									title="쿠폰"><span>쿠폰</span></a> <a class="linkA"
-									href="https://www.megabox.co.kr/mypage/point-list"
-									title="멤버십 포인트"></a>
-							</div>
-
-							<div title="쿠폰 수" class="count">1</div>
-						</div>
-
-						<div class="box movieTk">
-							<div class="tit">
-								<a class="linkA"
-									href="https://www.megabox.co.kr/mypage/movie-coupon"
-									title="관람권"><span>관람권</span></a> <a class="linkA"
-									href="https://www.megabox.co.kr/mypage/point-list"
-									title="멤버십 포인트"></a>
-							</div>
-
-							<div title="관람권 수" class="count">0</div>
-						</div>
-
-						<div class="box reserve">
-							<div class="tit">
-								<a class="linkA"
-									href="https://www.megabox.co.kr/mypage/bookinglist"
-									title="예매내역"><span>예매</span></a>
-							</div>
-
-							<div title="예매 수" class="count"></div>
-						</div>
-
-						<div class="box buy">
-							<div class="tit">
-								<a class="linkA"
-									href="https://www.megabox.co.kr/mypage/bookinglist?tab=02"
-									title="구매내역"><span>구매</span></a>
-							</div>
-
-							<div class="count">
-								<em>0</em><span>건</span>
-							</div>
-						</div>
-					</div> -->
-				</div>
-
-				<!-- 로그인 전 -->
-				<div class="login-before" style="display: none;">
-					<div class="txt">영화를 사랑하는 당신을 위한 꼭 맞는 혜택까지 확인해 보세요!</div>
-
-					<div class="linkBox">
-						<a
-							href="https://www.megabox.co.kr/mypage/additionalinfo#layer_login_common"
-							id="moveLogin" title="로그인" class="btn-modal-open" w-data="850"
-							h-data="484">로그인</a> <a href="https://www.megabox.co.kr/join"
-							class="link" title="혹시 아직 회원이 아니신가요?">혹시 아직 회원이 아니신가요?</a>
-					</div>
-
-				</div>
-			</div>
-			<!--// wradiv -->
-
-			<div class="ir">
-				<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-					class="layer-close" title="레이어닫기">레이어닫기</a>
-			</div>
-		</div>
-		<!--// 레이어 : 마이페이지 -->
-
-		</header>
-		<!--// header -->
 
 
 		<div class="container has-lnb">
@@ -2709,15 +1960,15 @@ $(function(){
 						</p>
 
 						<ul>
-							<li><a th:href="@{/admin/movies}" title="영화/스토어 관람권">영화 관리</a>
+							<li><a th:href="@{/admin/movies}" title="영화 관리">영화 관리</a>
 								<ul class="depth3">
-									<li><a th:href="@{/admin/movies}" title="영화관람권">상영 영화 목록</a></li>
-									<li><a th:href="@{/admin/movies/registration}" title="스토어 교환권">영화
-											등록</a></li>
+									<li><a th:href="@{/admin/movies}" title="상영 영화 목록">상영
+											영화 목록</a></li>
+									<li><a th:href="@{/admin/movies/registration}"
+										title="영화 등록">영화 등록</a></li>
 								</ul></li>
-							<li class=""><a th:href="@{/admin/schedule}" title="예매/구매내역">상영일
+							<li class=""><a th:href="@{/admin/schedule}" title="상영일 관리">상영일
 									관리</a></li>
-
 						</ul>
 					</nav>
 				</div>
@@ -3128,299 +2379,173 @@ $(function(){
 
 					<div class="board-list-util">
 						<p class="result-count">
-							<strong> 총 <b class="font-gblue">0</b>건
+							<strong> 총 <span id="rowCount"></span>건
 							</strong>
 						</p>
 
-						<div class="dropdown bootstrap-select bs3">
-							<select title="관람권명 선택" class="selectpicker" tabindex="-98"><option
-									class="bs-title-option" value=""></option>
-								<option value="CSC03">상영중</option>
-								<option value="CSC04">상영예정</option>
-								<option value="CSC06">상영종료</option>
-							</select>
-							<button type="button" class="btn dropdown-toggle btn-default"
-								data-toggle="dropdown" role="button" title="상영중"
-								aria-expanded="false">
-								<div class="filter-option">
-									<div class="filter-option-inner">
-										<div class="filter-option-inner-inner">상영중</div>
-									</div>
-								</div>
-								<span class="bs-caret"><span class="caret"></span></span>
-							</button>
-							<div class="dropdown-menu open" role="combobox"
-								style="overflow: hidden;">
-								<div class="inner open" role="listbox" aria-expanded="false"
-									tabindex="-1" style="overflow-y: auto;">
-									<ul class="dropdown-menu inner ">
-										<li class="selected active"><a role="option"
-											aria-disabled="false" tabindex="0" class="selected active"
-											aria-selected="true"><span class="text">사용가능</span></a></li>
-										<li><a role="option" aria-disabled="false" tabindex="0"
-											aria-selected="false"><span class="text">사용완료</span></a></li>
-										<li><a role="option" aria-disabled="false" tabindex="0"
-											aria-selected="false"><span class="text">기간만료</span></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+
+						- <select id="statusSelector">
+							<option value="all-movies">전체</option>
+							<option value="상영중">상영중</option>
+							<option value="상영예정">상영예정</option>
+							<option value="상영종료">상영종료</option>
+						</select>
 					</div>
 
 					<div class="table-wrap">
-						<table class="board-list">
-							<caption>관람권명, 유효기간, 사용상태, 관람권정보 항목을 가진 영화관람권 목록 표</caption>
+						<table id="movieTable" class="board-list">
 							<colgroup>
-								<col>
-								<col style="width: 200px;">
-								<col style="width: 120px;">
-								<col style="width: 160px;">
+								<col style="width: 100px;">
+								<col style="width: 100px;">
+								<col style="width: 300px;">
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">카테고리</th>
-									<th scope="col">제목</th>
-									<th scope="col">상영 시작일</th>
-									<th scope="col">상영 종료일</th>
-									<th scope="col">현재 상태</th>
+									<th data-field-name="movieId" scope="col">ID</th>
+									<th data-field-name="movieCategory" scope="col">카테고리</th>
+									<th data-field-name="movieTitle" scope="col">제목</th>
+									<th data-field-name="openingDate" scope="col">상영 시작일</th>
+									<th data-field-name="closingDate" scope="col">상영 종료일</th>
+									<th data-field-name="Screening" scope="col">현재 상태</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="col">1</th>
-									<th scope="col">애니메이션</th>
-									<th scope="col">엘리멘탈</th>
-									<th scope="col">2023-07-19</th>
-									<th scope="col">2023-08-19</th>
-									<th scope="col">상영중</th>
+							<!-- 							<tbody>
+								<tr th:each="movie : ${movieList}">
+									<td th:text="${movie.movieId}"></td>
+									<td th:text="${movie.movieCategory}"></td>
+									<td th:text="${movie.movieTitle}"></td>
+									<td th:text="${movie.openingDate}"></td>
+									<td th:text="${movie.closingDate}"></td>
+									<td th:text="${movie.Screening}"></td>
 								</tr>
-								<tr>
-									<th scope="col">2</th>
-									<th scope="col">액션</th>
-									<th scope="col">미션 임파서블: 데드 레코닝 PART ONE</th>
-									<th scope="col">2023-07-22</th>
-									<th scope="col">2023-08-22</th>
-									<th scope="col">상영예정</th>
+							</tbody> -->
+							<tbody>
+								<tr th:each="movie : ${movieList}">
+									<td class="editable" th:text="${movie.movieId}"
+										data-id="${movie.movieId}"></td>
+									<td class="editable" th:text="${movie.movieCategory}"
+										data-id="${movie.movieId}"></td>
+									<td class="editable" th:text="${movie.movieTitle}"
+										data-id="${movie.movieId}"></td>
+									<td class="editable" th:text="${movie.openingDate}"
+										data-id="${movie.movieId}"></td>
+									<td class="editable" th:text="${movie.closingDate}"
+										data-id="${movie.movieId}"></td>
+									<td class="editable" th:text="${movie.Screening}"
+										data-id="${movie.movieId}"></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 
+					<!-- 상영 상태에 따른 영화 게시 -->
+					<script>
+    document.getElementById('statusSelector').addEventListener('change', function() {
+        var selectedStatus = this.value;
+            // AJAX 요청 보내기
+            $.ajax({
+                url: "/admin/movies/filterByStatus",
+                async: false,
+                method: "POST",
+                data: { status: selectedStatus },
+                success: function(response) {
+                    // 서버로부터 받은 데이터로 테이블을 갱신합니다.
+                    console.log(response);
+                    var tableBody = document.querySelector('#movieTable tbody');
+                    tableBody.innerHTML = '';
+                    response.forEach(function(movie) {
+                        var row = tableBody.insertRow();
+                        var idCell = row.insertCell();
+                        var categoryCell = row.insertCell();
+                        var titleCell = row.insertCell();
+                        var openingDateCell = row.insertCell();
+                        var closingDateCell = row.insertCell();
+                        var statusCell = row.insertCell();
+
+                        idCell.textContent = movie.movieId;
+                        categoryCell.textContent = movie.movieCategory;
+                        titleCell.textContent = movie.movieTitle;
+                        openingDateCell.textContent = movie.openingDate;
+                        closingDateCell.textContent = movie.closingDate;
+                        statusCell.textContent = getStatusText(movie.screening);
+                    });
+                 // 전체 데이터 수를 화면에 표시합니다.
+                    document.getElementById('rowCount').textContent = response.length;
+                },
+                error: function(error) {
+                    console.log("Error occurred:", error);
+                }
+            });
+    });
+
+    function getStatusText(status) {
+        if (status === "상영중") {
+            return '상영중';
+        } else if (status === "상영예정") {
+            return '상영예정';
+        } else if (status === "상영종료") {
+            return '상영종료';
+        }  else {
+            return '상태 미정';
+        } 
+    } 
+</script>
+
+
+					<!-- 더블클릭 시 영화 정보 수정 -->
+					<script>
+    // 더블클릭 이벤트 리스너 등록
+    document.querySelectorAll('#movieTable tbody td.editable').forEach(function(cell) {
+        cell.addEventListener('dblclick', function() {
+            // 클릭한 셀의 내용을 input 태그로 변경
+            var originalValue = cell.textContent;
+            cell.innerHTML = '<input type="text" value="' + originalValue + '">';
+
+            var input = cell.querySelector('input');
+            input.focus();
+            input.setSelectionRange(0, input.value.length);
+
+            // input 태그에서 포커스를 잃을 때 이벤트 리스너 등록
+            input.addEventListener('blur', function() {
+                var newValue = input.value;
+                // 서버로 수정된 데이터를 전송하고 성공적으로 수정되면 값을 텍스트로 변경
+                // 이 부분은 서버와 연동하여 구현해야 합니다.
+
+                var movieId = cell.getAttribute('data-id');
+                // AJAX 요청 보내기
+                $.ajax({
+                    url: "/admin/movies/updateMovieData",
+                    method: "POST",
+                    data: { movieId: movieId, newValue: newValue },
+                    success: function(response) {
+                        // 서버에서 응답을 받았을 때 처리할 내용
+                        // 예시로 응답값을 바로 텍스트로 반영
+                         cell.textContent = response.updatedValue; 
+                    },
+                    error: function(error) {
+                        console.log("Error occurred:", error);
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+
+
+
 					<nav class="pagination"></nav>
 
-	<!-- 				<div class="box-pulldown mt30">
-						<div class="tit">
-							<button type="button" class="btn-toggle">
-								이용안내 <i class="iconset ico-arr-toggle-down"></i>
-							</button>
-						</div>
-
-						<div class="cont">
-							<ul class="dot-list">
-								<li>등록된 관람권은 홈페이지/모바일 예매 시 사용하실 수 있으며, 스크래치가 개봉된 지류(종이)관람권은
-									현장사용이 불가합니다.</li>
-								<li>관람권으로 예매 후 취소한 경우, 사용하신 관람권은 유효기간 내 재사용할 수 있습니다.</li>
-								<li>유효기간이 지난 관람권은 사용이 불가합니다. (관람일 기준)</li>
-								<li>관람권은 금액권이 아니므로 관람하시는 영화의 티켓 가격 대비 차액은 환급되지 않습니다.</li>
-								<li>(조조/청소년 등 할인가격 영화 관람 시 차액 환불 불가)</li>
-								<li>관람권 종류에 따라 규정된 사용정책이 다르니, 사용전 관람권정보를 확인바랍니다.</li>
-								<li>관람권 사용 시, 관람권별로 규정된 멤버십 포인트가 적립됩니다.</li>
-							</ul>
-						</div>
-					</div> -->
 
 				</div>
 			</div>
-			<!-- inner-wrap 끝 -->
 
-			<div class="box-radius mb00 ">
-				<!-- 						<div class="box-top">
-							<strong>마케팅정보 수신동의</strong>
-						</div> -->
-
-				<!-- <div class="box-bot">
-							<p>
-								거래정보와 관련된 내용(예매완료/취소)과 소멸포인트 안내는 수신동의 여부와 관계없이 SMS, PUSH 알림 또는
-								이메일로 발송됩니다.<br> 이 외 타 정보는 수신동의를 하셔야만 받으실 있습니다. (2014.05.16
-								기준)
-							</p>
-
-							<div class="mt05 mb05 font-gblue">
-								<i class="iconset ico-exclamation-gblue"></i> 수신동의 여부를 선택해 주세요.
-							</div>
-
-							<div class="chk-box">
-								<strong class="label w80px">이메일</strong> <input type="radio"
-									name="marketEmailRcvAgreeAt" id="chk3" value="Y"> <label
-									for="chk3" class="w80px">수신동의</label> <input type="radio"
-									name="marketEmailRcvAgreeAt" id="chk4" value="N" checked="">
-								<label for="chk4" class="w80px">수신거부</label>
-
-
-							</div>
-
-							<div class="chk-box mt05">
-								<strong class="label w80px">SMS</strong> <input type="radio"
-									name="marketSmsRcvAgreeAt" id="chk5" value="Y" checked="">
-								<label for="chk5" class="w80px">수신동의</label> <input type="radio"
-									name="marketSmsRcvAgreeAt" id="chk6" value="N"> <label
-									for="chk6" class="w80px">수신거부</label> <span>(동의일시 :
-									2017-07-01 13:57)</span><br>
-
-							</div>
-
-							
-			<div class="chk-box mt05">
-				<strong class="label w80px">PUSH</strong>
-				<input type="radio" name="marketPushRcvAgreeAt" id="chk7" value="Y" 
-				>
-				<label for="chk7" class="w80px">수신동의</label>
-
-				<input type="radio" name="marketPushRcvAgreeAt" id="chk8" value="N" checked
-				>
-				<label for="chk8" class="w80px">수신거부</label>
-
-				
-			</div>
-			
-						</div> -->
-			</div>
 
 
 
 		</div>
 	</div>
 
-
-
-
-
-
-	<section id="saw_movie_regi" class="modal-layer">
-		<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-			class="focus">레이어로 포커스 이동 됨</a> <input type="hidden" id="isLogin"
-			value="Y">
-		<div class="wrap">
-			<!-- 				<header class="layer-header">
-					<h3 class="tit">본 영화 등록</h3>
-				</header> -->
-
-			<div class="layer-con">
-				<p class="reset">발권하신 티켓 하단의 거래번호 또는 예매번호를 입력해주세요.</p>
-
-				<div class="pop-gray mt10 mb30">
-					<label for="movie_regi" class="mr10">거래번호 또는 예매번호</label> <input
-						type="text" id="movie_regi" class="input-text w280px numType"
-						maxlength="20" placeholder="숫자만 입력해 주세요" title="티켓 거래번호 입력">
-					<button class="button gray ml05" id="regBtn">등록</button>
-				</div>
-
-				<div class="box-border v1 mt30">
-					<p class="tit-box">이용안내</p>
-
-					<ul class="dot-list">
-						<li>극장에서 예매하신 내역을 본 영화(관람이력)로 등록하실 수 있습니다.</li>
-						<li>예매처를 통해 예매하신 고객님은 극장에서 발권하신 티켓 하단의 온라인 예매번호 <br>12자리를
-							입력해주세요.(Yes24, 네이버, 인터파크, SKT, KT, 다음)
-						</li>
-						<li>본 영화 등록은 관람인원수 만큼 등록가능하며, 동일 계정에 중복등록은 불가합니다.</li>
-						<li>상영시간 종료 이후 등록 가능합니다.</li>
-						<li>본 영화로 수동 등록한 내역은 이벤트 참여 및 포인트 추후 적립이 불가합니다.</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="btn-group-fixed">
-				<button type="button" class="button purple close-layer">닫기</button>
-			</div>
-
-			<button type="button" class="btn-modal-close">레이어 닫기</button>
-		</div>
-	</section>
-
-	<div class="quick-area" style="display: block;">
-		<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-			class="btn-go-top" title="top" style="position: absolute;">top</a>
-	</div>
-
-	<!-- footer -->
-	<!-- 	<footer id="footer">
-			footer-top
-			<div class="footer-top">
-				<div class="inner-wrap">
-					<ul class="fnb">
-						<li><a href="https://www.megabox.co.kr/megaboxinfo"
-							title="회사소개 페이지로 이동">회사소개</a></li>
-						<li><a href="https://www.megabox.co.kr/recruit"
-							title="인재채용 페이지로 이동">인재채용</a></li>
-						<li><a href="https://www.megabox.co.kr/socialcontribution"
-							title="사회공헌 페이지로 이동">사회공헌</a></li>
-						<li><a href="https://www.megabox.co.kr/partner"
-							title="제휴/광고/부대사업문의 페이지로 이동">제휴/광고/부대사업문의</a></li>
-						<li><a href="https://www.megabox.co.kr/support/terms"
-							title="이용약관 페이지로 이동">이용약관</a></li>
-						<li><a href="https://www.megabox.co.kr/support/lcinfo"
-							title="위치기반서비스 이용약관 페이지로 이동">위치기반서비스 이용약관</a></li>
-						<li class="privacy"><a
-							href="https://www.megabox.co.kr/support/privacy"
-							title="개인정보처리방침 페이지로 이동">개인정보처리방침</a></li>
-						<li><a href="https://jebo.joonganggroup.com/main.do"
-							target="_blank" title="윤리경영 페이지로 이동">윤리경영</a></li>
-					</ul>
-
-					<a
-						href="https://www.megabox.co.kr/mypage/additionalinfo#layer_looking_theater"
-						class="btn-looking-theater" title="극장찾기"><i
-						class="iconset ico-footer-search"></i> 극장찾기</a>
-				</div>
-			</div>
-			// footer-top
-
-			footer-bottom
-			<div class="footer-bottom">
-				<div class="inner-wrap">
-					<div class="ci">MEGABOX : Life Theater</div>
-
-					<div class="footer-info">
-						<div>
-							<address>서울특별시 성동구 왕십리로 50, 6층 (성수동1가, 메가박스 스퀘어)</address>
-							<p>ARS 1544-0070</p>
-						</div>
-						<p>대표자명 홍정인</p>
-						<p>· 개인정보보호책임자 공성진</p>
-						<p>· 사업자등록번호 211-86-59478</p>
-						<p>· 통신판매업신고번호 2023-서울성동-0177</p>
-						<p class="copy">COPYRIGHT © MegaboxJoongAng, Inc. All rights
-							reserved</p>
-					</div>
-
-					<div class="footer-sns">
-						<a href="https://www.youtube.com/onmegabox" target="_blank"
-							title="MEGABOX 유튜브 페이지로 이동"><i class="iconset ico-youtubeN">유튜브</i></a>
-						<a href="http://instagram.com/megaboxon" target="_blank"
-							title="MEGABOX 인스타그램 페이지로 이동"><i
-							class="iconset ico-instagramN">인스타그램</i></a> <a
-							href="https://www.facebook.com/megaboxon" target="_blank"
-							title="MEGABOX 페이스북 페이지로 이동"><i class="iconset ico-facebookN">페이스북</i></a>
-						<a href="https://twitter.com/megaboxon" target="_blank"
-							title="MEGABOX 트위터 페이지로 이동"><i class="iconset ico-twitterN">트위터</i></a>
-					</div>
-				</div>
-			</div>
-			// footer-bottom
-			<div id="layer_looking_theater" class="layer-looking-theater"></div>
-		</footer> -->
-	<!--// footer -->
-
-	<!-- 모바일 때만 출력 -->
-	<div class="go-mobile" style="display: none;">
-		<a href="https://www.megabox.co.kr/mypage/additionalinfo#"
-			data-url="https://m.megabox.co.kr">모바일웹으로 보기 <i
-			class="iconset ico-go-mobile"></i></a>
-	</div>
-	</div>
-	<form id="mainForm"></form>
 
 	<div class="normalStyle"
 		style="display: none; position: fixed; top: 0; left: 0; background: #000; opacity: 0.7; text-indent: -9999px; width: 100%; height: 100%; z-index: 100;">닫기</div>
@@ -3430,6 +2555,5 @@ $(function(){
 	<div>
 		<footer th:replace="~{/include/footer :: footer}"></footer>
 	</div>
-
 </body>
 </html>

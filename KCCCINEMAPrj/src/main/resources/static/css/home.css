@@ -241,12 +241,12 @@
   margin-bottom: 60px;
 }
 .movie_title ul {
+  display: flex;
   overflow: hidden;
-  width: 848px;
+  width: 632px;
   margin: 0 auto;
 }
 .movie_title li {
-  float: left;
   width: 210px;
   margin-right: -1px;
   text-align: center;
@@ -279,6 +279,7 @@
 }
 .movie_chart > div > div > div .poster img {
   display: block;
+      height: 419px;
 }
 .movie_chart > div > div > div .poster .rank {
   position: absolute;
@@ -318,19 +319,25 @@
   border: 1px solid #d9d9d9;
 }
 .movie_chart > div > div > div .infor h3 {
+	display:flex;
   color: #333;
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 20px;
 }
 .movie_chart > div > div > div .infor h3 strong {
+	flex:7;
   padding-left: 0px;
+  overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 }
 .movie_chart > div > div > div .infor h3 span {
+	flex:1;
   width: 29px;
   height: 29px;
   display: inline-block;
-  margin-top: 9px;
+      margin: 5px 8px 0 0;
   vertical-align: -2px;
 }
 .movie_chart > div > div > div .infor h3 span.all {
@@ -351,16 +358,20 @@
 .movie_chart > div > div > div .infor .infor_btn a {
   display: block;
   float: left;
-  width: 49%;
+  width: 100%;
   margin-right: 2%;
   padding: 10px 0;
   text-align: center;
-  background: #f2f2f2;
-  color: #666;
+  background: #020281;
+  color: #fff;
   font-size: 18px;
 }
 .movie_chart > div > div > div .infor .infor_btn a:last-child {
   margin-right: 0;
+}
+.movie_age_all {
+	background-color: #98f556;
+	border-radius: 50%;
 }
 
 /* 이벤트 */
@@ -1081,7 +1092,7 @@ body.modal_on {
     width: auto;
   }
   .movie_title li {
-    width: 25%;
+    width: 33.3%;
     box-sizing: border-box;
     padding-right: 1px;
   }

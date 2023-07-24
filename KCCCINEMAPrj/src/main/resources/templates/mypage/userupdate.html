@@ -18,10 +18,10 @@
 					<img class="user_face" src="./images/unknown.png">
 				</div>
 				<div class="user_inform">
-					<div><b>회원 IDㅤ: </b><input type="text" name="userId"></div>
-					<div><b>회원이름	: </b><input type="text" name="userName"></div>
-					<div><b>회원나이	: </b><input type="text" name="userAge"></div>
-					<div><b>회원생일	: </b><input type="date" name="userBirthDate"></div>
+					<div><b>회원ID : </b><span th:text=${mypageUserVO?.userId}>userId</span></div>
+					<div><b>회원이름	: </b><input type="text" th:value="${mypageUserVO?.userName}"></div>
+					<div><b>회원나이	: </b><input type="text" th:value=${mypageUserVO?.userAge}></div>
+					<div><b>회원생일	: </b><input type="date" th:value="${mypageUserVO?.userBirthDate}"></div>
 				</div>
 			</div>
 			<!-- userInformContainer div  -->

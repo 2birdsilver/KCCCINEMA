@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kcccinema.controller.mypage.IMypageUserRepository">
+
+<select id="selectUser" parameterType="hashmap" resultType="com.example.kcccinema.controller.mypage.MypageUserVO">
+	
+	<![CDATA[
+		SELECT
+			user_id			as "userId",
+			user_name		as "userName",
+			user_age		as "userAge",
+			user_birth_date	as "userBirthDate"
+		FROM
+			Users
+	]]>
+</select>
+
+<update id="updateUser" parameterType="com.example.kcccinema.controller.mypage.MypageUserVO">
+	<![CDATA[
+		UPDATE USERS
+		SET
+			user_name		=	#{userName}, 
+			user_age		=	#{userAge},
+			user_birth_date	=	#{userBirthDate}
+		WHERE
+			userId=#{userId}
+			
+		COMMIT;
+	]]>
+	
+</update>
+<delete id="deleteUser" parameterType="com.example.kcccinema.controller.mypage.MypageUserVO">
+<![CDATA[
+	DELETE FROM
+		users
+	WHERE
+		userId=#{userId}
+		
+	COMMIT;
+]]>
+</delete>
+
+
+
+</mapper>

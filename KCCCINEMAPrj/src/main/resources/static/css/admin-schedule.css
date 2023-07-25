@@ -51,30 +51,41 @@ h1 {
 	margin-bottom: 100px;
 }
 
+#selectedCinema select {
+	margin-right: 30px;
+} 
+
+#selectedCinema label {
+	margin-bottom: 5px;
+	margin-right: 3px;
+}
+
 /* 상영 시간 등록 */
 .btn-group, .pt40 {
 	margin-bottom: 100px !important;
 }
 
 /* 자동완성 */
-#movieListDropdown {
+#movieListDropdown  {
 	width: 240px;
-	border-radius: 5px;
+	border-radius: 20px;
 	border: 1px black;
 	display: none;
 	position: absolute;
 	background-color: #f9f9f9;
 	list-style: none;
-	padding: 3px;
-	margin: 5px;
-	border: 1px solid #ccc;
+	padding: 0;
+	margin: 10px;
+	/* border: 1px solid #ccc; */
 	z-index: 1;
 }
-#movieListDropdown {
-	padding: 1px;
+
+#movieListDropdown button {
+	width: 100%;
+	padding: 3px;
 }
 
 /* input 요소에 포커스가 갈 때 드롭다운 메뉴를 보여줍니다 */
-#movieNameInput:focus+#movieListDropdown {
+/* #movieNameInput:focus+#movieListDropdown {
 	display: block;
-}
+} */

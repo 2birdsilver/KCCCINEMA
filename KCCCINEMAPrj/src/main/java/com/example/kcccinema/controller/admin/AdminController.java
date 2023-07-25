@@ -17,6 +17,7 @@ import javax.json.JsonObjectBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
+import com.example.kcccinema.model.ScheduleVO;
 import com.example.kcccinema.service.movie.MovieService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -223,6 +225,11 @@ public class AdminController {
 	@RequestMapping("/schedule")
 	public String movieSchedule() {
 		return "admin/schedule";
+	}
+
+	@PostMapping("/schedule")
+	public void insertSchedule(@ModelAttribute ScheduleVO schedule) {
+		System.out.println(schedule);
 	}
 
 }

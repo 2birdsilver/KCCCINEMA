@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.kcccinema.dao.book.IBooking1Repository">
+<mapper
+	namespace="com.example.kcccinema.dao.book.IBooking1Repository">
 
 	<select id="getMovieList" parameterType="hashmap"
 		resultType="com.example.kcccinema.model.MovieVO">
@@ -23,7 +24,7 @@
 		from movie
 	]]>
 	</select>
-	
+
 	<select id="getCinemaList" parameterType="hashmap"
 		resultType="com.example.kcccinema.model.CinemaVO">
 	<![CDATA[
@@ -34,7 +35,7 @@
 		from cinema
 	]]>
 	</select>
-	
+
 	<select id="getTheaterList" parameterType="hashmap"
 		resultType="com.example.kcccinema.model.TheaterVO">
 	<![CDATA[
@@ -43,9 +44,9 @@
 			cinema_id		as "cinemaId",
 			theater_no		as "theaterNo"
 		from theater
-	]]>	
+	]]>
 	</select>
-	
+
 	<select id="getCinemaName" parameterType="hashmap"
 		resultType="string">
 	<![CDATA[
@@ -55,19 +56,24 @@
 		where cinema_location = #{cinemaLocation}
 	]]>
 	</select>
-	
+
 	<select id="getScheduleList" parameterType="hashmap"
 		resultType="com.example.kcccinema.model.ScheduleVO">
-		select
-			schedule_id		as "scheduleId",
-			screen_date		as "screenDate",
-			time_id			as "timeId",
-			movie_id		as "movieId",
-			theater_id		as "theaterId",
-			cinema_id		as "cinemaId"
-		from schedule
-		where screen_date = #{selectedDate}
-			and movie_id = (select movie_id from movie where movie_title = #{movieTitle})
-			and cinema_id = (select cinema_id from cinema where cinema_name = #{cinemaName})
+	<![CDATA[
+		SELECT
+		schedule.schedule_id AS "scheduleId",
+		schedule.screen_date AS "screenDate",
+		schedule.location	AS "location",
+		schedule.time_id AS "time",
+		schedule.movie_id AS "movieId",
+		movie.movie_title AS "movieTitle",
+		schedule.theater_id AS "theaterId",
+		schedule.cinema_id AS "cinemaId"
+		FROM schedule
+		JOIN movie ON schedule.movie_id = movie.movie_id
+		WHERE schedule.screen_date = #{selectedDate}
+		AND schedule.movie_id = (SELECT movie_id FROM movie WHERE movie_title =  #{movieTitle})
+		AND schedule.cinema_id = (SELECT cinema_id FROM cinema WHERE cinema_name = #{cinemaName})
+	]]>
 	</select>
 </mapper>

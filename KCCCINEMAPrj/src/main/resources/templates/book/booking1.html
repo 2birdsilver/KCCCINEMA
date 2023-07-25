@@ -389,13 +389,14 @@
 																	class="detail-list m-scroll area-cd10 mCustomScrollbar _mCS_4">
 																	<div id="mCSB_4"
 																		class="cinema_name_list mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
-																		style="height: 28px;background-color:#ebebeb;" tabindex="0">
+																		style="height: 28px; background-color: #ebebeb;"
+																		tabindex="0">
 																		<div id="mCSB_4_container" class="mCSB_container"
 																			style="position: relative; top: 0; left: 0;"
 																			dir="ltr">
 																			<ul>
-																				<li style="vertical-align: middle;margin:4px;">
-																				<span id="cinema_name" type="button" class="on" >혜화점</span>
+																				<li style="vertical-align: middle; margin: 4px;">
+																					<span id="cinema_name" type="button" class="on">혜화점</span>
 																				</li>
 																			</ul>
 																		</div>
@@ -457,7 +458,7 @@
 										</div>
 									</div>
 
-								
+
 									<!-- movie-schedule-area : 시간표 출력 영역-->
 									<div class="movie-schedule-area">
 
@@ -484,21 +485,6 @@
 														class="mCSB_container mCS_no_scrollbar_y"
 														style="position: relative; top: 0; left: 0;" dir="ltr">
 														<ul class="movie_schedule_list">
-															<li class="movie_time">
-																<button type="button" class="btn on">
-																	<div class="legend"></div>
-																	<span class="time"> <strong class="start_time" title="상영 시작">09:00</strong>
-																		<em title="상영 종료">~<span class="end_time">10:30</span></em>
-																	</span> <span class="title"> <strong
-																		class="movie_title_time">영화를 선택하세요.</strong> <em>2D(자막)</em></span>
-																	<div class="info">
-																		<span class="theater" title="극장">1관
-																		</span><span class="seat"><strong class="now"
-																			title="잔여 좌석">83</strong><span>/</span><em
-																			class="all" title="전체 좌석">118</em></span>
-																	</div>
-																</button>
-															</li>
 														</ul>
 													</div>
 
@@ -525,64 +511,103 @@
 												cinemaName: cinemaFinal},
 											type: "json",
 											success: function(data){
-												console.log(data);
-												const movieScheduleList = document.querySelector(".movie_schedule_list");
-												const scheduleList = data["scheduleList"].value;
-												console.log(scheduleList[0].scheduleId);//ul
-												data.forEach(function(schedule){
-													const childSchedule = document.createElement("li");;
+												const movieScheduleList = document.querySelector(".movie_schedule_list");//ul
+												const scheduleList = data["scheduleList"];
+												
+												for(var i=0; i<scheduleList.length; i++){
+													console.log(scheduleList[i].scheduleId);
+													const childSchedule = document.createElement("li");
 													childSchedule.className = "movie_time";
-													/* childSchedule.innerHTML = '
-														<button type="button" class="btn on">
-															<div class="legend"></div>
-															<span class="time"> 
-																<strong class="start_time" title="상영 시작">schedule.timeId</strong>
-																<em title="상영 종료">~<span class="end_time">10:30</span></em>
-															</span> 
-															<span class="title"> 
-																<strong class="movie_title_time">영화를 선택하세요.</strong> 
-																<em>2D(자막)</em>
-															</span>
-															<div class="info">
-																<span class="theater" title="극장">1관</span>
-																<span class="seat">
-																<strong class="now" title="잔여 좌석">83</strong>
-																<span>/</span>
-																<em class="all" title="전체 좌석">118</em>
-																</span>
-															</div>
-														</button>';*/
+													
+													var startTime = "";
+													var endTime="";
+													switch (scheduleList[i].time) {
+													  	case 1:
+														  	startTime="09:00";
+														  	endTime="10:30";
+														    break;
+														case 2:
+															startTime="11:00";
+															endTime="12:30";
+														    break;
+														case 3:
+														  	startTime="13:00";
+														  	endTime="14:30";
+														    break;
+														case 4:
+															startTime="15:00";
+															endTime="16:30";
+														    break;
+														case 5:
+														  	startTime="17:00";
+														  	endTime="18:30";
+														    break;
+														case 6:
+															startTime="19:00";
+															endTime="20:30";
+														    break;
+														default:
+														    
+														}
+													childSchedule.innerHTML = 
+														'<button type="button" class="btn on">'+
+															'<div class="legend"></div>'+
+															'<span class="time">'+
+																'<strong class="start_time" title="상영 시작">'+
+																	startTime +
+																'</strong>'+
+																'<em title="상영 종료">~<span class="end_time">'+
+																	endTime+
+																'</span></em>'+
+															'</span>'+
+															'<span class="title">'+
+																'<strong class="movie_title_time">'+
+																	scheduleList[i].movieTitle+
+																'</strong>'+
+																'<em>2D(자막)</em>'+
+															'</span>'+
+															'<div class="info">'+
+																'<span class="theater" title="극장">'+
+																	scheduleList[i].theaterId+"관"+'</span>'+
+																'<span class="seat">'+
+																'<strong class="now" title="잔여 좌석">83</strong>'+
+																'<span>/</span>'+
+																'<em class="all" title="전체 좌석">118</em>'+
+																'</span>'+
+															'</div>'+
+														'</button>';
 													movieScheduleList.append(childSchedule);
+												}
+												
+												const movieTimeList = document.querySelectorAll('.movie_time');
+												
+												movieTimeList.forEach(item => {
+													item.addEventListener('click',()=>{
+														removeBackground();
+														var startTime = item.querySelector('.start_time');
+														var endTime= item.querySelector('.end_time');
+														var theater =item.querySelector('.theater');
+														item.style.backgroundColor="#ebebeb";
+														startTimeFinal = startTime.innerText;
+														endTimeFinal = endTime.innerText;
+														theaterFinal = theater.innerText;
+														console.log(startTimeFinal, endTimeFinal, theaterFinal);
+													});
 												});
+												
+												function removeBackground() {
+													movieTimeList.forEach(item => {
+														item.style.backgroundColor = "";
+			    									});
+												}
+											
 											},
 											error: function(error){
 												console.log("error: ", error)
 											}
 										});
 									});
-									
-									const movieTimeList = document.querySelectorAll('.movie_time');
-									movieTimeList.forEach(item => {
-										item.addEventListener('click',()=>{
-											removeBackground();
-											var startTime = item.querySelector('.start_time');
-											var endTime= item.querySelector('.end_time');
-											var theater =item.querySelector('.theater');
-											item.style.backgroundColor="#ebebeb";
-											startTimeFinal = startTime.innerText;
-											endTimeFinal = endTime.innerText;
-											theaterFinal = theater.innerText;
-											console.log(startTimeFinal, endTimeFinal, theaterFinal);
-										});
-									});
-									
-									function removeBackground() {
-										movieTimeList.forEach(item => {
-											item.style.backgroundColor = "";
-    									});
-									}
-									
-									</script>
+									</script>									
 
 								</div>
 								<!--// time-choice : 상영시간표 선택 -->

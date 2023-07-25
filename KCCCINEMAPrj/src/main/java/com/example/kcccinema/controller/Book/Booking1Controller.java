@@ -86,9 +86,6 @@ public class Booking1Controller {
 	@ResponseBody
 	public JSONObject schedule(String selectedDate, String movieTitle, String cinemaName) throws Exception{
 		System.out.println(selectedDate+movieTitle+cinemaName);
-		// 포맷터
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
-//        String d = formatter.format(selectedDate);
         // 문자열 -> Date
         Date date = Date.valueOf(selectedDate);
         System.out.println(date);

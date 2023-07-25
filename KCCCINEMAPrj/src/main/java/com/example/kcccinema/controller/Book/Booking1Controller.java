@@ -1,16 +1,20 @@
 package com.example.kcccinema.controller.Book;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import javax.json.JsonObject;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +28,7 @@ import com.example.kcccinema.model.CinemaVO;
 import com.example.kcccinema.model.DateVO;
 import com.example.kcccinema.model.MovieTitleVO;
 import com.example.kcccinema.model.MovieVO;
+import com.example.kcccinema.model.ScheduleVO;
 import com.example.kcccinema.model.TheaterVO;
 import com.example.kcccinema.service.book.IBooking1Service;
 import com.example.kcccinema.service.movie.IMovieService;
@@ -74,80 +79,29 @@ public class Booking1Controller {
 		List<TheaterVO> theaterList = booking1Service.getTheaterList();
 		model.addAttribute("theaterList", theaterList);
 		
-		//오늘날짜 구하기
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy,MM,dd,HH,mm");
-		String[] nowTime = sdf1.format(new Date()).split(",");
-		int year = Integer.parseInt(nowTime[0]);
-		int month = Integer.parseInt(nowTime[1]);
-		int preDay = Integer.parseInt(nowTime[2]) - 1;
-
-		Calendar cal = Calendar.getInstance();
-		cal.set(year, month, preDay);
-		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
-		//상단 날짜 14개 구하기
-		List<DateVO> dayWeekList = new ArrayList<DateVO>();
-		String strMonth="";
-		
-		int cnt = 0;
-		for (int i = 0; i < 15; i++) {
-			DateVO dateVO = new DateVO();
-			if ((preDay + i - 2) >= lastDay) {
-				cnt++;
-				int nextMonthDay = 0;
-				if(month == 12) {
-					year++;
-					month = 0;
-				}
-				dateVO.setYear(Integer.toString(year));
-			
-				if((month + 1)<10) {
-					strMonth = "0" + Integer.toString(month + 1);
-				}
-				
-				dateVO.setMonth(strMonth);
-				dateVO.setDay(Integer.toString(nextMonthDay + cnt));
-
-				LocalDate date = LocalDate.of(year, month + 1, nextMonthDay + cnt);
-				DayOfWeek dayOfWeek = date.getDayOfWeek();
-				dateVO.setDayOfweek(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN).substring(0, 1));			
-				
-				dayWeekList.add(dateVO);
-				continue;
-			}
-			dateVO.setYear(Integer.toString(year));
-			
-			if((month)<10) {
-				strMonth = "0" + Integer.toString(month);
-			}
-			
-			dateVO.setMonth(strMonth);
-			dateVO.setDay(Integer.toString(preDay + i));
-
-//			LocalDate date = LocalDate.of(year, month, preDay + i);
-//			DayOfWeek dayOfWeek = date.getDayOfWeek();
-//			dateVO.setDayOfweek(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN).substring(0, 1));			
-			
-			dayWeekList.add(dateVO);
-		}
-		
-		//날짜 모델에 저장하여 전달.
-		model.addAttribute("dayWeekList", dayWeekList);
-		
-		//시간 리스트 구하기
-		List<String> timeList = new ArrayList<String>();
-		String strI = "";
-		for(int i=0;i<10;i++) {
-			strI = Integer.toString(i);
-			if(i<10) {
-				strI = "0" + strI;
-			}
-			timeList.add(strI);
-		}
-		model.addAttribute("timeList", timeList);
-		
 		return "book/booking1";
 	}
+	
+	@RequestMapping(value="/book/schedule", method=RequestMethod.GET)
+	@ResponseBody
+	public JSONObject schedule(String selectedDate, String movieTitle, String cinemaName) throws Exception{
+		System.out.println(selectedDate+movieTitle+cinemaName);
+		// 포맷터
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+//        String d = formatter.format(selectedDate);
+        // 문자열 -> Date
+        Date date = Date.valueOf(selectedDate);
+        System.out.println(date);
+		JSONObject schedule = new JSONObject();
+		List<ScheduleVO> scheduleList = new ArrayList<ScheduleVO>();
+		scheduleList = booking1Service.getScheduleList(date, movieTitle, cinemaName);
+		System.out.println(scheduleList);
+		schedule.put("scheduleList", scheduleList);
+		System.out.println(schedule);
+		return schedule;
+	}
+	
+	
 	
 	@RequestMapping(value ="/booking1", method=RequestMethod.POST)
 	public String book1(MovieVO movieVO, HttpSession session, Model model) {

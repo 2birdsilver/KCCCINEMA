@@ -24,14 +24,19 @@
 <!-- DatePicker -->
 <link rel="stylesheet"
 	th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}">
-<link rel="stylesheet"
-	th:href="@{resources/css/plugin/datepicker/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
 <script th:src="@{https://code.jquery.com/jquery-3.2.1.js}"></script>
-<script
-	th:src="@{resources/js/plugin/datepicker/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js//bootstrap-datepicker.js}"></script>
 <th:block th:replace="~{/include/header :: header}">
 </head>
 <body class="body-iframe">
+	<script>
+		var movieTitleFinal = "영화이름";
+		var cinemaFinal ="시네마";
+		var theaterFinal = "상연관";
+		var startTimeFinal = "시작시간";
+		var endTimeFinal = "종료시간";
+	</script>
 	<div class="body-wrap">
 		<div class="main-container" style="padding-bottom: 240px;">
 			<div class="page-util" style="">
@@ -47,27 +52,7 @@
 				style="padding-top: 40px; padding-bottom: 100px;">
 				<input type="hidden" id="playDe" name="playDe" value="2022.04.11">
 				<input type="hidden" id="crtDe" name="crtDe" value="2022.04.11">
-				<script>
-				var movieTitleFinal = "";
-				var theaterFinal = "";
-				var timeFinal = "";
-				
-				const seatChoiceBtn = document.querySelector('.seat_choice_btn');
-				seatChoiceBtn.addEventListener('click', function(){
-						$.ajax({
-							url: "/booking2",
-							async: false,
-							method: "POST",
-							data: {cinemaLocation: cinemaLocation},
-							success: function(data){
-								console.log("good");
-							},
-							error: function(error){
-								console.log("error: ", error)
-							}
-						});
-					});
-				</script>
+
 				<form action="" method="post" name="myForm">
 					<!-- quick-reserve -->
 					<div class="quick-reserve">
@@ -350,12 +335,13 @@
 											
 											var movieTitle= spanChild.innerText;
 											movieTitleFinal = movieTitle;
+											console.log(movieTitleFinal);
 											const moviespan = document.querySelectorAll('.movie_title_time');
 											for(var i=0; i<moviespan.length; i++){
 												moviespan[i].innerText = movieTitle;
 											}
 											});
-											console.log(movieTitleFinal);
+											
 										});
 	
 										function removeSelectedClass() {
@@ -402,14 +388,14 @@
 																<div
 																	class="detail-list m-scroll area-cd10 mCustomScrollbar _mCS_4">
 																	<div id="mCSB_4"
-																		class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
-																		style="max-height: none;" tabindex="0">
+																		class="cinema_name_list mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
+																		style="height: 28px;background-color:#ebebeb;" tabindex="0">
 																		<div id="mCSB_4_container" class="mCSB_container"
 																			style="position: relative; top: 0; left: 0;"
 																			dir="ltr">
 																			<ul>
-																				<li class="cinema_name_list"><span
-																					id="cinema_name" type="button" class="on">강남</span>
+																				<li style="vertical-align: middle;margin:4px;">
+																				<span id="cinema_name" type="button" class="on" >혜화점</span>
 																				</li>
 																			</ul>
 																		</div>
@@ -424,20 +410,22 @@
 									</div>
 									<!--// list-area -->
 
-									<script>
+									<script>									
 										const cinemaLists = document.querySelectorAll('#cinema_location');
+										const cinemaName = document.querySelector('.cinema_name_list');
+										
 										for(var i=0; i<cinemaLists.length; i++){
 											cinemaLists[i].addEventListener('click', function(){
 												var oneCinema = this.querySelector('.txt');
 												const cinemaLocation = oneCinema.innerText;
-												
+												cinemaName.style.backgroundColor="#ebebeb";
+												cinemaName.style.color="black";
 												$.ajax({
 													url: "/book/cinema",
 													async: true,
 													method: "GET",
 													data: {cinemaLocation: cinemaLocation},
 													success: function(data){
-														console.log(data[0]);
 														const cinemaButton =document.querySelector('#cinema_name');
 														cinemaButton.innerText=data[0];
 													},
@@ -447,6 +435,10 @@
 												});
 											});
 										}
+										
+										
+										
+										
 									</script>
 
 
@@ -465,75 +457,7 @@
 										</div>
 									</div>
 
-									<!-- hour-schedule : 시간 선택  : 00~30 시-->
-									<div class="hour-schedule">
-										<button type="button" class="btn-prev-time">이전 시간 보기</button>
-										<div class="wrap">
-											<div class="view"
-												style="position: absolute; width: 1015px; transition: none 0s ease 0s; left: -665px;">
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">00</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">01</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">02</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">03</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">04</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">05</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">06</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">07</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">08</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">09</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">10</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">11</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">12</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">13</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">14</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">15</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">16</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">17</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">18</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">19</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">20</button>
-												<button type="button" class="hour on" style="opacity: 1;">21</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">22</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">23</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">24</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">25</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">26</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">27</button>
-												<button type="button" class="hour" disabled="disabled"
-													style="opacity: 0.5">28</button>
-											</div>
-										</div>
-										<button type="button" class="btn-next-time">다음 시간 보기</button>
-									</div>
-									<!--// hour-schedule : 시간 선택  : 00~30 시-->
-
+								
 									<!-- movie-schedule-area : 시간표 출력 영역-->
 									<div class="movie-schedule-area">
 
@@ -559,51 +483,16 @@
 													<div id="mCSB_16_container"
 														class="mCSB_container mCS_no_scrollbar_y"
 														style="position: relative; top: 0; left: 0;" dir="ltr">
-														<ul>
-															<li>
-																<button type="button" class="btn on" onclick="sendIt();">
+														<ul class="movie_schedule_list">
+															<li class="movie_time">
+																<button type="button" class="btn on">
 																	<div class="legend"></div>
-																	<span class="time"> <strong title="상영 시작">09:00</strong>
-																		<em title="상영 종료">~23:46</em>
+																	<span class="time"> <strong class="start_time" title="상영 시작">09:00</strong>
+																		<em title="상영 종료">~<span class="end_time">10:30</span></em>
 																	</span> <span class="title"> <strong
-																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
-																			화가</strong> <em>2D(자막)</em></span>
+																		class="movie_title_time">영화를 선택하세요.</strong> <em>2D(자막)</em></span>
 																	<div class="info">
-																		<span class="theater" title="극장">센트럴<br>1관
-																		</span><span class="seat"><strong class="now"
-																			title="잔여 좌석">83</strong><span>/</span><em
-																			class="all" title="전체 좌석">118</em></span>
-																	</div>
-																</button>
-															</li>
-
-															<li>
-																<button type="button" class="btn on" onclick="sendIt();">
-																	<div class="legend"></div>
-																	<span class="time"> <strong title="상영 시작">15:00</strong>
-																		<em title="상영 종료">~23:46</em>
-																	</span> <span class="title"> <strong
-																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
-																			화가</strong> <em>2D(자막)</em></span>
-																	<div class="info">
-																		<span class="theater" title="극장">센트럴<br>2관
-																		</span><span class="seat"><strong class="now"
-																			title="잔여 좌석">83</strong><span>/</span><em
-																			class="all" title="전체 좌석">118</em></span>
-																	</div>
-																</button>
-															</li>
-
-															<li>
-																<button type="button" class="btn on" onclick="sendIt();">
-																	<div class="legend"></div>
-																	<span class="time"> <strong title="상영 시작">19:00</strong>
-																		<em title="상영 종료">~23:46</em>
-																	</span> <span class="title"> <strong
-																		class="movie_title_time">루이스 웨인: 사랑을 그린 고양이
-																			화가</strong> <em>2D(자막)</em></span>
-																	<div class="info">
-																		<span class="theater" title="극장">센트럴<br>3관
+																		<span class="theater" title="극장">1관
 																		</span><span class="seat"><strong class="now"
 																			title="잔여 좌석">83</strong><span>/</span><em
 																			class="all" title="전체 좌석">118</em></span>
@@ -619,6 +508,81 @@
 										</div>
 									</div>
 									<!--// movie-schedule-area : 시간표 출력 영역-->
+									<script>
+									cinemaName.addEventListener('click', function(){
+										this.style.backgroundColor="#000048";
+										this.style.color="white";
+										var cinema = cinemaName.innerText;
+										console.log(cinema);
+										cinemaFinal = cinemaName.innerText;
+										
+										$.ajax({
+											url: "/book/schedule",
+											method: "GET",
+											data: {
+												selectedDate: "2023-07-23",
+												movieTitle: movieTitleFinal,
+												cinemaName: cinemaFinal},
+											type: "json",
+											success: function(data){
+												console.log(data);
+												const movieScheduleList = document.querySelector(".movie_schedule_list");
+												const scheduleList = data["scheduleList"].value;
+												console.log(scheduleList[0].scheduleId);//ul
+												data.forEach(function(schedule){
+													const childSchedule = document.createElement("li");;
+													childSchedule.className = "movie_time";
+													/* childSchedule.innerHTML = '
+														<button type="button" class="btn on">
+															<div class="legend"></div>
+															<span class="time"> 
+																<strong class="start_time" title="상영 시작">schedule.timeId</strong>
+																<em title="상영 종료">~<span class="end_time">10:30</span></em>
+															</span> 
+															<span class="title"> 
+																<strong class="movie_title_time">영화를 선택하세요.</strong> 
+																<em>2D(자막)</em>
+															</span>
+															<div class="info">
+																<span class="theater" title="극장">1관</span>
+																<span class="seat">
+																<strong class="now" title="잔여 좌석">83</strong>
+																<span>/</span>
+																<em class="all" title="전체 좌석">118</em>
+																</span>
+															</div>
+														</button>';*/
+													movieScheduleList.append(childSchedule);
+												});
+											},
+											error: function(error){
+												console.log("error: ", error)
+											}
+										});
+									});
+									
+									const movieTimeList = document.querySelectorAll('.movie_time');
+									movieTimeList.forEach(item => {
+										item.addEventListener('click',()=>{
+											removeBackground();
+											var startTime = item.querySelector('.start_time');
+											var endTime= item.querySelector('.end_time');
+											var theater =item.querySelector('.theater');
+											item.style.backgroundColor="#ebebeb";
+											startTimeFinal = startTime.innerText;
+											endTimeFinal = endTime.innerText;
+											theaterFinal = theater.innerText;
+											console.log(startTimeFinal, endTimeFinal, theaterFinal);
+										});
+									});
+									
+									function removeBackground() {
+										movieTimeList.forEach(item => {
+											item.style.backgroundColor = "";
+    									});
+									}
+									
+									</script>
 
 								</div>
 								<!--// time-choice : 상영시간표 선택 -->
@@ -636,6 +600,24 @@
 								좌석 선택</div>
 						</button>
 					</div>
+					<script>
+						const seatChoiceBtn = document.querySelector('.seat_choice_btn');
+						seatChoiceBtn.addEventListener('click', function(){
+							$.ajax({
+								url: "/booking2",
+								async: false,
+								method: "POST",
+								data: {
+									movieTitleFinal: movieTitleFinal},
+								success: function(data){
+									console.log("good");
+								},
+								error: function(error){
+									console.log("error: ", error)
+								}
+							});
+						});
+				</script>
 				</form>
 			</div>
 		</div>

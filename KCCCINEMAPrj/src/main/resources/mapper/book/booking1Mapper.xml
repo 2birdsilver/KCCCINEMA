@@ -55,4 +55,19 @@
 		where cinema_location = #{cinemaLocation}
 	]]>
 	</select>
+	
+	<select id="getScheduleList" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.ScheduleVO">
+		select
+			schedule_id		as "scheduleId",
+			screen_date		as "screenDate",
+			time_id			as "timeId",
+			movie_id		as "movieId",
+			theater_id		as "theaterId",
+			cinema_id		as "cinemaId"
+		from schedule
+		where screen_date = #{selectedDate}
+			and movie_id = (select movie_id from movie where movie_title = #{movieTitle})
+			and cinema_id = (select cinema_id from cinema where cinema_name = #{cinemaName})
+	</select>
 </mapper>

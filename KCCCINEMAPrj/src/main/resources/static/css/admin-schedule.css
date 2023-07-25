@@ -14,7 +14,6 @@ h1 {
 /* #contents.location-fixed {
     padding-top: 50px !important;
 } */
-
 #footer {
 	height: 300px !important;
 }
@@ -28,25 +27,23 @@ h1 {
 	margin: 0 auto !important;
 }
 
-.board-form td > input, select {
-height: 35px !important;
-padding: 0 5px !important;
-border-radius: 7px !important;
+.board-form td>input, select {
+	height: 35px !important;
+	padding: 0 5px !important;
+	border-radius: 7px !important;
 }
 
 /* 캘린더 부분 */
 .time-schedule .date-list {
-	    width: 700px !important;
+	width: 700px !important;
 }
 
-
-
 .time-schedule .year {
-	    left: 710px !important;
+	left: 710px !important;
 }
 
 #first-year {
-	 left: 30px !important;
+	left: 30px !important;
 }
 
 /* 영화관 부분 */
@@ -57,4 +54,27 @@ border-radius: 7px !important;
 /* 상영 시간 등록 */
 .btn-group, .pt40 {
 	margin-bottom: 100px !important;
+}
+
+/* 자동완성 */
+#movieListDropdown {
+	width: 240px;
+	border-radius: 5px;
+	border: 1px black;
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	list-style: none;
+	padding: 3px;
+	margin: 5px;
+	border: 1px solid #ccc;
+	z-index: 1;
+}
+#movieListDropdown {
+	padding: 1px;
+}
+
+/* input 요소에 포커스가 갈 때 드롭다운 메뉴를 보여줍니다 */
+#movieNameInput:focus+#movieListDropdown {
+	display: block;
 }

@@ -465,7 +465,7 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
 // 				return;
 // 			}
 			//비밀번호 변경3개월 초과	//다음에하기, 비밀번호 재설정 M-ME-FI-04
-			else if (revStr == "loginPwdUpt3mm") {
+/* 			else if (revStr == "loginPwdUpt3mm") {
 				$('#loginForm input[name=redisKey]').attr('value',redisKey);
 				var options = {};
 				options.msg        = '회원님의 개인정보 보호를 위해 3개월마다 비밀번호 변경안내를 시행하고 있습니다.\n안전한 서비스 이용을 위해 비밀번호 변경 후 이용바랍니다.\n지금 변경 하시겠습니까?\n\n마지막 변경일 : '+loginPwdLstUptDt+'('+pwdUptDayco+'일전)';
@@ -487,9 +487,9 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
 // 					fn_mvPage("/main");	//메인페이지로 이동
 // 					return;
 // 				}
-			}
+			} */
 			//마케팅 수신일 2년 초과	//todo 다음에하기, 수신동의 설정 내정보 수정화면 개발후연결
-			else if (revStr == "marketRcv") {
+/* 			else if (revStr == "marketRcv") {
 				var options        = {};
 				options.msg        = '마케팅 수신 동의일로부터 2년이 경과되어, 수신에 대한 재동의 안내를 시행하고 있습니다. \n메가박스의 다양한 소식 및 이벤트를 받고 싶으시면 수신동의 재설정이 필요합니다.  \n수신동의 재설정을 진행 하시겠습니까?\n\n[수신동의 정보]\n'+marketRcvStr+'';
 				//options.msg        = '마케팅 수신 동의일로부터 2년이 경과되어, 수신에 대한 재동의 안내를 시행하고 있습니다. \n메가박스의 다양한 소식 및 이벤트를 받고 싶으시면 수신동의 재설정이 필요합니다.  \n수신동의 재설정을 진행 하시겠습니까?\n\n[수신동의 정보]\n&#39;+lstSmsRcvAgreeDt+&#39;'.replaceAll('\n','<br/>');
@@ -502,7 +502,7 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
 				options.minHeight = 300;
 				gfn_confirmMsgBox(options);
 				return;
-			}
+			} */
 			//관리자에의한 패스워드 초기화 //비밀번호 재설정 M-ME-FI-04	관리자에 의한 패스워드 초기화는 없다.
 // 			else if (revStr == "loginPwdReset") {
 // // 				mbLayer.toggle({id:revStr, msg:'비밀번호 재설정이 완료되었습니다. 다시 로그인해 주시기 바랍니다.', btn:'확인', callback:fn_mvPage, param:'/pw-register', minHeight:200, type:'single' });
@@ -583,7 +583,7 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
 		// 좌석도 진입전 로그인 체크인 경우
 		var obj = objChk;
 
-		if(bokdLoginAt == "Y"){
+/* 		if(bokdLoginAt == "Y"){
 			if(typeof obj != "undefined"){
 				$('.before').hide();
 				$('.after').show();
@@ -599,8 +599,8 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
 				$('#layer_login_select button.btn-modal-close').trigger("click");
 				fn_validDataRevisn(JSON.parse($('#loginForm input[name=bokdLoginParam]').val()));
 			}
-		}
-		else {
+		} */
+/* 		else {
 			if (reloadYn == "N") {
 
 				$('.before').hide();
@@ -625,15 +625,15 @@ function fn_selectMbLogin(sLoginId, sLloginPwd, snsLoginAt, redisKey){
                 ////////////////////////////////////////////
                 ////////////////////////////////////////////
 			}
-		}
+		} */
 
-		if (callback) {
+/* 		if (callback) {
 			try {
 				callback();
 			} catch (e) {
 				console.error(e);
 			}
-		}
+		} */
 	}
 
 	//페이지 이동 submit
@@ -886,7 +886,7 @@ $(function(){
 
 	/*이벤트*/
 	/* 인증번호 전송 버튼 클릭*/
-	$("#nonMbCertNoSend").click(function(){
+/* 	$("#nonMbCertNoSend").click(function(){
 		if($("#nonMbCertNoSend").hasClass("disabled")){
 			return;
 		}
@@ -966,7 +966,7 @@ $(function(){
 				alert(err.message);
 			}
 		});
-	});
+	}); */
 
 
 	//인증번호 확인 버튼 클릭
@@ -1056,7 +1056,7 @@ $(function(){
 	});
 
 	// 비회원 로그인
-	$("#btnNonMbLogin").click(function(){
+/* 	$("#btnNonMbLogin").click(function(){
 
 		var paramData = { nonMbNm:$("#ibxNonMbNm").val()
 						, nonMbByymmdd:$("#ibxNonMbByymmdd").val()
@@ -1178,7 +1178,7 @@ $(function(){
 	        $("#loginForm").attr("action",page);
 	        $("#loginForm").submit();
 	    }
-	});
+	}); */
 });
 
 function fn_adTracking(url){
@@ -1692,11 +1692,11 @@ $(function(){
 		<!-- 로그인 레이어팝업 시작 -->
 		<!-- 화면ID  M-ME-LO-01 -->
 		<!-- 화면ID  M-ME-CC-01 -->
-		<div style="display: none;">
+		<!-- 		<div style="display: none;">
 			<a id="loginPupupATag"
 				href="https://www.megabox.co.kr/mypage/additionalinfo#layer_login_select"
 				class="button active btn-modal-open" w-data="850" h-data="484"></a>
-		</div>
+		</div> -->
 
 		<section id="layer_login_select" class="modal-layer"
 			style="z-index: 501;">
@@ -1987,11 +1987,11 @@ $(function(){
 	$(function() {
 
 		// 취소 버튼
-		$('#cancelBtn').on('click', function(e) {
+/* 		$('#cancelBtn').on('click', function(e) {
 			e.preventDefault();
 
 			location.href = '/mypage';
-		});
+		}); */
 
 		// 수정 버튼
 		$('#updateBtn').on('click', function() {
@@ -2322,7 +2322,7 @@ $(function(){
 						</div>
 					</div>
 
-					<section id="layer_coupon_regi" class="modal-layer">
+					<!-- 					<section id="layer_coupon_regi" class="modal-layer">
 						<a href="https://www.megabox.co.kr/mypage/movie-coupon"
 							class="focus">레이어로 포커스 이동 됨</a> <a
 							href="https://www.megabox.co.kr/mypage/movie-coupon"
@@ -2375,7 +2375,7 @@ $(function(){
 
 							<button type="button" class="btn-modal-close">레이어 닫기</button>
 						</div>
-					</section>
+					</section> -->
 
 					<div class="board-list-util">
 						<p class="result-count">
@@ -2384,7 +2384,7 @@ $(function(){
 						</p>
 
 
-						- <select id="statusSelector">
+						<select id="statusSelector">
 							<option value="all-movies">전체</option>
 							<option value="상영중">상영중</option>
 							<option value="상영예정">상영예정</option>
@@ -2409,30 +2409,21 @@ $(function(){
 									<th data-field-name="Screening" scope="col">현재 상태</th>
 								</tr>
 							</thead>
-							<!-- 							<tbody>
-								<tr th:each="movie : ${movieList}">
-									<td th:text="${movie.movieId}"></td>
-									<td th:text="${movie.movieCategory}"></td>
-									<td th:text="${movie.movieTitle}"></td>
-									<td th:text="${movie.openingDate}"></td>
-									<td th:text="${movie.closingDate}"></td>
-									<td th:text="${movie.Screening}"></td>
-								</tr>
-							</tbody> -->
+
 							<tbody>
 								<tr th:each="movie : ${movieList}">
-									<td class="editable" th:text="${movie.movieId}"
-										data-id="${movie.movieId}"></td>
+									<td th:text="${movie.movieId}" th:data-id="${movie.movieId}"
+										data-field-name="movieId"></td>
 									<td class="editable" th:text="${movie.movieCategory}"
-										data-id="${movie.movieId}"></td>
+										th:data-id="${movie.movieId}" data-field-name="movieCategory"></td>
 									<td class="editable" th:text="${movie.movieTitle}"
-										data-id="${movie.movieId}"></td>
+										th:data-id="${movie.movieId}" data-field-name="movieTitle"></td>
 									<td class="editable" th:text="${movie.openingDate}"
-										data-id="${movie.movieId}"></td>
+										th:data-id="${movie.movieId}" data-field-name="openingDate"></td>
 									<td class="editable" th:text="${movie.closingDate}"
-										data-id="${movie.movieId}"></td>
-									<td class="editable" th:text="${movie.Screening}"
-										data-id="${movie.movieId}"></td>
+										th:data-id="${movie.movieId}" data-field-name="closingDate"></td>
+									<td th:text="${movie.Screening}" th:data-id="${movie.movieId}"
+										data-field-name="Screening"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -2449,7 +2440,7 @@ $(function(){
                 method: "POST",
                 data: { status: selectedStatus },
                 success: function(response) {
-                    // 서버로부터 받은 데이터로 테이블을 갱신합니다.
+                    // 서버로부터 받은 데이터로 테이블을 갱신
                     console.log(response);
                     var tableBody = document.querySelector('#movieTable tbody');
                     tableBody.innerHTML = '';
@@ -2493,43 +2484,138 @@ $(function(){
 
 
 					<!-- 더블클릭 시 영화 정보 수정 -->
+
+
+					<!-- 모달창 -->
+					<div id="myModal" class="modal">
+						<div class="modal-content">
+							<h2>수정 확인</h2>
+							<p id="modalMessage">변경 사항을 저장하시겠습니까?</p>
+							<button id="confirmBtn">수정</button>
+							<button id="cancelBtn">취소</button>
+						</div>
+					</div>
+
+
+
+
 					<script>
-    // 더블클릭 이벤트 리스너 등록
-    document.querySelectorAll('#movieTable tbody td.editable').forEach(function(cell) {
-        cell.addEventListener('dblclick', function() {
-            // 클릭한 셀의 내용을 input 태그로 변경
-            var originalValue = cell.textContent;
-            cell.innerHTML = '<input type="text" value="' + originalValue + '">';
+	/* 전역변수 */
+    var editingCell = null;
+    var originalValue = null;
+    var newValue = null;
 
-            var input = cell.querySelector('input');
-            input.focus();
-            input.setSelectionRange(0, input.value.length);
+    /* 모달창 함수 */
+    function showModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
 
-            // input 태그에서 포커스를 잃을 때 이벤트 리스너 등록
-            input.addEventListener('blur', function() {
-                var newValue = input.value;
-                // 서버로 수정된 데이터를 전송하고 성공적으로 수정되면 값을 텍스트로 변경
-                // 이 부분은 서버와 연동하여 구현해야 합니다.
+        var confirmBtn = document.getElementById("confirmBtn");
+        var cancelBtn = document.getElementById("cancelBtn");
 
-                var movieId = cell.getAttribute('data-id');
+        confirmBtn.addEventListener("click", function () {
+            console.log("editingCell: " + editingCell);
+           console.log("newValue: " + newValue);
+        	if (editingCell) {
+        		/* newValue = editingCell.querySelector("input").value; */
+        		var sendValue = newValue;
                 // AJAX 요청 보내기
+                var movieId = editingCell.getAttribute('data-id');
+                var fieldName = editingCell.dataset.fieldName;
+
+                // 실제로는 서버 주소와 필요한 데이터 등을 적절하게 수정해야 합니다.
                 $.ajax({
                     url: "/admin/movies/updateMovieData",
                     method: "POST",
-                    data: { movieId: movieId, newValue: newValue },
-                    success: function(response) {
-                        // 서버에서 응답을 받았을 때 처리할 내용
-                        // 예시로 응답값을 바로 텍스트로 반영
-                         cell.textContent = response.updatedValue; 
+                    data: {
+                        movieId: movieId,
+                        newValue: sendValue,
+                        fieldName: fieldName
                     },
-                    error: function(error) {
+                    success: function () {
+                        // 서버 응답 처리 (예시로 응답값을 셀에 반영)
+                        /* console.log(response); */
+                        editingCell.textContent = newValue;
+                        originalValue = newValue;
+                        modal.style.display = "none"; // 모달 창 닫기
+                    },
+                    error: function (error) {
                         console.log("Error occurred:", error);
+                        // 에러 처리 (예시로 원래 값으로 복원)
+                        editingCell.textContent = originalValue;
+                    },
+                    complete: function () {
+                        /* editingCell = null;  */
+                        console.log("complete!");
                     }
                 });
+            }
+        });
+        cancelBtn.addEventListener("click", function () {
+            if (editingCell) {
+                editingCell.textContent = originalValue;
+            }
+            modal.style.display = "none"; // 모달 창 닫기
+        });
+    }
+
+    /* 더블 클릭시 입력창 생성 */
+    function addEditListener(cell) {
+        cell.addEventListener('dblclick', function handleDoubleClick() {
+            if (editingCell) {
+                editingCell.textContent = originalValue;
+            }
+
+            /* 콘솔 테스트 */
+            console.log("cell 생기기 전");
+            console.log(cell);
+            console.log("cell 생기기 후");
+            
+            editingCell = cell;
+            
+            console.log("editingCell 생기기 전");
+            console.log("editing: " + editingCell);
+            console.log("editingCell 생긴 후");
+            
+
+            originalValue = cell.textContent;
+            /* cell.innerHTML = '<input type="text" id="tempInput" value="' + originalValue + '">'; */
+            if (cell.getAttribute('data-field-name') === "openingDate" || cell.getAttribute('data-field-name') === "closingDate") {
+      // 만약 data-field-name이 "openingDate"이거나 "closingDate"인 경우, date 타입의 input 태그를 생성
+      cell.innerHTML = '<input type="date" id="tempInput" value="' + originalValue + '">';
+    } else {
+      cell.innerHTML = '<input type="text" id="tempInput" value="' + originalValue + '">';
+    }
+
+            var tempInput = document.getElementById("tempInput");
+            tempInput.focus();
+            /* tempInput.setSelectionRange(0, tempInput.value.length); */
+
+            tempInput.addEventListener('keydown', function handleKeyDown(event) {
+            	console.log("tempInput.value: " + tempInput.value);
+            	newValue = tempInput.value;
+            	console.log("newValue: " + newValue);
+                if (event.key === 'Enter') {
+                    showModal();
+                }
+            });
+
+            tempInput.addEventListener('blur', function handleBlur() {
+                if (editingCell) {
+                    editingCell.textContent = originalValue;
+                    /* editingCell = null; */
+                }
             });
         });
+    }
+
+    /* 모든 editable 셀에 더블클릭 이벤트 리스너 등록 */
+    document.querySelectorAll('#movieTable tbody td.editable').forEach(function (cell) {
+        addEditListener(cell);
+        console.log(cell); // console.log 오타 수정
     });
 </script>
+
 
 
 

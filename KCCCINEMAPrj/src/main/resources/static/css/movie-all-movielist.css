@@ -83,3 +83,7 @@ p[name="dbcScrean"], [name="mxScreen"] {
 .movie-list {
 	padding-top: 100px !important;
 }
+
+.movie-list ol li .btn-util .case {
+	width: 95%;
+}

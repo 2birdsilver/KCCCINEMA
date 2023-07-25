@@ -7,8 +7,9 @@
 	<typeAliases>
 		<typeAlias type="com.example.kcccinema.model.MovieVO"
 			alias="movieVO" />
+		<typeAlias type="java.util.Map" alias="Map" />
 	</typeAliases>
-	
+
 	<mappers>
 		<mapper resource="mybatis/mappers/movie.xml" />
 		<!-- <mapper resource="mybatis/mappers/board.xml"/> -->

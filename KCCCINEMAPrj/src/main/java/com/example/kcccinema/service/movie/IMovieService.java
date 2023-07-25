@@ -17,4 +17,7 @@ public interface IMovieService {
 	
 	/* 상영 상태에 따른 영화 조회 */
 	public List<MovieVO> getMoviesByStatus(String status);
+	
+	/* 영화 정보 수정 */
+	public boolean updateMovieData(int movieId, String fieldName, String newValue) throws Exception;
 }

@@ -11,4 +11,5 @@ public class ScheduleVO {
 	private int timeId;
 	private int movieId;
 	private int theaterId;
+	private int cinemaId;
 }

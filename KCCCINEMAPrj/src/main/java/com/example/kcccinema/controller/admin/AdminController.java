@@ -1,15 +1,23 @@
 package com.example.kcccinema.controller.admin;
 
 import java.io.File; 
+
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +31,9 @@ import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
 import com.example.kcccinema.service.movie.MovieService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -35,9 +46,6 @@ public class AdminController {
 	private MovieVO movie;
 	@Autowired
 	private MovieService movieService;
-
-
-	/* 기능1: 영화관리*/
 
 	/* 상영 영화 조회 */
 	@RequestMapping(value="/movies", method=RequestMethod.GET)
@@ -67,22 +75,62 @@ public class AdminController {
 		}
 		return movieList;
 	}
-	
-	/* 영화 정보 수정 */
-	@PostMapping("/admin/movies/updateMovieData")
-	@ResponseBody
-	public String updateMovieData(@RequestParam("movieId") String movieId, @RequestParam("newValue") String newValue) {
-	    // 영화 데이터 업데이트 로직 수행
-	    // ...
 
-	    // 업데이트된 값을 JSON 형태로 응답
-	    Map<String, String> responseMap = new HashMap<>();
-	    responseMap.put("updatedValue", newValue);
-	    return "lee";
+	/* 영화명 자동검색 */
+	@RequestMapping(value = "/schedule/movieTitle", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> searchMoviesTitle(@RequestParam("keyword") String searchWord, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		List<String> movieTitleList = new ArrayList<>();
+		if (searchWord.equals("") || searchWord.length() == 0) {
+			return movieTitleList;
+		}
+		System.out.println("searchWord: " + searchWord);
+		movieTitleList = movieService.searchMoviesTitle(searchWord);
+		System.out.println("movieTitleList: " + movieTitleList);
+		return movieTitleList;
 	}
-	
-	
-	
+
+	/* 영화 정보 수정 */
+	@PostMapping("/movies/updateMovieData")
+	@ResponseBody
+	public void updateMovieData(@RequestParam("movieId") String movieId,
+			@RequestParam("fieldName") String fieldName,
+			@RequestParam("newValue") String newValue) throws Exception{
+		// movieId int타입으로 형변환
+		int id = Integer.parseInt(movieId);
+
+		System.out.println("fieldName: " + fieldName);
+
+		// newValue의 타입에 따라 처리를 분기
+
+		if (fieldName.equals("openingDate") || fieldName.equals("closingDate")){
+			//			Date dateValue = (Date) newValue;
+			//			movieService.updateMovieData(id, fieldName, dateValue);
+			//			System.out.println("DateValue: " + dateValue);
+
+			// 날짜 포맷을 지정
+			String pattern = "yyyy-MM-dd";
+
+			// SimpleDateFormat을 이용하여 문자열을 Date로 변환
+			SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+			try {
+				java.util.Date parsedDate = dateFormat.parse(newValue);
+				Date sqlDate = new Date(parsedDate.getTime());
+				movieService.updateMovieData(id, fieldName, sqlDate);
+				System.out.println("SQL Date: " + sqlDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}  else {
+			String stringValue = (String) newValue;
+			movieService.updateMovieData(id, fieldName, stringValue);
+			System.out.println("StringValue: " + stringValue);
+		}
+	}
+
+
+
 
 
 	/* 영화 추가 */
@@ -101,7 +149,7 @@ public class AdminController {
 		// 이미지파일 처리
 		if(file!=null && !file.isEmpty()) {
 			try {
-				// 바이트 변환은 임시파일은 .tmp가 사라지기전에 해주어야 하므로 Multipartfile작업 전에 해준다.
+				// 바이트 변환은 임시파일은 .tmp가 사라지기전에 해주어야 하므로 Multipartfile작업 전에 처리
 				byte[] imageData = file.getBytes();
 
 				String filePath = UPLOAD_POSTER + file.getOriginalFilename();
@@ -172,7 +220,7 @@ public class AdminController {
 
 
 	/* 상영 시간 관리 페이지 */
-	@RequestMapping(value="/schedule", method=RequestMethod.GET)
+	@RequestMapping("/schedule")
 	public String movieSchedule() {
 		return "admin/schedule";
 	}

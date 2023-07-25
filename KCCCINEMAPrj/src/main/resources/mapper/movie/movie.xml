@@ -31,7 +31,7 @@
         select * from movie order by OPENING_DATE desc
       ]]>
 	</select>
-	
+
 	<!-- private int movieId; private String movieTitle; private String movieCategory; 
 		private int movieScore; private Date openingDate; private Date closingDate; 
 		private int runningTime; private String movieDirector; private String movieSynopsis; 
@@ -93,6 +93,15 @@
         ]]>
 	</insert>
 
+	<!-- 영화 정보 변경 -->
+	<update id="updateMovie" parameterType="java.util.Map"> 
+	<![CDATA[ 
+    UPDATE movie set
+ ${fieldName} = #{newValue}
+    WHERE MOVIE_ID = #{movieId}
+	]]>
+	</update>
+
 	<!-- 영화 검색 -->
 	<select id="selectMoviesBySearchWord" resultMap="movieResult"
 		parameterType="String">
@@ -102,6 +111,17 @@
 		    PERFORMER like '%'|| #{searchWord} || '%' OR 
 		    MOVIE_TITLE like '%'|| #{searchWord} || '%' OR 
 		    MOVIE_DIRECTOR like '%'|| #{searchWord} || '%'
+		    order by OPENING_DATE desc
+		]]>
+	</select>
+	
+		<!-- 영화명 자동완성 -->
+	<select id="selectMoviesTitle" resultMap="movieResult"
+		parameterType="String">
+     <![CDATA[
+			select * 
+			from movie
+		    where MOVIE_TITLE like '%'|| #{searchWord} || '%' 
 		    order by OPENING_DATE desc
 		]]>
 	</select>

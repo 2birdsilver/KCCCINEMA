@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -61,6 +63,7 @@ public class MovieService{
 		return allMovieList;
 	}
 
+	/* 영화 날짜순 조회 */
 	public List<MovieVO> getMovieListByDate() {
 		List<MovieVO> movieListDate = movieRepository.selectMovieListByDate();
 
@@ -80,6 +83,7 @@ public class MovieService{
 		return movieListDate;
 	}
 
+	/* 영화 상영 상태에 따른 조회 */
 	public List<MovieVO> getMoviesByStatus(String status) {
 		List<MovieVO> movieListByStatus = new ArrayList<MovieVO>();
 		List<MovieVO> allMovieList = getAllMovieList();
@@ -91,6 +95,7 @@ public class MovieService{
 		return movieListByStatus;
 	}
 
+	/* 영화 포스터 이미지 압축 */
 	private static byte[] compressImage(byte[] imageData, double compressionQuality) {
 		try (InputStream inputStream = new ByteArrayInputStream(imageData)) {
 			BufferedImage originalImage = ImageIO.read(inputStream);
@@ -119,6 +124,48 @@ public class MovieService{
 		}
 	}
 
+	/* 영화 수정 */
+
+	/* 카테고리, 제목 수정 */
+	public boolean updateMovieData(int movieId, String fieldName, String newValue) throws Exception {
+		Map<String, Object> updateInformation = new HashMap<>();
+		updateInformation.put("movieId", movieId);
+		if (fieldName.equals("movieCategory")) {
+			fieldName = "MOVIE_CATEGORY";
+		} else {
+			fieldName = "MOVIE_TITLE";
+		} 
+		updateInformation.put("fieldName", fieldName);
+		updateInformation.put("newValue", newValue);
+
+		int resultNumber = movieRepository.updateMovie(updateInformation);
+		if (resultNumber == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/* 상영 시작일, 상영 종료일 수정 */
+	public boolean updateMovieData(int movieId, String fieldName, Date newDate) throws Exception {
+		Map<String, Object> updateInformation = new HashMap<>();
+		updateInformation.put("movieId", movieId);
+		if(fieldName.equals("openingDate")) {
+			fieldName = "OPENING_DATE";
+		} else {
+			fieldName = "CLOSING_DATE";
+		}
+		updateInformation.put("fieldName", fieldName);
+		updateInformation.put("newValue", newDate);
+
+		int resultNumber = movieRepository.updateMovie(updateInformation);
+		if (resultNumber == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/* 영화 검색 */
 	public List<MovieVO> searchMovies(String searchWord) throws Exception {
 		List<MovieVO> movieList = movieRepository.selectMoviesBySearchWord(searchWord);
@@ -127,6 +174,16 @@ public class MovieService{
 			movie.setBase64Image(base64Image);
 		}
 		return movieList;
+	}
+	
+	/* 영화명 자동완성 */
+	public List<String> searchMoviesTitle(String searchWord) throws Exception {
+		List<MovieVO> movieList = movieRepository.selectMoviesTitle(searchWord);
+		List<String> movieTitleList = new ArrayList<>();
+		for (MovieVO movie : movieList) {
+			movieTitleList.add(movie.getMovieTitle());
+		}
+		return movieTitleList;
 	}
 
 }

@@ -3047,44 +3047,49 @@ function fn_movieSerach(paging) {
 										alt="Image">
 									<div th:text="${movie.movieSynopsis}" class="summary"></div>
 								</div>
-					<div class="tit-area">
-						<div class="adult-image">
-							<!-- 성인 영화인 경우 1일 때의 이미지 -->
-							<img th:src="@{/images/adult.png}" alt="Adult Movie Image"
-								th:if="${movie.isAdultMovie eq '1'}">
-							<!-- 성인 영화가 아닌 경우 0일 때의 이미지 -->
-							<img th:src="@{/images/all.png}" alt="Non-Adult Movie Image"
-								th:if="${movie.isAdultMovie eq '0'}">
-						</div>
-						<p th:text="${movie.movieTitle}" title="바비" class="tit"></p>
+								
+								<!-- 세은: 연령에 따른 아이콘 삽입 -->
+								<div class="tit-area">
+									<div class="adult-image">
+										<!-- 성인 영화인 경우 1일 때의 이미지 -->
+										<img th:src="@{/images/adult.png}" alt="Adult Movie Image"
+											th:if="${movie.isAdultMovie eq '1'}">
+										<!-- 성인 영화가 아닌 경우 0일 때의 이미지 -->
+										<img th:src="@{/images/all.png}" alt="Non-Adult Movie Image"
+											th:if="${movie.isAdultMovie eq '0'}">
+									</div>
+									<p th:text="${movie.movieTitle}" title="바비" class="tit"></p>
+								</div>
+								<div class="btn-util">
+<!-- 									<button type="button" class="button btn-like"
+										data-no="23049400">
+										<i title="보고싶어 안함"
+											class="iconset ico-heart-toggle-gray intrstType"></i> <span>1k</span>
+									</button> -->
+<!-- 									<p class="txt movieStat1" style="display: none">상영예정</p>
+									<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
+									<p class="txt movieStat5" style="display: none">개봉예정</p>
+									<p class="txt movieStat6" style="display: none">상영종료</p> -->
+									<div class="case movieStat4" style="">
+										<a href="https://www.megabox.co.kr/movie#"
+											class="button purple bokdBtn" data-no="23049400"
+											title="영화 예매하기">예매</a>
+									</div>
+								</div>
+							</li>
+						</ol>
 					</div>
-					<div class="btn-util">
-						<button type="button" class="button btn-like" data-no="23049400">
-							<i title="보고싶어 안함"
-								class="iconset ico-heart-toggle-gray intrstType"></i> <span>1k</span>
+					<!--// movie-list -->
+
+					<div class="btn-more v1" id="addMovieDiv" style="">
+						<button type="button" class="btn" id="loadMoreBtn">
+							더보기 <i class="iconset ico-btn-more-arr"></i>
 						</button>
-						<p class="txt movieStat1" style="display: none">상영예정</p>
-						<p class="txt movieStat2" style="display: none">7월 개봉예정</p>
-						<p class="txt movieStat5" style="display: none">개봉예정</p>
-						<p class="txt movieStat6" style="display: none">상영종료</p>
-						<div class="case movieStat4" style="">
-							<a href="https://www.megabox.co.kr/movie#"
-								class="button purple bokdBtn" data-no="23049400" title="영화 예매하기">예매</a>
-						</div>
 					</div>
-					</li>
-					</ol>
-				</div>
-				<!--// movie-list -->
 
-				<div class="btn-more v1" id="addMovieDiv" style="">
-					<button type="button" class="btn" id="loadMoreBtn">
-						더보기 <i class="iconset ico-btn-more-arr"></i>
-					</button>
-				</div>
-
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-				<script>
+					<!-- 세은: 더보기 버튼 -->
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script>
 $(document).ready(function() {
   // Number of movie items to show initially and the number of movie items to load each time the button is clicked
   var itemsToShowInitially = 20;
@@ -3110,9 +3115,9 @@ $(document).ready(function() {
 });
 </script>
 
-				<!-- 마우스 오버 하면 영화 설명 게시 -->
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-				<script>
+					<!-- 세은: 마우스 오버 하면 영화 설명 게시 -->
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script>
 				$(document).ready(function() {
   // 마우스 오버 시 설명 보이기
 /*    $("#movieList li").on("mouseover", function() {
@@ -3128,87 +3133,87 @@ $(document).ready(function() {
 
 
 
-				<!-- 	<div class="btn-more v1" id="addMovieDiv" style="">
+					<!-- 	<div class="btn-more v1" id="addMovieDiv" style="">
 					<button type="button" class="btn" id="btnAddMovie">
 						더보기 <i class="iconset ico-btn-more-arr"></i>
 					</button>
 				</div> -->
 
-				<!-- 검색결과 없을 때 -->
-				<div class="movie-list-no-result" id="noDataDiv"
-					style="display: none;">
-					<p>현재 상영중인 영화가 없습니다.</p>
-				</div>
-
-
-				<!-- 검색결과 없을 때 -->
-				<div class="movie-list-no-favor" id="noMyGenre"
-					style="display: none;">
-					<p>선호장르가 등록되지 않았습니다. 선호하시는 장르를 등록해보세요.</p>
-					<div class="btn-group center">
-						<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-							class="button large purple" title="선호장르설정하기 페이지로 이동">선호장르설정하기</a>
+					<!-- 검색결과 없을 때 -->
+					<div class="movie-list-no-result" id="noDataDiv"
+						style="display: none;">
+						<p>현재 상영중인 영화가 없습니다.</p>
 					</div>
+
+
+					<!-- 검색결과 없을 때 -->
+					<div class="movie-list-no-favor" id="noMyGenre"
+						style="display: none;">
+						<p>선호장르가 등록되지 않았습니다. 선호하시는 장르를 등록해보세요.</p>
+						<div class="btn-group center">
+							<a href="https://www.megabox.co.kr/mypage/additionalinfo"
+								class="button large purple" title="선호장르설정하기 페이지로 이동">선호장르설정하기</a>
+						</div>
+					</div>
+
+
 				</div>
-
-
 			</div>
 		</div>
-	</div>
-	<!--// container -->
-	<!-- 		</div> -->
+		<!--// container -->
+		<!-- 		</div> -->
 
 
 
 
-	<section id="saw_movie_regi" class="modal-layer">
-		<a href="https://www.megabox.co.kr/movie" class="focus">레이어로 포커스
-			이동 됨</a> <input type="hidden" id="isLogin">
-		<div class="wrap">
-			<!-- 				<header class="layer-header">
+		<section id="saw_movie_regi" class="modal-layer">
+			<a href="https://www.megabox.co.kr/movie" class="focus">레이어로 포커스
+				이동 됨</a> <input type="hidden" id="isLogin">
+			<div class="wrap">
+				<!-- 				<header class="layer-header">
 					<h3 class="tit">본 영화 등록</h3>
 				</header> -->
 
-			<div class="layer-con">
-				<p class="reset">발권하신 티켓 하단의 거래번호 또는 예매번호를 입력해주세요.</p>
+				<div class="layer-con">
+					<p class="reset">발권하신 티켓 하단의 거래번호 또는 예매번호를 입력해주세요.</p>
 
-				<div class="pop-gray mt10 mb30">
-					<label for="movie_regi" class="mr10">거래번호 또는 예매번호</label> <input
-						type="text" id="movie_regi" class="input-text w280px numType"
-						maxlength="20" placeholder="숫자만 입력해 주세요" title="티켓 거래번호 입력">
-					<button class="button gray ml05" id="regBtn">등록</button>
+					<div class="pop-gray mt10 mb30">
+						<label for="movie_regi" class="mr10">거래번호 또는 예매번호</label> <input
+							type="text" id="movie_regi" class="input-text w280px numType"
+							maxlength="20" placeholder="숫자만 입력해 주세요" title="티켓 거래번호 입력">
+						<button class="button gray ml05" id="regBtn">등록</button>
+					</div>
+
+					<div class="box-border v1 mt30">
+						<p class="tit-box">이용안내</p>
+
+						<ul class="dot-list">
+							<li>극장에서 예매하신 내역을 본 영화(관람이력)로 등록하실 수 있습니다.</li>
+							<li>예매처를 통해 예매하신 고객님은 극장에서 발권하신 티켓 하단의 온라인 예매번호 <br>12자리를
+								입력해주세요.(Yes24, 네이버, 인터파크, SKT, KT, 다음)
+							</li>
+							<li>본 영화 등록은 관람인원수 만큼 등록가능하며, 동일 계정에 중복등록은 불가합니다.</li>
+							<li>상영시간 종료 이후 등록 가능합니다.</li>
+							<li>본 영화로 수동 등록한 내역은 이벤트 참여 및 포인트 추후 적립이 불가합니다.</li>
+						</ul>
+					</div>
 				</div>
 
-				<div class="box-border v1 mt30">
-					<p class="tit-box">이용안내</p>
-
-					<ul class="dot-list">
-						<li>극장에서 예매하신 내역을 본 영화(관람이력)로 등록하실 수 있습니다.</li>
-						<li>예매처를 통해 예매하신 고객님은 극장에서 발권하신 티켓 하단의 온라인 예매번호 <br>12자리를
-							입력해주세요.(Yes24, 네이버, 인터파크, SKT, KT, 다음)
-						</li>
-						<li>본 영화 등록은 관람인원수 만큼 등록가능하며, 동일 계정에 중복등록은 불가합니다.</li>
-						<li>상영시간 종료 이후 등록 가능합니다.</li>
-						<li>본 영화로 수동 등록한 내역은 이벤트 참여 및 포인트 추후 적립이 불가합니다.</li>
-					</ul>
+				<div class="btn-group-fixed">
+					<button type="button" class="button purple close-layer">닫기</button>
 				</div>
-			</div>
 
-			<div class="btn-group-fixed">
-				<button type="button" class="button purple close-layer">닫기</button>
+				<button type="button" class="btn-modal-close">레이어 닫기</button>
 			</div>
+		</section>
 
-			<button type="button" class="btn-modal-close">레이어 닫기</button>
+		<div class="quick-area" style="display: none;">
+			<a href="https://www.megabox.co.kr/movie" class="btn-go-top"
+				title="top" style="position: fixed;">top</a>
 		</div>
-	</section>
 
-	<div class="quick-area" style="display: none;">
-		<a href="https://www.megabox.co.kr/movie" class="btn-go-top"
-			title="top" style="position: fixed;">top</a>
-	</div>
-
-	<!-- footer -->
-	<!-- 	<footer id="footer">
+		<!-- footer -->
+		<!-- 	<footer id="footer">
 		footer-top
 		<div class="footer-top">
 			<div class="inner-wrap">
@@ -3273,14 +3278,14 @@ $(document).ready(function() {
 		// footer-bottom
 		<div id="layer_looking_theater" class="layer-looking-theater"></div>
 	</footer> -->
-	<!--// footer -->
+		<!--// footer -->
 
-	<!-- 모바일 때만 출력 -->
-	<div class="go-mobile" style="display: none;">
-		<a href="https://www.megabox.co.kr/movie#"
-			data-url="https://m.megabox.co.kr">모바일웹으로 보기 <i
-			class="iconset ico-go-mobile"></i></a>
-	</div>
+		<!-- 모바일 때만 출력 -->
+		<div class="go-mobile" style="display: none;">
+			<a href="https://www.megabox.co.kr/movie#"
+				data-url="https://m.megabox.co.kr">모바일웹으로 보기 <i
+				class="iconset ico-go-mobile"></i></a>
+		</div>
 	</div>
 	<form id="mainForm"></form>
 

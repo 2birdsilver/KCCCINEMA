@@ -966,15 +966,14 @@
                     <p>비밀번호 확인</p>
                     <input
                       id="confirm_password_input"
+                      name="userPassword2"
                       type="password"
                       placeholder="비밀번호를 한 번 더 입력해주세요."
                     />
                   </div>
                 </div>
                 <div id="next_btn" class="next_btn2">
-                  <button id="second_btn" onclick="validateInput()">
-                    가입하기
-                  </button>
+                  <input type="submit" id="second_btn" onclick="validateInput()" value="가입하기">
                 </div>
               </div>
             </form>
@@ -983,7 +982,8 @@
               <div class="signup_fin">
                 <p>가입이 완료되었습니다!</p>
                 <div class="next_btn3">
-                  <p>3초 후 처음 화면으로 돌아갑니다.</p>
+                   <button id="home_btn" onclick="goToMain()">메인 화면으로</button>
+  					<button id="login_btn" onclick="goToLogin()">로그인하기</button>
                 </div>
               </div>
             </div>
@@ -1029,7 +1029,6 @@
         const ageInput = document.getElementById("age_input").value;
         const idInput = document.getElementById("id_input").value;
         const passwordInput = document.getElementById("password_input").value;
-        const confirmPasswordInput = document.getElementById("confirm_password_input").value;
 
         if (!nameInput) {
           alert("이름을 입력해주세요!");
@@ -1051,21 +1050,19 @@
           alert("비밀번호를 입력해주세요!");
           return;
         }
-        if (passwordInput !== confirmPasswordInput) {
-          alert("비밀번호가 맞지 않습니다!");
-          return;
-        }
 
         signup();
-        $(document).ready(function () {
-            //회원가입 버튼(회원가입 기능 작동)
-            $(".next_btn2").click(function () {
-              $("#signup_form").attr("action", "/signup");
-              $("#signup_form").submit();
-            });
-          });
+      }
+
+   // 메인 화면으로 이동 처리 함수
+      const goToMain = () => {
+        window.location.href = "/";
       };
 
+      // 로그인 화면으로 이동 처리 함수
+      const goToLogin = () => {
+        window.location.href = "/login";
+      };
       
     </script>
   </body>

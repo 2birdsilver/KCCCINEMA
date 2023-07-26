@@ -14,7 +14,7 @@
 	<insert id="insertMember" parameterType="com.example.kcccinema.model.UsersVO">
 	<![CDATA[
 		INSERT INTO 
-			member (user_id, user_name, user_password, user_age, user_birth_date, user_role) 
+			users (user_id, user_name, user_password, user_age, user_birth_date, user_role) 
 		VALUES 
 			(#{userId}, #{userName}, #{userPassword}, #{userAge}, #{userBirthDate}, 0)
 	]]>
@@ -31,7 +31,7 @@
 	
 	<update id="updateMember" parameterType="com.example.kcccinema.model.UsersVO">
 	<![CDATA[
-		UPDATE MEMBER
+		UPDATE users
 		SET 
 			user_name=#{userName}, user_password=#{userPassword}, user_age=#{userAge}, user_birth_dare=#{userBirthDate}
 		WHERE 
@@ -53,8 +53,8 @@
 		SELECT
 			password
 		FROM
-			member
-		WHERE userid=#{userid}
+			users
+		WHERE user_id=#{userId}
 	]]>
 	</select>
 </mapper>

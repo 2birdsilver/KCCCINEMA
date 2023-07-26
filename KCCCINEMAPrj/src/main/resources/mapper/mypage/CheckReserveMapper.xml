@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.example.kcccinema.repository.mypage.ICheckReserveRepository">
+	<select id="selectReserve" parameterType="string"
+		resultType="com.example.kcccinema.vo.mypage.CheckReserveVO">
+		<![CDATA[
+			select 
+				movie.movie_title		as		"movieTitle", 
+				movie.movie_poster		as		"moviePoster", 
+				seat.seat_no			as		"seatNo", 
+				schedule.screen_date	as		"screenDate", 
+				ticket.start_time		as		"startTime",
+				ticket.end_time			as		"endTime"
+				from ticket
+				join schedule on ticket.schedule_id = schedule.schedule_id
+				join movie on schedule.movie_id = movie.movie_id
+				join reserved_seat on ticket.ticket_id = reserved_seat.ticket_id
+				join seat on reserved_seat.seat_id = seat.seat_id
+				where ticket.user_id = #{userId}
+		]]>
+	</select>
+
+	<delete id="deleteReserve" parameterType="com.example.kcccinema.vo.mypage.CheckReserveVO">
+		DELETE FROM ticket
+		WHERE user_id = #{userId}
+	
+	</delete>
+</mapper>

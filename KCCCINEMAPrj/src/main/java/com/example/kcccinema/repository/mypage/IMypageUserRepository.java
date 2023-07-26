@@ -12,4 +12,5 @@ public interface IMypageUserRepository {
 	MypageUserVO selectUser(String userId);
 	void updateUser(MypageUserVO user);
 	void deleteMember(MypageUserVO user);
+	String getPassword(String userid);
 }

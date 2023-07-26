@@ -95,9 +95,9 @@ ul {
 	position: absolute;
 	width: 150px;
 	height: 150px;
-	border: solid  5px;
-	border-color:#000048;
-	border-radius:50%;
+	
+	
+	
 }
 .user_face {
 	border-radius:50%;
@@ -127,5 +127,20 @@ ul {
 	background-color:#000048;
 	margin-right: 10px;
 	color:white;
+	border-radius:5px;
+}
+.quitInput{
+	margin-top:10%;
+	margin-left:30%;
+	width:300%;
+	height:30%;
+	border-radius:5px;
+	font-size:200%;
+}
+.user_profile h1 {
+	font-size:150%;
+	width:500%;
+	margin-left:30%;
+	margin-top:30%;
 }
 

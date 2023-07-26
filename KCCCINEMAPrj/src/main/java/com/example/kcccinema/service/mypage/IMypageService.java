@@ -7,5 +7,6 @@ public interface IMypageService {
 		MypageUserVO selectUser(String userId);
 		void updateUser(MypageUserVO user);
 		void deleteMember(MypageUserVO user);
+		String getPassword(String userid);
 
 }

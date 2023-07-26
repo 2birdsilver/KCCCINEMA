@@ -12,5 +12,6 @@ public class MypageUserVO {
 	private String userName;
 	private int    userAge;
 	private Date   userBirthDate;
+	private String password;
 
 }

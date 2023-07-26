@@ -35,6 +35,12 @@ public class MypageService implements IMypageService{
 		mypageUserDao.deleteMember(user);
 		
 	}
+
+	@Override
+	public String getPassword(String userid) {
+		// TODO Auto-generated method stub
+		return mypageUserDao.getPassword(userid);
+	}
 	
 
 

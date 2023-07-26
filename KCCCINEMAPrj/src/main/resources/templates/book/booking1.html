@@ -31,11 +31,13 @@
 </head>
 <body class="body-iframe">
 	<script>
-		var movieTitleFinal = "영화이름";
-		var cinemaFinal ="시네마";
-		var theaterFinal = "상연관";
-		var startTimeFinal = "시작시간";
-		var endTimeFinal = "종료시간";
+		var dateFinal="date";//선택한 날짜
+		var movieTitleFinal = "movieTitle";//선택한 영화
+		var cinemaFinal ="cinema";//선택한 극장 지점
+		var theaterFinal = "theater";//선택한 관(1~3)
+		var startTimeFinal = "startTime";//시작 시간
+		var endTimeFinal = "endTime";//종료 시간
+		
 	</script>
 	<div class="body-wrap">
 		<div class="main-container" style="padding-bottom: 240px;">
@@ -73,7 +75,7 @@
 									<div class="date-list">
 										<!-- 년도, 월 표시 -->
 										<div class="year-area">
-											<div class="year" style="left: 30px; z-index: 1; opacity: 1;">2022.05</div>
+											<div class="year" style="left: 30px; z-index: 1; opacity: 1;">2023.07</div>
 											<div class="year"
 												style="left: 450px; z-index: 1; opacity: 0;"></div>
 										</div>
@@ -82,147 +84,133 @@
 												style="position: relative; width: 2100px; border: none; left: -70px;">
 												<button class="disabled holi" type="button"
 													date-data="2022.04.10" month="3" tabindex="-1">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">10<span
+													<span class="ir">2023/07/</span><em
+														style="pointer-events: none;"><span
+														style="pointer-events: none;" class="ir"></span></em><span
+														class="day-kr"
+														style="pointer-events: none; display: inline-block"></span><span
+														class="day-en" style="pointer-events: none; display: none"></span>
+												</button>
+												<button class="date_btn on" type="button">
+													<span class="ir">2023-07-</span> <em
+														style="pointer-events: none;"><span class="day">28</span><span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
-														style="pointer-events: none; display: inline-block">일</span><span
-														class="day-en" style="pointer-events: none; display: none">Sun</span>
+														style="pointer-events: none; display: inline-block">오늘</span>
+													<span class="day-en"
+														style="pointer-events: none; display: none">Fri</span>
 												</button>
-												<button class="on" type="button" date-data="2022.04.11"
-													month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">11<span
-														style="pointer-events: none;" class="ir">일</span></em><span
-														class="day-kr"
-														style="pointer-events: none; display: inline-block">오늘</span><span
-														class="day-en" style="pointer-events: none; display: none">Mon</span>
-												</button>
-												<button class="" type="button" date-data="2022.04.12"
-													month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">12<span
+												<button class="date_btn" type="button">
+													<span class="ir">2023-07-</span><em
+														style="pointer-events: none;"><span class="day">29</span><span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">내일</span><span
-														class="day-en" style="pointer-events: none; display: none">Tue</span>
-												</button>
-												<button class="" type="button" date-data="2022.04.13"
-													month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">13<span
-														style="pointer-events: none;" class="ir">일</span></em><span
-														class="day-kr"
-														style="pointer-events: none; display: inline-block">수</span><span
-														class="day-en" style="pointer-events: none; display: none">Wed</span>
-												</button>
-												<button class="" type="button" date-data="2022.04.14"
-													month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">14<span
-														style="pointer-events: none;" class="ir">일</span></em><span
-														class="day-kr"
-														style="pointer-events: none; display: inline-block">목</span><span
-														class="day-en" style="pointer-events: none; display: none">Thu</span>
-												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.15" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">15<span
-														style="pointer-events: none;" class="ir">일</span></em><span
-														class="day-kr"
-														style="pointer-events: none; display: inline-block">금</span><span
-														class="day-en" style="pointer-events: none; display: none">Fri</span>
-												</button>
-												<button class="disabled sat" type="button"
-													date-data="2022.04.16" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">16<span
-														style="pointer-events: none;" class="ir">일</span></em><span
-														class="day-kr"
-														style="pointer-events: none; display: inline-block">토</span><span
 														class="day-en" style="pointer-events: none; display: none">Sat</span>
 												</button>
-												<button class="disabled holi" type="button"
-													date-data="2022.04.17" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">17<span
+												<button class="date_btn" type="button">
+													<span class="ir">2023-07-</span><em
+														style="pointer-events: none;"><span class="day">30</span><span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">일</span><span
 														class="day-en" style="pointer-events: none; display: none">Sun</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.18" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">18<span
+												<button class="date_btn" type="button">
+													<span class="ir">2023-07-</span><em
+														style="pointer-events: none;"><span class="day">31</span><span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">월</span><span
 														class="day-en" style="pointer-events: none; display: none">Mon</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.19" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">19<span
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">1<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">화</span><span
 														class="day-en" style="pointer-events: none; display: none">Tue</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.20" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">20<span
+												<button class="disabled sat" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">2<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">수</span><span
 														class="day-en" style="pointer-events: none; display: none">Wed</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.21" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">21<span
+												<button class="disabled holi" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">3<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">목</span><span
 														class="day-en" style="pointer-events: none; display: none">Thu</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.22" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">22<span
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">4<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">금</span><span
 														class="day-en" style="pointer-events: none; display: none">Fri</span>
 												</button>
-												<button class="disabled sat" type="button"
-													date-data="2022.04.23" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">23<span
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">5<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">토</span><span
 														class="day-en" style="pointer-events: none; display: none">Sat</span>
 												</button>
-												<button class="disabled holi" type="button"
-													date-data="2022.04.24" month="3">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">24<span
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">6<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">일</span><span
 														class="day-en" style="pointer-events: none; display: none">Sun</span>
 												</button>
-												<button class="disabled" type="button"
-													date-data="2022.04.25" month="3" tabindex="-1">
-													<span class="ir">2022년 4월</span><em
-														style="pointer-events: none;">25<span
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">7<span
 														style="pointer-events: none;" class="ir">일</span></em><span
 														class="day-kr"
 														style="pointer-events: none; display: inline-block">월</span><span
 														class="day-en" style="pointer-events: none; display: none">Mon</span>
+												</button>
+												<button class="disabled" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">8<span
+														style="pointer-events: none;" class="ir">일</span></em><span
+														class="day-kr"
+														style="pointer-events: none; display: inline-block">화</span><span
+														class="day-en" style="pointer-events: none; display: none">Tue</span>
+												</button>
+												<button class="disabled sat" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">9<span
+														style="pointer-events: none;" class="ir">일</span></em><span
+														class="day-kr"
+														style="pointer-events: none; display: inline-block">수</span><span
+														class="day-en" style="pointer-events: none; display: none">Wed</span>
+												</button>
+												<button class="disabled holi" type="button">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">10<span
+														style="pointer-events: none;" class="ir">일</span></em><span
+														class="day-kr"
+														style="pointer-events: none; display: inline-block">목</span><span
+														class="day-en" style="pointer-events: none; display: none">Thu</span>
+												</button>
+												<button class="disabled" type="button" tabindex="-1">
+													<span class="ir">2023-08-</span><em
+														style="pointer-events: none;">11<span
+														style="pointer-events: none;" class="ir">일</span></em><span
+														class="day-kr"
+														style="pointer-events: none; display: inline-block">금</span><span
+														class="day-en" style="pointer-events: none; display: none">Fri</span>
 												</button>
 											</div>
 										</div>
@@ -281,6 +269,37 @@
 								</div>
 							</div>
 							<!--// time-schedule -->
+
+							<!-- 날짜 선택했을 때 script -->
+							<script>
+							const dateLists = document.querySelectorAll('.date_btn');
+							dateLists.forEach(item => {
+								item.addEventListener('click', () => {
+									//다른날짜의 스타일 없애기
+									removedateSelected();
+									//해당 날짜만 스타일 지정하기
+									item.style.backgoundColor="#f7f8f9";
+									item.style.borderBottom="2px solid #503396";
+									//해당 날짜 값으로 dateFinal 초기화(2023/00/00)형태
+									var yearMonth = item.querySelector(".ir");
+									var yearMonthData = yearMonth.innerText;
+									var day = item.querySelector("em .day");
+									var dayData = day.innerText;
+									var dateData = yearMonthData+dayData;
+									dateFinal = dateData;
+									console.log(dateFinal);
+								});
+							});
+
+							function removedateSelected() {
+								dateLists.forEach(item => {
+									item.style.backgroundColor="white";
+									item.style.borderBottom="none";
+							});
+							}
+							</script>
+							<!-- //날짜 선택했을 때 script -->
+
 
 							<!-- quick-reserve-area -->
 							<div class="quick-reserve-area">
@@ -506,7 +525,7 @@
 											url: "/book/schedule",
 											method: "GET",
 											data: {
-												selectedDate: "2023-07-23",
+												selectedDate: dateFinal,
 												movieTitle: movieTitleFinal,
 												cinemaName: cinemaFinal},
 											type: "json",
@@ -583,15 +602,44 @@
 												
 												movieTimeList.forEach(item => {
 													item.addEventListener('click',()=>{
+														
+														//좌석 선택 보이게 함.
+														var seatChoiceBtn = document.querySelector('.seat_choice_btn_wrap');
+														seatChoiceBtn.style.display="flex";
+														
+														//클릭한거만 스타일 지정하기
 														removeBackground();
+														item.style.backgroundColor="#ebebeb";
+														
+														//값 가져와서 저장하기
 														var startTime = item.querySelector('.start_time');
 														var endTime= item.querySelector('.end_time');
 														var theater =item.querySelector('.theater');
-														item.style.backgroundColor="#ebebeb";
 														startTimeFinal = startTime.innerText;
 														endTimeFinal = endTime.innerText;
 														theaterFinal = theater.innerText;
+														
 														console.log(startTimeFinal, endTimeFinal, theaterFinal);
+														
+														$.ajax({
+															url: "/book/choiceAll",
+															async: true,
+															method: "GET",
+															data: {
+																dateFinal: dateFinal,
+																movieTitleFinal: movieTitleFinal,
+																cinemaFinal: cinemaFinal,
+																theaterFinal: theaterFinal,
+																startTimeFinal: startTimeFinal,
+																endTimeFinal: endTimeFinal
+															},
+															success: function(data){
+																console.log(data);
+															},
+															error: function(error){
+																console.log("error: ", error)
+															}
+														});
 													});
 												});
 												
@@ -607,7 +655,7 @@
 											}
 										});
 									});
-									</script>									
+									</script>
 
 								</div>
 								<!--// time-choice : 상영시간표 선택 -->
@@ -618,22 +666,28 @@
 					</div>
 					<!--// quick-reserve -->
 					<div class="seat_choice_btn_wrap"
-						style="display: flex; justify-content: center; width: 100%; height: 100px; margin: 10px 0 10px 0;">
+						style="display: none; justify-content: center; width: 100%; height: 100px; margin: 10px 0 10px 0;">
 						<button class="seat_choice_btn"
 							style="border-radius: 5px; width: 20%; height: 80px; background-color: #000048; text-align: center;">
 							<div style="font-size: 200%; color: white; font-weight: bold;">
-								좌석 선택</div>
+								<a style="text-decoration: none; color:white;" href="/booking2">좌석 선택</a></div>
 						</button>
 					</div>
 					<script>
-						const seatChoiceBtn = document.querySelector('.seat_choice_btn');
+						/*const seatChoiceBtn = document.querySelector('.seat_choice_btn');
 						seatChoiceBtn.addEventListener('click', function(){
 							$.ajax({
 								url: "/booking2",
 								async: false,
-								method: "POST",
+								method: "GET",
 								data: {
-									movieTitleFinal: movieTitleFinal},
+									dateFinal: dateFinal,
+									movieTitleFinal: movieTitleFinal,
+									cinemaFinal: cinemaFinal,
+									theaterFinal: theaterFinal,
+									startTimeFinal: startTimeFinal,
+									endTimeFinal: endTimeFinal
+								},
 								success: function(data){
 									console.log("good");
 								},
@@ -641,7 +695,7 @@
 									console.log("error: ", error)
 								}
 							});
-						});
+						});*/
 				</script>
 				</form>
 			</div>

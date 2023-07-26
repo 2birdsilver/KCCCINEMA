@@ -1,22 +1,17 @@
 package com.example.kcccinema.controller.Book;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.kcccinema.model.CinemaVO;
-import com.example.kcccinema.model.DateVO;
 import com.example.kcccinema.model.MovieVO;
-import com.example.kcccinema.model.TheaterVO;
 import com.example.kcccinema.service.book.IBooking2Service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class Booking2Controller {
@@ -24,26 +19,16 @@ public class Booking2Controller {
 	@Autowired
 	private IBooking2Service booking2Service;
 	
-	@RequestMapping("/booking2")
-	public String book2(HttpServletRequest request, Model model) throws Exception {
-		//전 페이지에서 선택한 영화, 영화관 지점, 상영관, 시간을 보여줌.
-		MovieVO movieVO = booking2Service.getMovie(Integer.parseInt(request.getParameter("movieId")));
-		CinemaVO cinemaVO = booking2Service.getCinema(Integer.parseInt(request.getParameter("cinemaId")));
-		TheaterVO theaterVO = booking2Service.getTheater(Integer.parseInt(request.getParameter("theaterId")));
-		model.addAttribute("movieVO", movieVO);
-		model.addAttribute("cinemaVO", cinemaVO);
-		model.addAttribute("theaterVO",theaterVO);
-		
-		String[] arrDate = booking2Service.getDate(request.getParameter("date")).split("\\.");
-		int year = Integer.parseInt(arrDate[0]);
-		int month = Integer.parseInt(arrDate[1]);
-		int day = Integer.parseInt(arrDate[2]);
-		LocalDate date = LocalDate.of(year, month, day);
-		DayOfWeek dayOfWeek = date.getDayOfWeek();
-		
-		DateVO dateVO = new DateVO();
-		dateVO.setDayOfweek(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN).substring(0, 1));	
-		model.addAttribute("dateVO", dateVO);
+	@RequestMapping(value="/booking2", method=RequestMethod.GET)
+	public String book2(HttpSession session, Model model) throws Exception {
+		//전 페이지에서 선택한 날짜, 영화, 영화관 지점, 시작시간, 종료시간, 상영관을 가져옴.
+		//MovieVO movieVO = booking2Service.getMovie(movieTitleFinal);
+		//model.addAttribute("date", dateFinal);
+		//model.addAttribute("movieVO", movieVO);
+	//	model.addAttribute("cinema", cinemaFinal);
+	//	model.addAttribute("theater", theaterFinal);
+	//	model.addAttribute("startTime", startTimeFinal);
+	//	model.addAttribute("endTime", endTimeFinal);
 		return "book/booking2";
 	}
 	

@@ -98,19 +98,26 @@ public class Booking1Controller {
 		return schedule;
 	}
 	
-	
-	
-	@RequestMapping(value ="/booking1", method=RequestMethod.POST)
-	public String book1(MovieVO movieVO, HttpSession session, Model model) {
-		
-		return "book/booking1";
-	}
-	
 	@RequestMapping(value="/book/cinema", method=RequestMethod.GET)
 	@ResponseBody
 	public List<String> cinemaName(@RequestParam String cinemaLocation) {
 		List<String> cinemaName = booking1Service.getCinemaName(cinemaLocation);
 		return cinemaName;
+	}
+	
+	@RequestMapping(value="/book/choiceAll", method=RequestMethod.GET)
+	@ResponseBody
+	public String choiceAll(String dateFinal, String movieTitleFinal, String cinemaFinal, String theaterFinal, String startTimeFinal, String endTimeFinal,
+			HttpSession session) {
+		session.setAttribute("date", dateFinal);
+		session.setAttribute("movieTitle", movieTitleFinal);
+		session.setAttribute("cinema", cinemaFinal);
+		session.setAttribute("theater", theaterFinal);
+		session.setAttribute("startTime", startTimeFinal);
+		session.setAttribute("endTime", endTimeFinal);
+		
+		String all =dateFinal+movieTitleFinal+cinemaFinal+theaterFinal+startTimeFinal+endTimeFinal;
+		return all;
 	}
 	
 	@RequestMapping("/movieData")

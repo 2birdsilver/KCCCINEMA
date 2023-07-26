@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.book.booking1Mapper"></mapper>
+<mapper
+	namespace="com.example.kcccinema.dao.book.IBooking2Repository">
+	<select id="getMovie" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.MovieVO">
+	<![CDATA[
+		select
+			movie_id		as "movieId",
+			movie_title		as "movieTitle",
+			movie_category	as "movieCategory",
+			movie_score		as "movieScore",
+			opening_date	as "openingDate",
+			closing_date	as "closingDate",
+			running_time	as "runningTime",
+			movie_director	as "movieDirector",
+			movie_synopsis	as "movieSynopsis",
+			performer		as "performer",
+			is_adult_movie	as "isAdultMovie",
+			movie_poster	as "moviePoster"
+		from movie
+		where movie_title = #{movieTitleFinal}
+	]]>
+	</select>
+</mapper>

@@ -1,11 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.kcccinema.dao.IUsersRepository">
+	
+	<resultMap id="userResult" type="com.example.kcccinema.model.UsersVO">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userPassword" column="USER_PASSWORD" />
+		<result property="userAge" column="USER_AGE" /> 
+				<result property="userBirthDate" column="USER_BIRTH_DATE" />
+		<result property="userRole" column="USER_ROLE" />
+	</resultMap>
 
-	<insert id="userSignup" parameterType="com.example.kcccinema.model.UsersVO">
-		  <![CDATA[
-		    INSERT INTO USERS (user_id, user_name, user_password, user_age, user_birth_date, user_role)
-		    VALUES (#{userId}, #{userName}, #{userPassword}, #{userAge}, #{userBirthDate}, 0)
-		  ]]>
+	<insert id="insertMember" parameterType="com.example.kcccinema.model.UsersVO">
+	<![CDATA[
+		INSERT INTO 
+			member (user_id, user_name, user_password, user_age, user_birth_date, user_role) 
+		VALUES 
+			(#{userId}, #{userName}, #{userPassword}, #{userAge}, #{userBirthDate}, 0)
+	]]>
 	</insert>
+	
+	<select id="selectMember" parameterType="string" resultType="com.example.kcccinema.model.UsersVO" resultMap="userResult">
+	<![CDATA[
+		SELECT *
+		FROM 
+			users 
+		WHERE user_id=#{userId}
+	]]>
+	</select>
+	
+	<update id="updateMember" parameterType="com.example.kcccinema.model.UsersVO">
+	<![CDATA[
+		UPDATE MEMBER
+		SET 
+			user_name=#{userName}, user_password=#{userPassword}, user_age=#{userAge}, user_birth_dare=#{userBirthDate}
+		WHERE 
+			user_id=#{userId}
+	]]>
+	</update>
+	
+	<delete id="deleteMember" parameterType="com.example.kcccinema.model.UsersVO">
+	<![CDATA[
+		DELETE FROM
+			users 
+		WHERE
+			user_id=#{userId} AND user_password=#{userPassword}
+	]]>
+	</delete>
+	
+	<select id="getPassword" parameterType="string" resultType="string">
+	<![CDATA[
+		SELECT
+			password
+		FROM
+			member
+		WHERE userid=#{userid}
+	]]>
+	</select>
 </mapper>

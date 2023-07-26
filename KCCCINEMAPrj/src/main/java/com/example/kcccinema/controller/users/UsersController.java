@@ -4,11 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.kcccinema.model.UsersVO;
 import com.example.kcccinema.service.users.IUsersService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsersController {
@@ -22,23 +26,39 @@ public class UsersController {
 		return "user/login";
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(String userId, String userPassword, HttpSession session, Model model) {
+		UsersVO user = usersService.selectMember(userId);
+		if (user != null) {
+			String dbPassword = user.getUserPassword();
+			if (dbPassword == null) {
+				model.addAttribute("message", "NOT_VALID_USER");
+			} else {
+				if (dbPassword.equals(userPassword)) {
+					session.setAttribute("userId", userId);
+					session.setAttribute("userName", user.getUserName());
+					session.setAttribute("userAge", user.getUserAge());
+					return "redirect:/";
+				} else {
+					model.addAttribute("message", "WRONG_PASSWORD");
+				}
+			}
+		} else {
+			model.addAttribute("message", "USER_NOT_FOUND");
+		}
+		session.invalidate();
+		return "user/login";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate();
+		return "redirect:/";
+	}
+
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signup() {
+	public String insertMember() {
 		return "user/signup";
 	}
 
-	// 회원가입
-	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signup(UsersVO user) throws Exception {
-
-		logger.info("signUp 진입");
-
-		// 회원가입 서비스 실행
-		usersService.insertUsers(user);
-
-		logger.info("signUp Service 성공");
-
-		return "redirect:/";
-
-	}
 }

@@ -12,8 +12,29 @@ public class UsersService implements IUsersService {
 	@Autowired
 	private IUsersRepository usersRepository;
 
-	public void insertUsers(UsersVO user) throws Exception {
-		usersRepository.userSignup(user);
+	@Override
+	public void insertMember(UsersVO user) {
+		usersRepository.insertMember(user);
+	}
+
+	@Override
+	public UsersVO selectMember(String userId) {
+		return usersRepository.selectMember(userId);
+	}
+
+	@Override
+	public void updateMember(UsersVO user) {
+		usersRepository.updateMember(user);
+	}
+
+	@Override
+	public void deleteMember(UsersVO user) {
+		usersRepository.deleteMember(user);
+	}
+
+	@Override
+	public String getPassword(String userId) {
+		return usersRepository.getPassword(userId);
 	}
 
 }

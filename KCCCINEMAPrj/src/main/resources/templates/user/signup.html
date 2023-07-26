@@ -924,7 +924,7 @@
               </div>
             </div>
 
-            <form id="signup_form" method="POST" action="/signup">
+            <form action="/signup" th:object="${users}" id="signup_form" method="POST" >
               <div id="contents__item">
                 <div class="signup">
                   <div class="signup_input">
@@ -1029,9 +1029,7 @@
         const ageInput = document.getElementById("age_input").value;
         const idInput = document.getElementById("id_input").value;
         const passwordInput = document.getElementById("password_input").value;
-        const confirmPasswordInput = document.getElementById(
-          "confirm_password_input"
-        ).value;
+        const confirmPasswordInput = document.getElementById("confirm_password_input").value;
 
         if (!nameInput) {
           alert("이름을 입력해주세요!");
@@ -1059,15 +1057,16 @@
         }
 
         signup();
+        $(document).ready(function () {
+            //회원가입 버튼(회원가입 기능 작동)
+            $(".next_btn2").click(function () {
+              $("#signup_form").attr("action", "/signup");
+              $("#signup_form").submit();
+            });
+          });
       };
 
-      $(document).ready(function () {
-        //회원가입 버튼(회원가입 기능 작동)
-        $(".next_btn2").click(function () {
-          $("#signup_form").attr("action", "/signup");
-          $("#signup_form").submit();
-        });
-      });
+      
     </script>
   </body>
 </html>

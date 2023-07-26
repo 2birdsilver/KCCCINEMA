@@ -51,11 +51,12 @@
 		color: #ccc;
 	}
 	
-	.login button {
+	.login_btn {
 		width: 25%;
 		padding: 15px 0;
 		background: #020281;
-		border-radius: 5px;
+		border: none;
+		border-radius: 5px !important;
 		color: #ffffff;
 		font-size: 17px;
 		cursor: pointer;

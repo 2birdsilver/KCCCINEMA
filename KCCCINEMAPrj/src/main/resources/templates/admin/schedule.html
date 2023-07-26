@@ -5,6 +5,9 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
 h2 {
@@ -62,7 +65,14 @@ h2 {
 	<script type="text/javascript" async=""
 		src="./MEET PLAY SHARE, 메가박스_files/js(1)"></script>
 	<script async="" src="./MEET PLAY SHARE, 메가박스_files/js(2)"></script>
-	<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-30006739-3');</script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-30006739-3');
+	</script>
 	<script src="./MEET PLAY SHARE, 메가박스_files/megabox.api.min.js.다운로드"></script>
 	<script src="./MEET PLAY SHARE, 메가박스_files/megabox.common.min.js.다운로드"></script>
 	<script
@@ -468,33 +478,29 @@ h2 {
 
 
 		<script type="text/javascript">
-    $(function(){
-        
-            
-            
-            	$('#header .right-link .before').hide();
-            	$('#header .right-link .after').show();
-            
-        
+			$(function() {
 
-        // 웹에서만 실행 -> facebook을 로드하지 않는 템플릿에서 반복적인 오류 발생으로 hreader로 이전
-        if(!MegaboxUtil.Common.isMobile() && !MegaboxUtil.Common.isApp())
-            MegaboxUtil.Share.init();
-    });
+				$('#header .right-link .before').hide();
+				$('#header .right-link .after').show();
 
-    //로그인 버튼
-    $(document).on('click', '#moveLogin', function() {
+				// 웹에서만 실행 -> facebook을 로드하지 않는 템플릿에서 반복적인 오류 발생으로 hreader로 이전
+				if (!MegaboxUtil.Common.isMobile()
+						&& !MegaboxUtil.Common.isApp())
+					MegaboxUtil.Share.init();
+			});
 
-        fn_viewLoginPopup('default','pc');
+			//로그인 버튼
+			$(document).on('click', '#moveLogin', function() {
 
-    });
+				fn_viewLoginPopup('default', 'pc');
 
-    var sysCd = 'ON';
+			});
 
-  	//넷퍼넬 스킨 타입 지정
-	//NetfunnelChk.setting( sysCd, MegaboxUtil.Common.isApp() );
+			var sysCd = 'ON';
 
-</script>
+			//넷퍼넬 스킨 타입 지정
+			//NetfunnelChk.setting( sysCd, MegaboxUtil.Common.isApp() );
+		</script>
 
 		<!-- 베네피아 배너 접근 시 노출 -->
 
@@ -515,24 +521,29 @@ h2 {
 
 
 		<script type="text/javascript">
-    $(function(){
-	  	//닫기 버튼 클릭
-		$('.ie-update').on('click', '.close-chk .closeDl', function() {
-			 if ($(":checkbox[id='one_month_no_update']:checked").length > 0) {
-				fn_setCookie("BROWDER_DL", "Y", 30);
-			}
+			$(function() {
+				//닫기 버튼 클릭
+				$('.ie-update')
+						.on(
+								'click',
+								'.close-chk .closeDl',
+								function() {
+									if ($(":checkbox[id='one_month_no_update']:checked").length > 0) {
+										fn_setCookie("BROWDER_DL", "Y", 30);
+									}
 
-			$('.ie-update').hide();
-		});
+									$('.ie-update').hide();
+								});
 
-		//다시보지 않기
-		 if (fn_getCookie("BROWDER_DL") == null || fn_getCookie("BROWDER_DL") == 'N') {
-			if ( $(".lt-ie9").length > 0 && $('.ie-update').length > 0 ) {
-				$('.ie-update').show();
-			}
-		}
-    });
-    </script>
+				//다시보지 않기
+				if (fn_getCookie("BROWDER_DL") == null
+						|| fn_getCookie("BROWDER_DL") == 'N') {
+					if ($(".lt-ie9").length > 0 && $('.ie-update').length > 0) {
+						$('.ie-update').show();
+					}
+				}
+			});
+		</script>
 		<!-- ie-update : ie 9 이하 일때만 출력 -->
 		<div class="ie-update">
 			<div class="dimd"></div>
@@ -779,15 +790,15 @@ h2 {
 		</nav> -->
 		<!--// gnb -->
 		<script type="text/javascript">
-        $(document).ready(function() {
-            var filmCheck = MegaboxUtil.Common.moveMovieFilmCheckGnb(); // 영화제 존재여부 체크
-            if(filmCheck == true){
-                $("#festivalArea").show();
-            }else{
-                $("#festivalArea").hide();
-            }
-        });
-    </script>
+			$(document).ready(function() {
+				var filmCheck = MegaboxUtil.Common.moveMovieFilmCheckGnb(); // 영화제 존재여부 체크
+				if (filmCheck == true) {
+					$("#festivalArea").show();
+				} else {
+					$("#festivalArea").hide();
+				}
+			});
+		</script>
 		<!--// topGnb -->
 
 		<!-- 레이어 : 사이트맵 -->
@@ -1170,432 +1181,350 @@ h2 {
 
 				<div id="contents" class="location-fixed">
 					<h2 class="tit">상영일 관리</h2>
+
 					<div class="time-schedule mb30">
+						<!-- 달력 전체 영역 -->
 						<div class="wrap">
-							<button type="button" title="이전 날짜 보기" class="btn-pre"
-								disabled="true">
+							<!-- 기간 정보 표시 -->
+							<div class="period-display">
+								<span class="period"></span>
+							</div>
+							<!-- 이전 날짜 보기 버튼 -->
+							<button type="button" title="이전 날짜 보기" class="btn-pre">
 								<i class="iconset ico-cld-pre"></i> <em>이전</em>
 							</button>
+							<!-- 이번 주 날짜 목록 -->
 							<div class="date-list">
-								<div class="year-area">
-									<div class="year" id="first-year"
-										style="left: 30px; z-index: 1; opacity: 1;">2023.07</div>
-									<div class="year" style="left: 870px; z-index: 1; opacity: 1;">2023.08</div>
-								</div>
-								<div class="date-area">
-									<div class="wrap"
-										style="position: relative; width: 2100px; border: none; left: -70px;">
-										<button class="disabled" type="button" date-data="2023.07.19"
-											month="6" tabindex="-1">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">19<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">수</span><span
-												class="day-en" style="pointer-events: none; display: none">Wed</span>
-										</button>
-										<button class="on" type="button" date-data="2023.07.20"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">20<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">오늘</span><span
-												class="day-en" style="pointer-events: none; display: none">Thu</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.21"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">21<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">내일</span><span
-												class="day-en" style="pointer-events: none; display: none">Fri</span>
-										</button>
-										<button class="sat" type="button" date-data="2023.07.22"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">22<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">토</span><span
-												class="day-en" style="pointer-events: none; display: none">Sat</span>
-										</button>
-										<button class="holi" type="button" date-data="2023.07.23"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">23<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">일</span><span
-												class="day-en" style="pointer-events: none; display: none">Sun</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.24"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">24<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">월</span><span
-												class="day-en" style="pointer-events: none; display: none">Mon</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.25"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">25<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">화</span><span
-												class="day-en" style="pointer-events: none; display: none">Tue</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.26"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">26<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">수</span><span
-												class="day-en" style="pointer-events: none; display: none">Wed</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.27"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">27<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">목</span><span
-												class="day-en" style="pointer-events: none; display: none">Thu</span>
-										</button>
-										<button class="" type="button" date-data="2023.07.28"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">28<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">금</span><span
-												class="day-en" style="pointer-events: none; display: none">Fri</span>
-										</button>
-										<button class="disabled sat" type="button"
-											date-data="2023.07.29" month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">29<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">토</span><span
-												class="day-en" style="pointer-events: none; display: none">Sat</span>
-										</button>
-										<button class="disabled holi" type="button"
-											date-data="2023.07.30" month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">30<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">일</span><span
-												class="day-en" style="pointer-events: none; display: none">Sun</span>
-										</button>
-										<button class="disabled" type="button" date-data="2023.07.31"
-											month="6">
-											<span class="ir">2023년 7월</span><em
-												style="pointer-events: none;">31<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">월</span><span
-												class="day-en" style="pointer-events: none; display: none">Mon</span>
-										</button>
-										<button class="disabled" type="button" date-data="2023.08.01"
-											month="7">
-											<span class="ir">2023년 8월</span><em
-												style="pointer-events: none;">1<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">화</span><span
-												class="day-en" style="pointer-events: none; display: none">Tue</span>
-										</button>
-										<button class="disabled" type="button" date-data="2023.08.02"
-											month="7">
-											<span class="ir">2023년 8월</span><em
-												style="pointer-events: none;">2<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">수</span><span
-												class="day-en" style="pointer-events: none; display: none">Wed</span>
-										</button>
-										<button class="disabled" type="button" date-data="2023.08.03"
-											month="7" tabindex="-1">
-											<span class="ir">2023년 8월</span><em
-												style="pointer-events: none;">3<span
-												style="pointer-events: none;" class="ir">일</span></em><span
-												class="day-kr"
-												style="pointer-events: none; display: inline-block">목</span><span
-												class="day-en" style="pointer-events: none; display: none">Thu</span>
-										</button>
-									</div>
-								</div>
+								<!-- 이번 주 날짜 버튼들 -->
+								<!-- 여기에 날짜 버튼들을 동적으로 추가합니다 -->
 							</div>
-							<button type="button" title="다음 날짜 보기" class="btn-next"
-								disabled="true">
+
+
+							<!-- 다음 날짜 보기 버튼 -->
+							<button type="button" title="다음 날짜 보기" class="btn-next">
 								<i class="iconset ico-cld-next"></i> <em>다음</em>
 							</button>
+							<!-- 달력 모양 클릭시 달력 보기 버튼 -->
 							<div class="bg-line">
 								<input type="hidden" name="datePicker" id="dp1689817831600"
 									class="hasDatepicker" value="2023.07.20">
 								<button type="button" class="btn-calendar-large" title="달력보기">
 									달력보기</button>
+								<!-- Datepicker를 띄우기 위한 팝업 요소 -->
+								<div id="datepicker" class="datepicker" style="display: none;"></div>
 							</div>
 						</div>
 					</div>
+
+					<script>
+        var selectedDate = {};
+        var selectedDateString;
+        $(document).ready(function() {
+            /* 함수1: 이번 주 날짜 버튼들을 생성 */
+            function createThisWeekDates() {
+                var currentDate = new Date();
+                var today = currentDate.getDate();
+                var currentMonth = currentDate.getMonth();
+                var $dateList = $(".date-list");
+                $dateList.empty();
+
+                for (var i = 0; i < 7; i++) {
+                    var date = new Date(currentDate);
+                    date.setDate(today + i);
+                    var day = date.toLocaleDateString('ko-KR', { weekday: 'short' });
+
+                    var button = $('<button>', {
+                        class: i === 1 ? 'on' : '',
+                        type: 'button',
+                        'data-year': date.getFullYear(),
+                        'data-date': date.getDate(),
+                        'data-month': date.getMonth() + 1,
+                        text: `${date.getDate()} (${day})`
+                    });
+
+                    if (date.toDateString() === currentDate.toDateString()) {
+                        button.addClass('today');
+                    }
+
+                    $dateList.append(button);
+                }
+            }
+
+            /* 함수2: Date 객체를 yyyy.mm.dd 형식의 문자열로 변환하는 함수 */
+            function formatDate(date) {
+            	console.log("date: " + date);
+                var year = date.getFullYear();
+                console.log("year: " + year);
+                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                var day = ("0" + date.getDate()).slice(-2);
+                return year + "." + month + "." + day;
+            }
+
+            /* 함수3: 달력 보여주는 팝업 구현 함수 */
+            function showCalendarPopup() {
+                $("#datepicker").datepicker({
+                    dateFormat: 'yy.mm.dd',
+                    showOtherMonths: true,
+                    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+                    onChangeMonthYear: function(year, month, inst) {
+                        createThisWeekDates();
+                    },
+                    onSelect: function(selectedDate) {
+                    	console.log("selectedDate: " + selectedDate);
+                    	updateDateList(selectedDate);
+                    	
+                        var yearAndMonth = selectedDate.split('.').slice(0, 2).join('.');
+                        $(".period-display .period").text(yearAndMonth);
+
+                        // datepicker를 숨기고 닫습니다.
+                        $("#datepicker").datepicker("hide");
+                        $("#datepicker").dialog("close");
+                    }
+                });
+
+                $("#datepicker").dialog({
+                    title: "전체 달력 보기",
+                    modal: true,
+                    width: 400,
+                    height: 350,
+                    buttons: {
+                        "닫기": function() {
+                            $(this).dialog("close");
+                        }
+                    },
+                    close: function() {
+                        $("#datepicker").datepicker("destroy");
+                    }
+                });
+            }
+
+            // 이번 주 날짜 버튼들 생성
+            createThisWeekDates();
+
+            /* 함수: 달력에서 선택한 날짜를 date-list에 표시 */
+            function updateDateList(selectedDate) {
+    var today = new Date();
+    var date = new Date(selectedDate);
+
+    // date-list의 모든 버튼을 제거
+    $(".date-list").empty();
+
+    for (var i = 0; i < 7; i++) {
+        var loopDate = new Date(selectedDate); // 루프 내부에서의 변수명 loopDate
+        loopDate.setDate(loopDate.getDate() + i);
+        var day = loopDate.toLocaleDateString('ko-KR', { weekday: 'short' });
+
+        var button = $('<button>', {
+            class: i === 0 ? 'selected' : '',
+            type: 'button',
+            'data-year': loopDate.getFullYear(),
+            'data-date': loopDate.getDate(),
+            'data-month': loopDate.getMonth() + 1,
+            text: `${loopDate.getDate()} (${day})`
+        });
+
+        
+/*        console.log("비교1: " + loopDate.toDateString());
+        console.log("비교2: " + new Date(selectedDate).toDateString());  */
+        // 선택한 날짜와 버튼의 날짜가 일치하는 경우 'selected' 클래스를 추가하여 색상 변경
+        if (loopDate.toDateString() === new Date(selectedDate).toDateString()) {
+            button.addClass('selected');
+        } else if (loopDate.toDateString() === today.toDateString()) {
+            button.addClass('today');
+        }
+
+        $(".date-list").append(button);
+        console.log()
+    }
+
+    // 선택한 날짜에 해당하는 기간을 표시
+    var endDate = new Date(selectedDate);
+    endDate.setDate(endDate.getDate() + 2);
+    var periodText = formatDate(date) + " ~ " + formatDate(endDate);
+    $(".date-list .period").text(periodText);
+
+    // 선택한 날짜에 해당하는 년도와 월을 추출
+    var { year, month } = getYearAndMonth(selectedDate);
+
+    // period-display 엘리먼트에 값을 설정
+    $(".period-display .period").text(formatDate(new Date(selectedDate)));
+}
+            
+            function getYearAndMonth(date) {
+            	var targetDate = date; // 기존의 date를 변경하지 않고 새로운 변수에 저장합니다.
+
+                // 만약 date가 Date 객체가 아닌 경우, Date 객체로 변환합니다.
+                if (!(date instanceof Date)) {
+                    targetDate = new Date(date);
+                }
+            	
+                var year = targetDate.getFullYear();
+                var month = targetDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+
+                return { year: year, month: month };
+            }
+
+            // 클릭한 날짜 정보를 갱신하고 화면에 표시하는 함수
+            function updateSelectedDateInfo(year, month, day) {
+                selectedDate.year = year;
+                selectedDate.month = month;
+                selectedDate.day = day;
+                selectedDateString = `${year}-${month}-${day}`;
+                console.log(selectedDateString);
+                
+                var clickedDate = new Date(year, month - 1, day);
+                var clickedYear = clickedDate.getFullYear();
+                var clickedMonth = clickedDate.getMonth() + 1;
+                $(".period-display .period").text(`${clickedYear}.${clickedMonth}`);
+            } 
+
+            // date-list 버튼 클릭 이벤트 등록
+            $(".date-list").on("click", "button", function() {
+                updateSelectedDateInfo(
+                    $(this).attr("data-year"),
+                    $(this).attr("data-month"),
+                    $(this).attr("data-date")
+                );
+                
+                $(".date-list button").removeClass("selected");
+                $(this).addClass("selected");
+            });
+
+            // 초기 .period-display 설정
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+            var currentMonth = currentDate.getMonth() + 1;
+            $(".period-display .period").text(`${currentYear}.${currentMonth}`);
+            
+            // 달력 모양 클릭 이벤트 등록
+            $(".btn-calendar-large").on("click", showCalendarPopup);
+        });
+    </script>
+
 
 					<div class="reserve theater-list-box">
 						<div class="tab-block tab-layer mb30">
 							<ul>
-								<li class="on"><a
-									href="https://www.megabox.co.kr/booking/timetable" class="btn"
-									data-area-cd="10" title="서울 선택">서울</a></li>
-								<li><a href="https://www.megabox.co.kr/booking/timetable"
-									class="btn" data-area-cd="30" title="경기 선택">경기</a></li>
-								<li><a href="https://www.megabox.co.kr/booking/timetable"
-									class="btn" data-area-cd="35" title="인천 선택">인천</a></li>
-								<li><a href="https://www.megabox.co.kr/booking/timetable"
-									class="btn" data-area-cd="55" title="부산/대구/경상 선택">부산/대구/경상</a></li>
+								<li><a class="btn" data-cinema-id="1" title="서울 선택">서울</a></li>
+								<li><a class="btn" data-cinema-id="2" title="전북 선택">전북</a></li>
+								<li><a class="btn" data-cinema-id="3" title="경북 선택">경북</a></li>
+								<li><a class="btn" data-cinema-id="4" title="경기 선택">경기</a></li>
+								<li><a class="btn" data-cinema-id="5" title="충남 선택">충남</a></li>
 							</ul>
 						</div>
 
 						<div class="theater-list">
-							<div class="theater-area-click">
-								<a href="https://www.megabox.co.kr/theater?brchNo=1561"
-									title="이수 상세보기">혜화</a>
-							</div>
-							<div class="theater-type-box">
-								<div class="theater-type">
-									<p class="theater-name">1관</p>
-									<p class="chair">총 123석</p>
-								</div>
-								<div class="theater-time">
-									<div class="theater-type-area">2D(자막)</div>
-									<div class="theater-time-box">
-										<table class="time-list-table">
-											<caption>상영시간을 보여주는 표 입니다.</caption>
-											<colgroup>
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td class="" brch-no="1561" play-schdl-no="2307201561050"
-														rpst-movie-no="23048900" theab-no="01" play-de="20230720"
-														play-seq="3" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">15:10</p>
-																	<p class="chair">115석</p>
-																	<div class="play-time">
-																		<p>15:10~18:03</p>
-																		<p>3회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-													<td class="" brch-no="1561" play-schdl-no="2307201561082"
-														rpst-movie-no="23048900" theab-no="01" play-de="20230720"
-														play-seq="5" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">22:00</p>
-																	<p class="chair">120석</p>
-																	<div class="play-time">
-																		<p>22:00~24:53</p>
-																		<p>5회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-							<div class="theater-type-box">
-								<div class="theater-type">
-									<p class="theater-name">2관</p>
-									<p class="chair">총 198석</p>
-								</div>
-								<div class="theater-time">
-									<div class="theater-type-area">2D(자막)</div>
-									<div class="theater-time-box">
-										<table class="time-list-table">
-											<caption>상영시간을 보여주는 표 입니다.</caption>
-											<colgroup>
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td class="" brch-no="1561" play-schdl-no="2307201561088"
-														rpst-movie-no="23048900" theab-no="02" play-de="20230720"
-														play-seq="2" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">13:10</p>
-																	<p class="chair">183석</p>
-																	<div class="play-time">
-																		<p>13:10~16:03</p>
-																		<p>2회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-													<td class="" brch-no="1561" play-schdl-no="2307201561089"
-														rpst-movie-no="23048900" theab-no="02" play-de="20230720"
-														play-seq="3" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">16:20</p>
-																	<p class="chair">182석</p>
-																	<div class="play-time">
-																		<p>16:20~19:13</p>
-																		<p>3회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-													<td class="" brch-no="1561" play-schdl-no="2307201561090"
-														rpst-movie-no="23048900" theab-no="02" play-de="20230720"
-														play-seq="4" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">19:30</p>
-																	<p class="chair">160석</p>
-																	<div class="play-time">
-																		<p>19:30~22:23</p>
-																		<p>4회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-							<div class="theater-type-box">
-								<div class="theater-type">
-									<p class="theater-name">5관</p>
-									<p class="chair">총 198석</p>
-								</div>
-								<div class="theater-time">
-									<div class="theater-type-area">2D(자막)</div>
-									<div class="theater-time-box">
-										<table class="time-list-table">
-											<caption>상영시간을 보여주는 표 입니다.</caption>
-											<colgroup>
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-												<col style="width: 99px;">
-											</colgroup>
-											<tbody>
-												<tr>
-													<td class="" brch-no="1561" play-schdl-no="2307201561102"
-														rpst-movie-no="23048900" theab-no="05" play-de="20230720"
-														play-seq="2" netfnl-adopt-at="N">
-														<div class="td-ab">
-															<div class="txt-center">
-																<a href="https://www.megabox.co.kr/booking/timetable"
-																	title="영화예매하기">
-																	<div class="ico-box">
-																		<i class="iconset ico-off"></i>
-																	</div>
-																	<p class="time">11:45</p>
-																	<p class="chair">191석</p>
-																	<div class="play-time">
-																		<p>11:45~14:38</p>
-																		<p>2회차</p>
-																	</div>
-																</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
+							<table class="schedule-table">
+								<thead>
+									<tr>
+										<th>극장</th>
+										<th colspan="6">시간표</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
 						</div>
 					</div>
 
+					<script>
+					var areaCode; 
+			        // DOM이 완전히 로드된 후 실행될 함수
+			            $(document).ready(function() {
+			                $("ul li").on("click", function() {
+			                	// 클릭한 li에 selected 클래스를 추가
+			                    $(this).addClass("selected");
 
+			                    // 다른 li에 있는 selected 클래스를 제거
+			                    $("ul li").not(this).removeClass("selected");
+			                    
+			                    areaCode = $(this).find("a").data("cinema-id");
+			                    
+			                	console.log("날짜와 영화관 지점id ajax로 전송")
+			                	console.log("cinema-id: " + areaCode);
+			                	console.log("selectedDateString: " + selectedDateString) ;
 
-					<!-- 						<div class="box-top">
-							<strong>마케팅 활용을 위한 개인정보 수집 이용 안내</strong>
-							<div class="righten">
-								<input type="radio" name="personInfoUtilAgreeAt" id="chk1"
-									value="N"><label for="chk1">미동의</label> <input
-									type="radio" name="personInfoUtilAgreeAt" id="chk2" value="Y"
-									checked=""><label for="chk2">동의</label>
-							</div>
-						</div> -->
-					<!-- 						<div class="box-bot">
-							<p>
-								[수집 목적]<br> 고객 맞춤형 상품 및 서비스 추천. 당사 신규 상품/서비스 안내 및 권유. 사은/할인
-								행사 등 각종 이벤트 정보 등의 안내 및 권유
-							</p>
-							<p>
-								[수집 항목]<br> 이메일, 휴대폰번호, 주소, 생년월일, 선호극장, 문자/이메일/앱푸쉬 정보
-								수신동의여부, 서비스 이용기록, 포인트 적립 및 사용 정보, 접속로그
-							</p>
-							<p>
-								[보유 및 이용 기간]<br> 회원 탈퇴 시 혹은 이용 목적 달성 시까지
-							</p>
-						</div> -->
+			                    // AJAX 요청 보내기
+			                    $.ajax({
+			                        type: "GET", // 요청 메소드 (GET, POST 등)
+			                        url: "/admin/schedule/{areaCode}", // 서버 URL 지정
+			                        data: {
+			                        	cinemaId: areaCode,
+			                        	screenDate: selectedDateString
+			                        },
+			                        success: function(response) {
+			                            console.log(response);
+
+			                            // cinemaId에 따른 문자열을 정의한 객체
+			                            var cinemaIdStrings = {
+			                                1: 'One',
+			                                2: 'Two',
+			                                3: 'Three',
+			                                4: 'Four',
+			                                5: 'Five'
+			                            };
+
+			                            // 시간 데이터에 따른 시각 정보를 매핑하는 객체
+			                            var timeMap = {
+			                                1: '09:00',
+			                                2: '11:00',
+			                                3: '13:00',
+			                                4: '15:00',
+			                                5: '17:00',
+			                                6: '19:00'
+			                                // 이외의 경우에 대한 시각 정보도 필요하다면 추가로 매핑하시면 됩니다.
+			                            };
+
+			                            var $tbody = $(".schedule-table tbody");
+			                            $tbody.empty();
+
+			                            response.forEach(function(schedule) {
+			                                var $tr = $("<tr>");
+
+			                                // 극장 타입 정보를 <div>에 추가합니다.
+			                                var $divTheaterTypeBox = $("<div>", {
+			                                    class: "theater-type-box"
+			                                });
+
+			                                var $divTheaterType = $("<div>", {
+			                                    class: "theater-type"
+			                                });
+
+			                                var $pTheaterName = $("<p>", {
+			                                    class: "theater-name",
+			                                    text: schedule.theaterId // Insert the theaterId inside the <p> element
+			                                });
+
+			                                $divTheaterType.append($pTheaterName);
+			                                $divTheaterTypeBox.append($divTheaterType);
+			                                $tr.append($("<td>").append($divTheaterTypeBox));
+
+			                                var timeData = schedule.time;
+			                                var movieTitle = schedule.movieTitle;
+
+			                                // 시간 데이터를 기반으로 시각 정보를 구합니다.
+			                                var time = timeMap[timeData] || '';
+
+			                                // <td> 요소를 생성하고 시간과 영화명 데이터를 추가합니다.
+			                                var $td = $("<td>", {
+			                                    class: '',
+			                                    'data-theater-name': movieTitle,
+			                                    'data-play-time': timeData,
+			                                    text: time + ' ' + movieTitle
+			                                });
+
+			                                $tr.append($td);
+			                                $tbody.append($tr);
+			                            });
+			                        },
+			                        error: function(error) {
+			                            // 요청 실패 시 에러 처리
+			                            console.error("에러 발생: ", error);
+			                        }
+			                    });
+			                });
+			            });
+    </script>
 
 
 					<!-- 세은: 스케줄 등록 -->
@@ -1627,10 +1556,11 @@ h2 {
 												<option value="경북">경북</option>
 												<option value="경기">경기</option>
 												<option value="충남">충남</option>
-										</select> <label for="cinemaId">영화관 지점:</label> <select id="cinemaId" name="cinemaId"
-											disabled>
+										</select> <label for="cinemaId">영화관 지점:</label> <select id="cinemaId"
+											name="cinemaId" disabled>
 												<!-- 상영관 선택지는 JavaScript를 통해 동적으로 생성됩니다. -->
-										</select> <label for="theaterId">상영관:</label> <select id="theaterId" name="theaterId">
+										</select> <label for="theaterId">상영관:</label> <select id="theaterId"
+											name="theaterId">
 												<option value=1>1관</option>
 												<option value=2>2관</option>
 												<option value=3>3관</option>
@@ -1662,8 +1592,8 @@ h2 {
 									<!-- 영화 선택  -->
 									<tr>
 										<th scope="row">영화명</th>
-										<td style="height: 80px;"><input type="text" name="movieTitle"
-											style="width: 250px !important;"
+										<td style="height: 80px;"><input type="text"
+											name="movieTitle" style="width: 250px !important;"
 											id="movieNameInput" autocomplete="off"
 											th:autocomplete="${movieTitleList}">
 											<ul id="movieListDropdown">
@@ -1680,118 +1610,217 @@ h2 {
 
 
 					<script>
-					/* 상영관 선택 */
-				  $(document).ready(function() {
-        // #CINEMA-LOCATION 값이 변경될 때마다 이벤트 핸들러가 실행됩니다.
-        $("#location").on("change", function() {
-            var selectedLocation = $(this).val();
+						/* 상영관 선택 */
+						$(document)
+								.ready(
+										function() {
+											// #CINEMA-LOCATION 값이 변경될 때마다 이벤트 핸들러가 실행됩니다.
+											$("#location")
+													.on(
+															"change",
+															function() {
+																var selectedLocation = $(
+																		this)
+																		.val();
 
-            // #CINEMA-NAME 요소를 초기화하여 이전에 선택한 옵션을 지웁니다.
-            $("#cinemaId").empty();
+																// #CINEMA-NAME 요소를 초기화하여 이전에 선택한 옵션을 지웁니다.
+																$("#cinemaId")
+																		.empty();
 
-            // 선택한 지역에 따라 해당하는 상영관 옵션을 추가합니다.
-            switch (selectedLocation) {
-                case "서울":
-                    $("#cinemaId").append("<option value='1'>혜화점</option>");
-                    break;
-                case "전북":
-                    $("#cinemaId").append("<option value='2'>익산점</option>");
-                    break;
-                case "경북":
-                    $("#cinemaId").append("<option value='3'>구미점</option>");
-                    break;
-                case "경기":
-                    $("#cinemaId").append("<option value='4'>부천점</option>");
-                    break;
-                case "충남":
-                    $("#cinemaId").append("<option value='5'>천안점</option>");
-                    break;
-                default:
-                    // 기본값은 서울에 해당하는 옵션만 보여줍니다.
-                    $("#cinemaId").append("<option>혜화점</option>");
-                    break;
-            }
-            // #CINEMA-LOCATION이 선택되면 #CINEMA-NAME의 disabled 속성을 제거합니다.
-            $("#cinemaId").prop("disabled", false);
-        });
-    });
-					
-					
-					var selectedValue;
-					// 입력된 데이터를 받는 함수
-			        $(document).ready(function() {
-			            $("#movieNameInput").on("input", function() {
-			                var keyword = $(this).val();
-			                // 입력된 내용을 이용하여 원하는 동작을 수행
-			                console.log("입력된 내용:", keyword);
-			                
-			                /* ajax */
-			                $.ajax({
-					            url: "/admin/schedule/movieTitle",
-					            method: "GET",
-					            data: { keyword: keyword },
-					            success: function(data) {
-					            	selectedValue = data;
-					        	console.log(selectedValue);
-		                        // 받은 data를 동적으로 <li> 요소로 생성하여 추가.
-		                        var dropdown = $("#movieListDropdown");
-		                        dropdown.empty(); // 기존 목록을 비웁니다.
+																// 선택한 지역에 따라 해당하는 상영관 옵션을 추가합니다.
+																switch (selectedLocation) {
+																case "서울":
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='1'>혜화점</option>");
+																	break;
+																case "전북":
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='2'>익산점</option>");
+																	break;
+																case "경북":
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='3'>구미점</option>");
+																	break;
+																case "경기":
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='4'>부천점</option>");
+																	break;
+																case "충남":
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='5'>천안점</option>");
+																	break;
+																default:
+																	// 기본값은 서울에 해당하는 옵션만 보여줍니다.
+																	$(
+																			"#cinemaId")
+																			.append(
+																					"<option value='1'>혜화점</option>");
+																	break;
+																}
+																// #CINEMA-LOCATION이 선택되면 #CINEMA-NAME의 disabled 속성을 제거합니다.
+																$("#cinemaId")
+																		.prop(
+																				"disabled",
+																				false);
+															});
+										});
 
-		                        for (var i = 0; i < data.length; i++) {
-		                            var listItem = $("<button></button>").text(data[i]);
-		                            dropdown.append(listItem);
-					    }
-					}
-			                /* ajax */
-					    });
-					});
-			            $(document).ready(function() {
-			                // 영화 제목 목록을 클릭했을 때 해당 제목을 input 요소에 채웁니다.
-			                $("#movieListDropdown li").on("click", function() {
-			                    var selectedTitle = $(this).text();
-			                    $("#movieNameInput").val(selectedTitle);
-			                    $("#movieListDropdown").hide(); // 선택한 후 드롭다운 메뉴를 숨깁니다.
-			                });
+						var selectedValue;
+						// 입력된 데이터를 받는 함수
+						$(document)
+								.ready(
+										function() {
+											$("#movieNameInput")
+													.on(
+															"input",
+															function() {
+																var keyword = $(
+																		this)
+																		.val();
+																// 입력된 내용을 이용하여 원하는 동작을 수행
+																console
+																		.log(
+																				"입력된 내용:",
+																				keyword);
 
-			                // 더블클릭한 영화 제목을 input 요소에 채웁니다.
-			                $("#movieListDropdown li").on("dblclick", function() {
-			                	console.log("되나?");
-			                    var selectedTitle = $(this).text();
-			                    console.log(selectedTitle);
-			                    $("#movieNameInput").val(selectedTitle);
-			                    $("#movieListDropdown").hide(); // 선택한 후 드롭다운 메뉴를 숨깁니다.
-			                });
+																/* ajax */
+																$
+																		.ajax({
+																			url : "/admin/schedule/movieTitle",
+																			method : "GET",
+																			data : {
+																				keyword : keyword
+																			},
+																			success : function(
+																					data) {
+																				selectedValue = data;
+																				console
+																						.log(selectedValue);
+																				// 받은 data를 동적으로 <li> 요소로 생성하여 추가.
+																				var dropdown = $("#movieListDropdown");
+																				dropdown
+																						.empty(); // 기존 목록을 비웁니다.
 
-			                // 초기화할 때 첫 번째 영화 제목을 input 요소에 미리 띄웁니다.
-			                var firstTitle = $("#movieListDropdown li:first-child").text();
-			                $("#movieNameInput").val(firstTitle);
+																				for (var i = 0; i < data.length; i++) {
+																					var listItem = $(
+																							"<button></button>")
+																							.text(
+																									data[i]);
+																					dropdown
+																							.append(listItem);
+																				}
+																			}
+																		/* ajax */
+																		});
+															});
+											$(document)
+													.ready(
+															function() {
+																// 영화 제목 목록을 클릭했을 때 해당 제목을 input 요소에 채웁니다.
+																$(
+																		"#movieListDropdown li")
+																		.on(
+																				"click",
+																				function() {
+																					var selectedTitle = $(
+																							this)
+																							.text();
+																					$(
+																							"#movieNameInput")
+																							.val(
+																									selectedTitle);
+																					$(
+																							"#movieListDropdown")
+																							.hide(); // 선택한 후 드롭다운 메뉴를 숨깁니다.
+																				});
 
-			                // input 요소에 값이 있을 때 드롭다운 메뉴를 보여줍니다.
-			                $("#movieNameInput").on("input", function() {
-			                    var inputValue = $(this).val();
-			                    if (inputValue.trim() !== "") {
-			                        $("#movieListDropdown").show();
-			                    } else {
-			                        
-			                    }
-			                });
-			            });
-			         // 동적으로 생성된 버튼에 대한 이벤트 핸들러를 등록합니다.
-			            $(document).on("click", "#movieListDropdown button", function() {
-			            	 event.preventDefault();
-			            	var selectedTitle = $(this).text();
-			                $("#movieNameInput").val(selectedTitle);
-			                /* $("button").remove("#movieListDropdown"); */
-			                $("#movieListDropdown").hide();
-			            });
-			        
-			         
-			        });
-			    </script>
+																// 더블클릭한 영화 제목을 input 요소에 채웁니다.
+																$(
+																		"#movieListDropdown li")
+																		.on(
+																				"dblclick",
+																				function() {
+																					console
+																							.log("되나?");
+																					var selectedTitle = $(
+																							this)
+																							.text();
+																					console
+																							.log(selectedTitle);
+																					$(
+																							"#movieNameInput")
+																							.val(
+																									selectedTitle);
+																					$(
+																							"#movieListDropdown")
+																							.hide(); // 선택한 후 드롭다운 메뉴를 숨깁니다.
+																				});
 
-					
+																// 초기화할 때 첫 번째 영화 제목을 input 요소에 미리 띄웁니다.
+																var firstTitle = $(
+																		"#movieListDropdown li:first-child")
+																		.text();
+																$(
+																		"#movieNameInput")
+																		.val(
+																				firstTitle);
 
-	
+																// input 요소에 값이 있을 때 드롭다운 메뉴를 보여줍니다.
+																$(
+																		"#movieNameInput")
+																		.on(
+																				"input",
+																				function() {
+																					var inputValue = $(
+																							this)
+																							.val();
+																					if (inputValue
+																							.trim() !== "") {
+																						$(
+																								"#movieListDropdown")
+																								.show();
+																					} else {
+
+																					}
+																				});
+															});
+											// 동적으로 생성된 버튼에 대한 이벤트 핸들러를 등록합니다.
+											$(document)
+													.on(
+															"click",
+															"#movieListDropdown button",
+															function() {
+																event
+																		.preventDefault();
+																var selectedTitle = $(
+																		this)
+																		.text();
+																$(
+																		"#movieNameInput")
+																		.val(
+																				selectedTitle);
+																/* $("button").remove("#movieListDropdown"); */
+																$(
+																		"#movieListDropdown")
+																		.hide();
+															});
+
+										});
+					</script>
+
+
+
+
 
 
 				</div>

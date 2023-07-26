@@ -1,6 +1,6 @@
 package com.example.kcccinema.controller.admin;
 
-import java.io.File; 
+import java.io.File;  
 
 import java.io.IOException;
 import java.sql.Date;
@@ -17,6 +17,7 @@ import javax.json.JsonObjectBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.kcccinema.dao.IMovieRepository;
+import com.example.kcccinema.dao.IScheduleRepository;
 import com.example.kcccinema.model.MovieVO;
 import com.example.kcccinema.model.ScheduleVO;
 import com.example.kcccinema.service.movie.MovieService;
@@ -45,9 +47,13 @@ public class AdminController {
 	@Autowired
 	private IMovieRepository movieRepository;
 	@Autowired
+	private IScheduleRepository  ScheduleRepository;
+	@Autowired
 	private MovieVO movie;
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private IScheduleRepository scheduleRepository;
 
 	/* 상영 영화 조회 */
 	@RequestMapping(value="/movies", method=RequestMethod.GET)
@@ -221,7 +227,7 @@ public class AdminController {
 	/* 기능2: 상영일 관리 */
 
 
-	/* 상영 시간 관리 페이지 */
+	/* 상영 시간 관리 페이지(/schedule) */
 	@RequestMapping("/schedule")
 	public String movieSchedule() {
 		return "admin/schedule";
@@ -230,6 +236,21 @@ public class AdminController {
 	@PostMapping("/schedule")
 	public void insertSchedule(@ModelAttribute ScheduleVO schedule) {
 		System.out.println(schedule);
+		ScheduleRepository.insertSchedule(schedule);
+	}
+
+	@ResponseBody
+	@GetMapping("/schedule/{areaCode}")
+	public List<ScheduleVO> selectSchedule(@ModelAttribute ScheduleVO schedule, @PathVariable String areaCode) {
+		System.out.println(schedule);
+		System.out.println(areaCode);
+
+
+		List<ScheduleVO> selectedSchedules = scheduleRepository.selectSchedule(schedule);
+		System.out.println("ajax로 보내는 데이터: " + selectedSchedules);
+		return selectedSchedules;
+
+
 	}
 
 }

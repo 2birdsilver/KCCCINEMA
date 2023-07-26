@@ -9,7 +9,7 @@
 		<result property="location" column="LOCATION" />
 		<result property="time" column="TIME_ID" />
 		<result property="movieId" column="MOVIE_ID" />
-		<!-- <result property="movieTitle" column="CLOSING_DATE" /> -->
+		<result property="movieTitle" column="MOVIE_TITLE" />
 		<result property="theaterId" column="THEATER_ID" />
 		<result property="cinemaId" column="CINEMA_ID" />
 	</resultMap>
@@ -20,10 +20,9 @@
 	<insert id="insertSchedule" parameterType="scheduleVO">
 		<selectKey keyProperty="scheduleId" resultType="int"
 			order="BEFORE">
-			SELECT seq_schedule_id.NEXTVAL
-			FROM dual;
+			SELECT seq_schedule_id.NEXTVAL FROM dual
 		</selectKey>
-  <![CDATA[
+    <![CDATA[
     INSERT INTO schedule (
       SCHEDULE_ID, 
       SCREEN_DATE, 
@@ -44,6 +43,23 @@
     )
   ]]>
 	</insert>
+
+	<!-- 스케줄 조회 -->
+	<select id="selectSchedule" resultMap="scheduleResult"
+		parameterType="scheduleVO">
+    <![CDATA[
+    SELECT
+    TIME_ID,
+    (SELECT MOVIE_TITLE FROM movie WHERE movie.MOVIE_ID = schedule.MOVIE_ID) AS "MOVIE_TITLE",
+    THEATER_ID,
+    CINEMA_ID
+    FROM schedule
+    WHERE SCREEN_DATE = #{screenDate}
+    AND CINEMA_ID = #{cinemaId}
+    ]]>
+	</select>
+
+
 
 
 </mapper>

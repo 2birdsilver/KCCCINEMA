@@ -34,6 +34,10 @@ h1 {
 }
 
 /* 캘린더 부분 */
+.time-schedule .wrap {
+	height: 110px !important;
+}
+
 .time-schedule .date-list {
 	width: 700px !important;
 }
@@ -46,18 +50,132 @@ h1 {
 	left: 30px !important;
 }
 
-/* 영화관 부분 */
+.date-list {
+	display: flex; /* Flexbox로 내부 요소들을 가로로 배열 */
+	/* justify-content: space-between; 요소들 사이의 공간을 균등하게 배분 */
+	height: 70px;
+}
+
+.date-list button {
+	margin: 5px;
+	flex-grow: 1; /* 버튼들이 동일한 크기로 확장됨 */
+	font-size: 15px;
+	flex-grow: 1;
+}
+
+/* .date-list .selected {
+	background-color: #503396 !important;
+	color: white !important;
+} */
+
+/* CSS 스타일 시트에 추가 */
+.date-list button.selected {
+	background-color: #503396 !important;
+	color: white !important;
+}
+
+.date-list button.today {
+	background-color: #f7f3a6;
+	font-weight: bold;
+	color: black;
+}
+
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons.ui-draggable.ui-resizable
+	{
+	/* 여기에 클래스들에 대한 스타일을 추가합니다 */
+	width: 330px !important;
+}
+
+.period-display .period {
+	margin: 1px auto;
+	font-size: 17px;
+	font-weight: bold;
+	width: 80px;
+	text-align: center;
+	display: block;
+}
+
+/* 스케줄 조회 부분 */
+li.selected {
+	background-color: #fcd656;
+	color: white;
+	font-weight: bold;
+}
+
+.theater-type-box {
+	height: 120px;
+}
+
+.theater-type-box {
+	border: 1px solid black;
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+.theater-type-box {
+	border: 1px solid black;
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+.schedule-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.schedule-table th, .schedule-table td {
+	border: 1px solid black;
+	padding: 8px;
+	text-align: center;
+}
+
+.schedule-table th {
+	background-color: #f2f2f2;
+}
+
+[data-theater-name] {
+	background-color: #f2f2f2;
+	/* Change the background color to your desired color */
+	margin: 5px !important; /* Change the margin to your desired value */
+	height: 120px;
+	
+}
+
+.schedule-table td {
+    margin: 5px !important; /* 원하는 간격 크기로 조정합니다 */
+}
+
+/* 스케줄 등록 부분 */
 .reserve.theater-list-box {
 	margin-bottom: 100px;
 }
 
 #selectedCinema select {
 	margin-right: 30px;
-} 
+}
+
+.theater-type-box {
+	background-color: #503396 !important;
+}
+
+.theater-name {
+	color: white !important;
+	text-align: center;
+	width: 100%
+}
+
+.theater-type {
+	width: 100% !important;
+	margin: 0 auto !important;
+}
 
 #selectedCinema label {
 	margin-bottom: 5px;
 	margin-right: 3px;
+}
+
+.period-display {
+	height: 30px;
 }
 
 /* 상영 시간 등록 */
@@ -66,7 +184,7 @@ h1 {
 }
 
 /* 자동완성 */
-#movieListDropdown  {
+#movieListDropdown {
 	width: 240px;
 	border-radius: 20px;
 	border: 1px black;

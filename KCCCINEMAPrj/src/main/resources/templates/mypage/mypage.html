@@ -18,10 +18,10 @@
 					<img class="user_face" src="./images/unknown.png">
 				</div>
 				<div class="user_inform">
-					<div><b>회원ID : </b><span th:text=${mypageUserVO.userId}>userId</span></div>
-					<div><b>회원이름 : </b><span th:text=${mypageUserVO.userName}>userName</span></div>
-					<div><b>회원나이 : </b><span th:text=${mypageUserVO.userAge}>userAge</span></div>
-					<div><b>회원생일 : </b><span th:text=${mypageUserVO.userBirthDate}>userBirthDate</span></div>
+					<div><b>회원ID : </b><span th:text="${session.userId}">userId</span></div>
+					<div><b>회원이름 : </b><span th:text="${session.userName}">userName</span></div>
+					<div><b>회원나이 : </b><span th:text="${session.userAge}">userAge</span></div>
+					<div><b>회원생일 : </b><span th:text="${session.userBirthDate}">userBirthDate</span></div>
 				</div> 
 			</div>
 			<!-- userInformContainer div  -->
@@ -38,7 +38,7 @@
 								<li><a href="/mypage">회원정보확인</a></li>
 								<li><a href="/userquit">회원탈퇴</a></li>
 							</ul></li>
-						<li><a href="/checkReservation">예매확인</a></li>
+						<li><a href="/checkreserve">예매확인</a></li>
 
 					</ul>
 				</nav>

@@ -23,7 +23,7 @@ public class CheckReserveController {
 	
 	@RequestMapping(value="/checkreserve", method=RequestMethod.GET)
 	public String login() {
-		return "user/login";
+		return "mypage/checkReservation";
 	}
 	
 	@RequestMapping(value="/checkreserve", method=RequestMethod.POST)

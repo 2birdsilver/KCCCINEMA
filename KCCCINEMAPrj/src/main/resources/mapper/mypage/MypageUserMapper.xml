@@ -24,7 +24,7 @@
 			user_age		=	#{userAge},
 			user_birth_date	=	#{userBirthDate}
 		WHERE
-			user_id=#{userId}
+			user_id = #{userId}
 			
 	]]>
 	
@@ -34,11 +34,18 @@
 	DELETE FROM
 		Users
 	WHERE
-		user_id	=#{userId}
+		user_id	= #{userId} AND user_password=#{userPassword}
 
 ]]>
 </delete>
-
-
+<select id="getPassword" parameterType="String" resultType="String">
+	<![CDATA[
+	SELECT
+		user_password as "userPassword"
+	FROM
+		USERS
+	WHERE user_id = #{userId}
+	]]>
+</select>
 
 </mapper>

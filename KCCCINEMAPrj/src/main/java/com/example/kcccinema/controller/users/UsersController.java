@@ -39,6 +39,7 @@ public class UsersController {
 					session.setAttribute("userId", userId);
 					session.setAttribute("userName", user.getUserName());
 					session.setAttribute("userAge", user.getUserAge());
+					session.setAttribute("userBirthDate", user.getUserBirthDate());
 					return "redirect:/";
 				} else {
 					model.addAttribute("message", "WRONG_PASSWORD");

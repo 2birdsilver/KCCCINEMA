@@ -1,5 +1,7 @@
 package com.example.kcccinema.controller.mypage;
 
+import java.net.http.HttpRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,16 @@ public class MypageController {
 		return "user/login";
 	}
 	
+	@RequestMapping(value="/mypage")
+	public String mypage() {
+		return "mypage/mypage";
+	}
+	
 	@RequestMapping(value="/mypage/login", method=RequestMethod.POST)
 	public String login(String userid, String password, HttpSession session, Model model) {
 		MypageUserVO mypageuservo = mypageService.selectUser(userid);
 		if(mypageuservo != null) {
-			String dbPassword = mypageuservo.getPassword();
+			String dbPassword = mypageuservo.getUserPassword();
 			if(dbPassword == null) {
 				model.addAttribute("message","NOT_VALID_USER");
 			}else {
@@ -69,7 +76,7 @@ public class MypageController {
 			MypageUserVO mypageuservo = mypageService.selectUser(userId);
 			model.addAttribute("mypageuservo", mypageuservo);
 			model.addAttribute("message","UPDATE_USER_INFO");
-			return "mypage/mypage";
+			return "mypage/userupdate";
 		}else {
 			model.addAttribute("message","NOT_LOGIN_USER");
 			return "user/login";
@@ -78,11 +85,12 @@ public class MypageController {
 	}
 	//회원정보수정 POST
 	@RequestMapping(value="/userupdate", method=RequestMethod.POST)
-	public String userUpdate(MypageUserVO mypageuservo, HttpSession session, Model model) {
+	public String userUpdate(MypageUserVO mypageuservo, HttpServletRequest request, HttpSession session, Model model) {
 			try {
 				mypageService.updateUser(mypageuservo);
 				model.addAttribute("message","UPDATED_MEMBER_INFO");
 				model.addAttribute("mypageuservo",mypageuservo);
+				
 				session.setAttribute("userId", mypageuservo.getUserId());
 				session.setAttribute("userName", mypageuservo.getUserName());
 				session.setAttribute("userAge", mypageuservo.getUserAge());
@@ -115,13 +123,17 @@ public class MypageController {
 	
 	//회원탈퇴 POST
 	@RequestMapping(value="/userquit", method=RequestMethod.POST)
-	public String userQuit(String password,HttpSession session, Model model) {
+	public String userQuit(HttpServletRequest request,HttpSession session, Model model) {
 		try {
+			String password = request.getParameter("userPassword");//사용자가 입력한 비번 값
+			
+			//sql에 넘길 vo
 			MypageUserVO mypageuservo = new MypageUserVO();
+			
 			mypageuservo.setUserId((String)session.getAttribute("userId"));
 			String dbpw = mypageService.getPassword(mypageuservo.getUserId());
 			if(password != null && password.equals(dbpw)) {
-				mypageuservo.setPassword(password);
+				mypageuservo.setUserPassword(password);
 				mypageService.deleteMember(mypageuservo);
 				session.invalidate();
 				return "user/login";

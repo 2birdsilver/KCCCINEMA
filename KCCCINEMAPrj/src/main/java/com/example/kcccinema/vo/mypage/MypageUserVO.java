@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data @Getter @Setter
+@Data
 public class MypageUserVO {
 	private String userId;
 	private String userName;
 	private int    userAge;
 	private Date   userBirthDate;
-	private String password;
+	private String userPassword;
 
 }

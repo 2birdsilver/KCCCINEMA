@@ -18,11 +18,11 @@
 					<img th:src="${imageUrl}" alt="이미지" /> <!-- 컨트롤러에 추가 해야함 imageUrl을 변수로 하는 @Getmapping  -->
 				</div>
 				<div class="user_inform">
-					<div><b>예매영화이름 : </b><span th:text=${movieTitle}>영화이름은</span></div>
-					<div><b>예매자이름 : </b><span th:text=${userName}>예매자이름이 뭐고</span></div>
-					<div><b>상영날짜 : </b><span th:text=${screenDate}>상영하는 날짜가 언젠교</span></div>
-					<div><b>상영관 : </b><span th:text=${theaterNumber}>상영관이 어딘교</span></div>
-					<div><b>좌석 : </b><span th:text=${seatId}>내자리는 어디고</span></div>
+					<div><b>예매영화이름 : </b><span th:text="${session.movieTitle}">영화이름은</span></div>
+					<div><b>예매자이름 : </b><span th:text="${session.userName}">예매자이름이 뭐고</span></div>
+					<div><b>상영날짜 : </b><span th:text="${session.screenDate}">상영하는 날짜가 언젠교</span></div>
+					<div><b>상영관 : </b><span th:text="${session.theaterNumber}">상영관이 어딘교</span></div>
+					<div><b>좌석 : </b><span th:text="${session.seatId}">내자리는 어디고</span></div>
 				</div>
 			</div>
 			<!-- userInformContainer div  -->
@@ -39,7 +39,7 @@
 								<li><a href="/mypage">회원정보확인</a></li>
 								<li><a href="/userquit">회원탈퇴</a></li>
 							</ul></li>
-						<li><a href="/checkReservation">예매확인</a></li>
+						<li><a href="/checkreserve">예매확인</a></li>
 
 					</ul>
 				</nav>

@@ -10,5 +10,5 @@ public class TicketVO {
 	private int scheduleId;
 	private String startTime;
 	private String endTime;
-	private int cost;
+	private int totalPrice;
 }

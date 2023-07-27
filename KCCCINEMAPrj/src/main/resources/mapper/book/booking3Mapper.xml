@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.book.booking1Mapper"></mapper>
+<mapper namespace="com.example.kcccinema.dao.book.IBooking3Repository">
+
+	<insert id="insertTicket" 
+	parameterType="com.example.kcccinema.model.TicketVO">
+		<![CDATA[
+			insert into ticket (ticket_id, total_number, user_id, schedule_id, start_time, end_time, total_price)
+			values(#{ticketId}, #{totalNumber}, #{userId}, #{scheduleId}, #{startTime}, #{endTime}, #{totalPrice})
+		]]>
+	</insert>
+	
+	<insert id="insertSeat" >
+		<![CDATA[
+			insert into reserved_seat (seat_id, ticket_id, schedule_id, seat)
+			values(seat_seq.NEXTVAL,#{ticketId}, #{scheduleId}, #{seat})
+		]]>
+	</insert>
+</mapper>

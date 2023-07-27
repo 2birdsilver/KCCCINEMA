@@ -47,7 +47,7 @@
 	<!-- 스케줄 조회 -->
 	<select id="selectSchedule" resultMap="scheduleResult"
 		parameterType="scheduleVO">
-    <![CDATA[
+    <![CDATA[ 
     SELECT
     SCHEDULE_ID,
     TIME_ID,

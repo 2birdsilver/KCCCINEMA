@@ -20,10 +20,10 @@ public class Booking3Controller {
 	@Resource
 	private IBooking3Service booking3Service;
 
-	@RequestMapping(value = "/booking3")
-	public String booking3() throws Exception {
-		return "book/booking3";
-	}
+//	@RequestMapping(value = "/booking3")
+//	public String booking3() throws Exception {
+//		return "book/booking3";
+//	}
 
 	@RequestMapping(value = "/booking3ok")
 	public String booking3ok(HttpServletRequest request, Model model) throws Exception {

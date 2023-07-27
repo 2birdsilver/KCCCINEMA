@@ -85,16 +85,12 @@ public class Booking1Controller {
 	@RequestMapping(value="/book/schedule", method=RequestMethod.GET)
 	@ResponseBody
 	public JSONObject schedule(String selectedDate, String movieTitle, String cinemaName) throws Exception{
-		System.out.println(selectedDate+movieTitle+cinemaName);
-        // 문자열 -> Date
+		// 문자열 -> Date
         Date date = Date.valueOf(selectedDate);
-        System.out.println(date);
 		JSONObject schedule = new JSONObject();
 		List<ScheduleVO> scheduleList = new ArrayList<ScheduleVO>();
 		scheduleList = booking1Service.getScheduleList(date, movieTitle, cinemaName);
-		System.out.println(scheduleList);
 		schedule.put("scheduleList", scheduleList);
-		System.out.println(schedule);
 		return schedule;
 	}
 	
@@ -107,8 +103,8 @@ public class Booking1Controller {
 	
 	@RequestMapping(value="/book/choiceAll", method=RequestMethod.GET)
 	@ResponseBody
-	public String choiceAll(String dateFinal, String movieTitleFinal, String cinemaFinal, String theaterFinal, String startTimeFinal, String endTimeFinal,
-			HttpSession session) {
+	public String choiceAll(String dateFinal, String movieTitleFinal, String cinemaFinal, String theaterFinal, String startTimeFinal, String endTimeFinal, HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		session.setAttribute("date", dateFinal);
 		session.setAttribute("movieTitle", movieTitleFinal);
 		session.setAttribute("cinema", cinemaFinal);
@@ -116,16 +112,7 @@ public class Booking1Controller {
 		session.setAttribute("startTime", startTimeFinal);
 		session.setAttribute("endTime", endTimeFinal);
 		
-		String all =dateFinal+movieTitleFinal+cinemaFinal+theaterFinal+startTimeFinal+endTimeFinal;
+		String all = dateFinal+movieTitleFinal+cinemaFinal+theaterFinal+startTimeFinal+endTimeFinal;
 		return all;
-	}
-	
-	@RequestMapping("/movieData")
-	public String movieData(HttpServletRequest request, Model model) throws Exception {
-		int mnNum = Integer.parseInt(request.getParameter("mnNum"));
-		MovieVO movieData = booking1Service.getMovieData(mnNum);
-		model.addAttribute("movieData", movieData);
-
-		return "jsonView";
 	}
 } 

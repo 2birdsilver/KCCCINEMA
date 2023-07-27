@@ -5,8 +5,10 @@ import lombok.Data;
 @Data
 public class TicketVO {
 	private int ticketId;
-	private int adultNumber;
-	private int childNumber;
+	private int totalNumber;
 	private String userId;
 	private int scheduleId;
+	private String startTime;
+	private String endTime;
+	private int cost;
 }

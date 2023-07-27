@@ -8,331 +8,24 @@
 <script th:src="@{/js/gsaps.js}"></script>
 <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 <script th:src="@{/js/bootstrap-custom.js}"></script>
-<script th:src="@{/js/bootstrap-select.js}"></script>
 <script th:src="@{/js/netfunnel.js}" charset="UTF-8"></script>
 <script th:src="@{/js/netfunnel_skin.js}" charset="UTF-8"></script>
 <script th:src="@{/js/netfunnel_frm.js}" charset="UTF-8"></script>
-<script th:src="@{/js/megaboxCom.js}"></script>
 <script th:src="@{/js/mega.prototype.js}"></script>
 <script th:src="@{/js/commons.js}"></script>
 <script th:src="@{/js/swiper.min.js}"></script>
-<script th:src="@{/js/masonry.pkgd.min.js}"></script>
-<script th:src="@{/js/ui.common.js(2)}"></script>
-<script th:src="@{/js/front.js(2)}"></script>
-<script th:src="@{/js/booking/booking_2.js}"></script>
+<script th:src="@{/js/ui.common.js}"></script>
+<script th:src="@{/js/front.js}"></script>
 <th:block th:replace="~{/include/header :: header}">
 </head>
 <body class="body-iframe" id="body-frame">
 	<input type="hidden" id="playSchdlNo" name="playSchdlNo"
 		value="2204111371025">
 	<input type="hidden" id="brchNo" name="brchNo" value="1371">
-	<section id="layer_age_alert" class="modal-layer" style="z-index: 900">
-		<a
-			href="https://www.megabox.co.kr/on/oh/ohz/PcntSeatChoi/selectPcntSeatChoi.do"
-			class="focus">레이어로 포커스 이동 됨</a>
-		<div class="wrap"
-			style="width: 750px; height: 350px; margin-left: -375px; margin-top: 0px; top: 140px;">
-			<header class="layer-header">
-				<h3 class="tit">알림</h3>
-			</header>
-			<div class="layer-con">
-				<div class="alert-age-layer age12">
-					<div class="age-box age-12">
-						<div class="left">
-							<p class="circle">12</p>
-						</div>
-						<div class="right">
-							<p class="tit">12세이상관람가</p>
-							<p class="txt">
-							<p>
-								만 12 세 미만의 고객님은(영,유아 포함)<br>반드시 성인 보호자의 동반하에 관람이 가능합니다.<br>(확인불가
-								시 입장제한)<br> <br> <strong><font color="red">◆
-										접종유무에 관계없이 최대 10명까지 관람 가능 ◆</font><br>- 상영관 내 물, 음료(무알콜)만 취식가능 /
-									- 띄어앉기 운영<br> <br>※극장 이용시 항상 마스크 착용을 부탁드립니다※</strong>
-							</p>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="btn-group-fixed">
-				<button type="button" class="button purple close-layer">확인</button>
-			</div>
-			<button type="button" class="btn-modal-close">레이어 닫기</button>
-		</div>
-	</section>
 	<div class="inner-wrap"
-		style="padding-top: 40px; padding-bottom: 100px;">
+		style="padding-bottom: 100px;">
 		<div class="quick-reserve">
 			<h2 class="tit">빠른예매</h2>
-			<script type="text/javascript">
-				var requestPayAt = "N";
-
-				$(function() {
-					//RIA의 경우
-					if (parent.sellChnlCd != "") {
-						$('.inner-wrap').css('padding-bottom', '').css(
-								'padding-top', ''); //하단 상단 공백 제거
-						//         $('#btnLangChg').hide();    //언어전환 버튼숨김
-
-						//로그인 되었으면
-						if (parent.riaLoginAt == "Y") {
-							$('.cti-area input[name=riaName]').attr('value',
-									parent.riaParamName); //고객명
-							$('.cti-area input[name=riaMobileNo]').attr(
-									'value', parent.riaParamMobileNo); //고객전화번호
-							$('.cti-area input[name=riaBirthday]').attr(
-									'value', parent.riaParamBirthday); //고객생년월일
-							$('.cti-area input[name=riaMemberYn]').attr(
-									'value',
-									parent.riaMemberYn == "Y" ? "회원" : "비회원"); //회원여부
-
-							$('.cti-area input[name=riaName]').attr("readonly",
-									true); //고객명
-							$('.cti-area input[name=riaMobileNo]').attr(
-									"readonly", true); //고객전화번호
-							$('.cti-area input[name=riaBirthday]').attr(
-									"readonly", true); //고객생년월일
-
-							$('.cti-area input[name=riaMemberYn]').attr(
-									"readonly", true); //회원여부
-
-							$('.cti-area button').attr('login-at', "Y");
-
-							//결제화면이 아니면
-							if ("N" == requestPayAt) {
-								$('.cti-area button').html('재인증');
-							}
-						}
-						//로그인 되지 않았으면
-						else {
-							$('.cti-area input[name=riaName]').attr('value',
-									parent.riaParamName); //고객명
-							$('.cti-area input[name=riaMobileNo]').attr(
-									'value', parent.riaParamMobileNo); //고객전화번호
-							$('.cti-area input[name=riaBirthday]').attr(
-									'value', parent.riaParamBirthday); //고객생년월일
-							$('.cti-area input[name=riaMemberYn]').attr(
-									'value', ''); //회원여부
-
-							$('.cti-area input[name=riaName]').attr("readonly",
-									false); //고객명
-							$('.cti-area input[name=riaMobileNo]').attr(
-									"readonly", false); //고객전화번호
-							$('.cti-area input[name=riaBirthday]').attr(
-									"readonly", false); //고객생년월일
-
-							$('.cti-area input[name=riaMemberYn]').attr(
-									"readonly", true); //회원여부
-
-							$('.cti-area button').attr('login-at', "N"); //회원여부
-							//결제화면이 아니면
-							if ("N" == requestPayAt) {
-								$('.cti-area button').html('인증요청');
-							}
-						}
-
-						//드림센터의 경우
-						if (parent.sellChnlCd == "TELLER") {
-							$('.cti-area').show(); //cti 로그인창 표시
-						} else {
-							$('.cti-area').hide(); //cti 로그인창 표시
-						}
-
-						//회원정보 확인을 위한 초기 파라메타 셋팅
-
-						//파라메타 셋팅후
-						//회원여부확인				부모창
-						//나머지 화면 disable 처리	부모창
-
-					} else {
-						$('.quick-reserve-ad-area').show(); //광고영역 표시
-						//         $('#btnLangChg').show();	//언어전환 버튼표시 사용안함 20200106 김민영
-					}
-
-					/* RIA 재인증 버튼 클릭 */
-					$('.cti-area button')
-							.on(
-									"click",
-									function() {
-
-										//입력값 검증
-										if ($('.cti-area button').attr(
-												'login-at') == "N") {
-
-											// 			if($(".cti-area input[name=riaName]").val().length == 0){
-											// 				gfn_alertMsgBoxSize('이름은  필수 입력 항목 입니다.',400,250);	//{0} 필수 입력 항목 입니다.
-											// 				return;
-											// 			}
-
-											if (!fn_validateDateYn($(
-													".cti-area input[name=riaBirthday]")
-													.val())) {
-												gfn_alertMsgBoxSize(
-														'생년월일을 정확히 입력해주세요.',
-														400, 250); //생년월일을 정확히 입력해주세요.
-												return;
-											}
-
-											if ($(
-													".cti-area input[name=riaMobileNo]")
-													.val().length < 10) {
-												gfn_alertMsgBoxSize(
-														'휴대폰번호를 정확히 입력해주세요.',
-														400, 250); //휴대폰번호를 정확히 입력해주세요.
-												return;
-											}
-
-											if ($(
-													".cti-area input[name=riaMobileNo]")
-													.val().substr(0, 2) != "01") {
-												gfn_alertMsgBoxSize(
-														'휴대폰번호를 정확히 입력해주세요.',
-														400, 250); //휴대폰번호를 정확히 입력해주세요.
-												return;
-											}
-										}
-										parent
-												.fn_setRiaLoginToggle([
-														$('.cti-area button')
-																.attr(
-																		'login-at'),
-														$(
-																".cti-area input[name=riaName]")
-																.val(),
-														$(
-																".cti-area input[name=riaBirthday]")
-																.val(),
-														$(
-																".cti-area input[name=riaMobileNo]")
-																.val() ]);
-									});
-
-					/* 이름 숫자를 제외한 입력 여부판단 */
-					$(".cti-area input[name=riaName]").on(
-							"keyup",
-							function(e) {
-								var partton = /[^ㄱ-힣a-zA-Z]/g;
-								if (partton.test($(this).val())) {
-									var value = $(this).val().replace(
-											/[^ㄱ-힣a-zA-Z]/g, "");
-									$(this).val(value);
-								}
-							});
-					$(".cti-area input[name=riaName]").focusout(
-							function() {
-								var partton = /[^ㄱ-힣a-zA-Z]/g;
-								if (partton.test($(this).val())) {
-									var value = $(this).val().replace(
-											/[^ㄱ-힣a-zA-Z]/g, "");
-									$(this).val(value);
-								}
-							});
-
-					/* 생년월일 숫자만 입력 여부판단 */
-					$(".cti-area input[name=riaBirthday]").on(
-							"keyup",
-							function(e) {
-								$(this).val(
-										$(this).val().replace(/[^0-9]/g, ""));
-							});
-					$(".cti-area input[name=riaBirthday]").focusout(function() {
-						$(this).val($(this).val().replace(/[^0-9]/g, ""));
-					});
-
-					/* 휴대폰번호 숫자만 입력 여부판단 */
-					$(".cti-area input[name=riaMobileNo]").on(
-							"keyup",
-							function(e) {
-								$(this).val(
-										$(this).val().replace(/[^0-9]/g, ""));
-							});
-					$(".cti-area input[name=riaMobileNo]").focusout(function() {
-						$(this).val($(this).val().replace(/[^0-9]/g, ""));
-					});
-				});
-
-				/*날짜 형태 확인*/
-				function fn_validateDateYn(param) {
-					try {
-						var yearFront = "";
-						var year = "";
-						var month = "";
-						var day = "";
-
-						param = param.replace(/-/g, '');
-
-						// 자리수가 맞지않을때
-						if (isNaN(param) || param.length < 6
-								|| param.length == 7) {
-							return false;
-						}
-
-						if (param.length == 6) {
-							year = Number(param.substring(0, 2));
-							month = Number(param.substring(2, 4));
-							day = Number(param.substring(4, 6));
-						} else if (param.length == 8) {
-							var date = new Date();
-							yearFront = Number(param.substring(0, 4));
-							year = Number(param.substring(2, 4));
-							month = Number(param.substring(4, 6));
-							day = Number(param.substring(6, 8));
-
-							if (yearFront > date.getFullYear()) {
-								return false;
-							}
-						}
-						var dd = day / 0;
-
-						if (month<1 || month>12) {
-							return false;
-						}
-
-						var maxDaysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31,
-								30, 31, 30, 31 ];
-						var maxDay = maxDaysInMonth[month - 1];
-
-						// 윤년 체크
-						if (month == 2
-								&& (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)) {
-							maxDay = 29;
-						}
-
-						if (day<=0 || day>maxDay) {
-							return false;
-						}
-						return true;
-
-					} catch (err) {
-						return false;
-					}
-				}
-			</script>
-			<!-- cti 일때만 출력 -->
-			<div class="cti-area" style="display: none">
-				<p>이름</p>
-				<input maxlength="20" name="riaName" type="text" title="이름 출력"
-					class="input-text a-c w120px" placeholder="이름" value="">
-
-				<p>생년월일</p>
-				<input maxlength="8" name="riaBirthday" type="text" title="생년월일 출력"
-					class="input-text a-c w150px" placeholder="6자리 또는 8자리" value="">
-
-				<p>휴대폰번호</p>
-				<input maxlength="11" name="riaMobileNo" type="text"
-					title="휴대폰번호 출력" class="input-text a-c w150px"
-					placeholder="- 없이 입력" value="">
-
-				<p>회원</p>
-				<input name="riaMemberYn" type="text" title="회원여부 출력"
-					class="input-text a-c w100px" value="" readyonly="readyonly">
-
-
-				<button type="button" class="button gray ml10" login-at="N"></button>
-
-			</div>
-
 			<script>
 				function btnUpDown(seat, way) {
 					var totalCnt = fTotalCnt();
@@ -362,9 +55,7 @@
 				function fTotalCnt() {
 					var adultCnt = Number($('#adultCount').val());
 					var youngCnt = Number($('#youngCount').val());
-					var favorCnt = Number($('#favorCount').val());
-
-					var totalCnt = adultCnt + youngCnt + favorCnt;
+					var totalCnt = adultCnt + youngCnt;
 					$('#totalCount').val(totalCnt);
 					return totalCnt;
 				}
@@ -372,88 +63,31 @@
 
 			<script>
 				function sum() {
-
 					var adultPrice = $('#adultCount').val() * 14000;
 					$('#adultPrice_value').val(adultPrice);
-
 					var youngPrice = $('#youngCount').val() * 7000;
 					$('#youngPrice_value').val(youngPrice);
-
-					var favorPrice = $('#favorCount').val() * 5000;
-					$('#favorPrice_value').val(favorPrice);
-
-					totalPrice = adultPrice + youngPrice + favorPrice;
-
+					totalPrice = adultPrice + youngPrice;
 					$('#totalPrice').text(totalPrice);
 					$('#totalPrice_value').val(totalPrice);
 				}
 			</script>
-
-
-
 			<!-- 초기화 -->
 			<script>
 				$(function() {
-
 					iframeData();
-
-					test1();
-
+					test1();//좌석 관련
 				});
 			</script>
 
 			<!-- iframeData -->
 			<script>
 				function iframeData() {
-
-					var tagName_value = parent.document.all["tagName_value"].value;
-					$('#tagName').text(tagName_value);
-					$('#tagName_value').val(tagName_value);
-					$('#tagName').addClass(tagName_value);
-
-					var hangle_value = parent.document.all["hangle_value"].value;
-					$('#hangle').text(hangle_value);
-					$('#hangle_value').val(hangle_value);
-
-					var movieNm_value = parent.document.all["movieNm_value"].value;
-					$('#movieNm').text(movieNm_value);
-					$('#movieNm_value').val(movieNm_value);
-
-					var movieImg_value = parent.document.all["movieImg_value"].value;
-					$('#movieImg_value').val(movieImg_value);
-					$("#movieImg").attr("src", "/poster/" + movieImg_value);
-
-					var playKindNm_value = parent.document.all["playKindNm_value"].value;
-					$('#playKindNm').text(playKindNm_value);
-					$('#playKindNm_value').val(playKindNm_value);
-
-					var brchNm_value = parent.document.all["brchNm_value"].value;
-					$('#brchNm').text(brchNm_value);
-					$('#brchNm_value').val(brchNm_value);
-
-					var theater_value = parent.document.all["theater_value"].value;
-					$('#theater').text(theater_value);
-					$('#theater_value').val(theater_value);
-
-					var playDe_value = parent.document.all["playDe_value"].value;
-					$('#playDe').text(playDe_value);
-					$('#playDe_value').val(playDe_value);
-
-					var dowNm_value = parent.document.all["dowNm_value"].value;
-					$('#dowNm').text(dowNm_value);
-					$('#dowNm_value').val(dowNm_value);
-
-					var playTime_value = parent.document.all["playTime_value"].value;
-					$('#playTime').text(playTime_value);
-					$('#playTime_value').val(playTime_value);
-
+					
 				}
 			</script>
 
-
-
-			<form action="" method="post" name="myForm">
-
+			<form th:action="@{/booking2ok}" method="post" name="myForm">
 				<div class="seat-select-section">
 					<div class="seat-section">
 						<div class="tit-util">
@@ -476,7 +110,7 @@
 											<button type="button" class="now" title="성인 현재 좌석 선택 수"
 												ticketgrpcd="TKA" id="adultCount" value="0">0</button>
 											<input type="hidden" id="adultCount_value"
-												name="adultCount_value" />
+												name="adultCountValue" />
 											<ul class="num-choice">
 												<li><button type="button" class="btn">0</button></li>
 											</ul>
@@ -494,7 +128,7 @@
 											<button type="button" class="now" title="청소년 현재 좌석 선택 수"
 												ticketgrpcd="TKY" id="youngCount" value="0">0</button>
 											<input type="hidden" id="youngCount_value"
-												name="youngCount_value" />
+												name="youngCountValue" />
 											<ul class="num-choice">
 												<li><button type="button" class="btn on">0</button></li>
 											</ul>
@@ -517,24 +151,19 @@
 											class="mCSB_container mCS_no_scrollbar_y"
 											style="position: relative; top: 0px; left: 0px; height: 290px;"
 											dir="ltr">
-
 											<input id="seatCnt" type="hidden" value="0" />
 											<script>
 												function f_btn_click(seat) {
-
 													var totalCnt = $(
 															'#totalCount')
 															.val();
 													var seatCnt = $('#seatCnt')
 															.val();
-
 													if (totalCnt == 0) {
 														return;
 													}
-
 													if ($('#btn_' + seat)
 															.hasClass('choice')) {
-
 														$('#btn_' + seat)
 																.removeClass(
 																		'choice');
@@ -543,7 +172,6 @@
 																		+ seat
 																		+ '_value')
 																.val('N');
-
 														$('#seat' + seatCnt)
 																.text("-");
 														$('#seat' + seatCnt)
@@ -556,17 +184,13 @@
 																		+ seatCnt
 																		+ '_value')
 																.val("N");
-
 														seatCnt--;
 
 													} else {
-
 														seatCnt++;
-
 														if (totalCnt < seatCnt) {
 															return;
 														}
-
 														$('#btn_' + seat)
 																.addClass(
 																		'choice');
@@ -591,47 +215,38 @@
 																.val(seat);
 
 													}
-
 													$('#seatCnt').val(seatCnt);
 
 												}
 											</script>
 
-
-
 											<div id="seatLayout" style="width: 100%; height: 290px;">
 												<img src="/images/img-theater-screen.png" alt="screen"
-													style="position: absolute; left: 62px; top: 10px;"
+													style="position: absolute; left: 30px; top: 10px;"
 													class="mCS_img_loaded">
-												<div class'row'="">
+												<div class="row">
 
 													<script>
 														function test1() {
-
 															for (i = 0; i < 11; i++) {
 																test2(i);
 																for (j = 0; j < 12; j++) {
 																	test3(i, j);
-
 																}
 															}
 
 														}
 													</script>
-
 													<script>
 														function test2(i) {
-
 															var node = document
 																	.createElement("button");
-
 															var list = [ "A",
 																	"B", "C",
 																	"D", "E",
 																	"F", "G",
 																	"H", "I",
 																	"J", "K" ];
-
 															node.type = "button";
 															node.className = "btn-seat-row";
 															node.style.position = "absolute";
@@ -639,7 +254,6 @@
 															node.style.top = 52
 																	+ (i * 20)
 																	+ "px";
-
 															var text = document
 																	.createTextNode(list[i]);
 															node
@@ -652,7 +266,6 @@
 																			node);
 														}
 													</script>
-
 													<script>
 														function test3(i, j) {
 
@@ -756,44 +369,32 @@
 					<div class="seat-result">
 						<div class="wrap">
 							<div class="tit-area">
-								<span class="movie-grade small" id="tagName"></span> <input
-									type="hidden" id="tagName_value" name="tagName_value" /> <input
-									type="hidden" id="hangle_value" name="hangle_value" />
-
-								<p class="tit" id="movieNm"></p>
+								<span class="movie-grade small" id="tagName"></span>
+								<p class="title" id="movieNm" style="margin-bottom:10px;" th:text="${movieVO.movieTitle}"></p>
 								<input type="hidden" id="movieNm_value" name="movieNm_value" />
-
-								<p class="cate" id="playKindNm"></p>
-								<input type="hidden" id="playKindNm_value"
-									name="playKindNm_value" />
-
 							</div>
 							<div class="info-area">
-								<p class="theater" id="brchNm"></p>
-								<input type="hidden" id="brchNm_value" name="brchNm_value" />
-								<p class="special" id="theater"></p>
+								<p class="cinema" id="cinema" style="margin:5px;" th:text="${cinema}"></p>
+								<input type="hidden" id="playKindNm_value"
+									name="playKindNm_value" />
+								
+								<p class="theater" id="theater" style="margin:5px; padding-top:0px; " th:text="${theater}"></p>
 								<input type="hidden" id="theater_value" name="theater_value" />
 
 								<p class="date">
-									<span id="playDe"></span> <input type="hidden"
-										id="playDe_value" name="playDe_value" /> <em id="dowNm"></em>
-									<input type="hidden" id="dowNm_value" name="dowNm_value" />
-
+									<span id="playDe" style="margin:5px;" th:text="${date}"></span> 
+									<input type="hidden"
+										id="playDe_value" name="playDe_value" /> 
+										<em id="dowNm"></em>
 								</p>
-								<div class="other-time">
-									<button type="button" class="now" id="playTime">
-										<i class="arr"></i>
-									</button>
-									<input type="hidden" id="playTime_value" name="playTime_value" />
-
-									<ul class="other">
-										<li><button type="button" choicnt="83"
-												playschdlno="2204111371025" class="btn on "></button></li>
-									</ul>
+								<div class="time" style="margin:5px;">
+									<span class="start_time" th:text="${startTime}"></span>
+									<span>~</span>
+									<span class="end_time" th:text="${endTime}"></span>
 								</div>
 								<p class="poster">
-									<img id="movieImg" src="/images/poster.jpg"> <input
-										type="hidden" id="movieImg_value" name="movieImg_value" />
+									<img id="movieImg" th:src="'data:image/jpeg;base64,' + ${movieVO.base64Image}" alt="Image"> 
+									<input type="hidden" id="movieImg_value" name="movieImg_value" />
 								</p>
 							</div>
 							<div class="choice-seat-area">
@@ -815,28 +416,28 @@
 									<p class="tit">선택좌석</p>
 									<div class="my-seat">
 										<div class="seat all" title="구매가능 좌석" id="seat1">-</div>
-										<input id="seat1_value" type="hidden" name="seat1_value" />
+										<input id="seat1_value" type="hidden" name="seat1Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat2">-</div>
-										<input id="seat2_value" type="hidden" name="seat2_value" />
+										<input id="seat2_value" type="hidden" name="seat2Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat3">-</div>
-										<input id="seat3_value" type="hidden" name="seat3_value" />
+										<input id="seat3_value" type="hidden" name="seat3Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat4">-</div>
-										<input id="seat4_value" type="hidden" name="seat4_value" />
+										<input id="seat4_value" type="hidden" name="seat4Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat5">-</div>
-										<input id="seat5_value" type="hidden" name="seat5_value" />
+										<input id="seat5_value" type="hidden" name="seat5Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat6">-</div>
-										<input id="seat6_value" type="hidden" name="seat6_value" />
+										<input id="seat6_value" type="hidden" name="seat6Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat7">-</div>
-										<input id="seat7_value" type="hidden" name="seat7_value" />
+										<input id="seat7_value" type="hidden" name="seat7Value" />
 
 										<div class="seat all" title="구매가능 좌석" id="seat8">-</div>
-										<input id="seat8_value" type="hidden" name="seat8_value" />
+										<input id="seat8_value" type="hidden" name="seat8Value" />
 
 									</div>
 								</div>
@@ -851,38 +452,39 @@
 											type="hidden" id="youngPrice_value" name="youngPrice_value" />
 										<input type="hidden" id="favorPrice_value"
 											name="favorPrice_value" /> <input type="hidden"
-											id="totalPrice_value" name="totalPrice_value" /> <span>원</span>
+											id="totalPrice_value" name="totalPriceValue" /> <span>원</span>
 									</div>
 								</div>
 							</div>
 
 							<script>
 								function sendIt() {
+									var totalCnt = $('#totalCount').val();//예매 총 개수
+									var cost = totalPrice;//총 금액
+									console.log(totalCnt);
+									console.log(cost);
+									
+									//var seatNum = "#seat" + totalCnt + "_value";
 
-									var f = document.myForm;
-									var totalCnt = $('#totalCount').val();
-									var seatNum = "#seat" + totalCnt + "_value";
+									//if ($(seatNum).val() === "") {
+										//alert("나머지 좌석을 선택하세요.");
+										//return;
+									//}
 
-									if ($(seatNum).val() === "") {
-										alert("나머지 좌석을 선택하세요.");
-										return;
-									}
-
-									f.action = "/booking_2_ok";
-									f.submit();
+									//f.action = "/booking_2_ok";
+									//f.submit();
 								}
 							</script>
 
 							<div class="btn-group">
 								<a href="javaScript:void(0)" class="button" id="pagePrevious"
-									title="이전">이전</a> <a href="javaScript:void(0)"
-									class="button active" id="pageNext" title="다음"
-									onclick="sendIt();">다음</a>
+									title="이전">이전</a> 
+								<a href="javaScript:void(0)"
+									class="button active" id="pageNext" title="다음"><button type="submit">다음</button></a>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</form>
 
 

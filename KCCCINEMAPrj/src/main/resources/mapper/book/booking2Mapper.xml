@@ -19,7 +19,58 @@
 			is_adult_movie	as "isAdultMovie",
 			movie_poster	as "moviePoster"
 		from movie
-		where movie_title = #{movieTitleFinal}
+		where movie_title = #{movieTitle}
 	]]>
+	</select>
+
+
+	<select id="getMaxTicketId" parameterType="hashmap"
+		resultType="int">
+		<![CDATA[
+		select max(ticket_id) as "ticketId"
+		from ticket
+		]]>
+	</select>
+
+	<select id="getCinema" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.CinemaVO">
+		<![CDATA[
+		select
+			cinema_id		as "cinemaId",
+			cinema_name		as "cinemaName",
+			cinema_location	as "cinemaLocation",
+			cinema_phone	as "cinemaPhone"
+		from cinema
+		where cinema_name = #{cinema}
+		]]>
+
+	</select>
+	
+	<select id="getTheater" parameterType="hashmap"
+		resultType="com.example.kcccinema.model.TheaterVO">
+		<![CDATA[
+		select
+			theater_id		as "theaterId",
+			cinema_id		as "cinemaId",
+			theater_no		as "theaterNo"
+		from theater
+		where cinema_id = #{cinemaId} and theater_no = #{theaterNo}
+		]]>
+
+	</select>
+	
+	<select id="getScheduleId" parameterType="hashmap"
+		resultType="int">
+		<![CDATA[
+		select
+			schedule_id		as "scheduleId"
+		from schedule
+		where screen_date = #{date} 
+			and time_id = #{timeId}
+			and movie_id = #{movieId}
+			and cinema_id = #{cinemaId}
+			and theater_no = #{theaterNo}
+		]]>
+
 	</select>
 </mapper>

@@ -41,7 +41,7 @@
 	</script>
 	<div class="body-wrap">
 		<div class="main-container" style="padding-bottom: 240px;">
-			<div class="page-util" style="">
+			<div class="page-util">
 				<div class="inner-wrap">
 					<div class="location">
 						<span>Home</span> <a th:href="@{/book}" title="예매 페이지로 이동">예매</a>
@@ -82,8 +82,7 @@
 										<div class="date-area" id="formDeList">
 											<div class="wrap"
 												style="position: relative; width: 2100px; border: none; left: -70px;">
-												<button class="disabled holi" type="button"
-													date-data="2022.04.10" month="3" tabindex="-1">
+												<button class="disabled holi" type="button" tabindex="-1">
 													<span class="ir">2023/07/</span><em
 														style="pointer-events: none;"><span
 														style="pointer-events: none;" class="ir"></span></em><span
@@ -496,7 +495,7 @@
 										<div class="result">
 											<div
 												class="scroll m-scroll mCustomScrollbar _mCS_16 mCS_no_scrollbar"
-												id="playScheduleList" style="">
+												id="playScheduleList">
 												<div id="mCSB_16"
 													class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
 													style="max-height: none;" tabindex="0">
@@ -586,8 +585,11 @@
 																'<em>2D(자막)</em>'+
 															'</span>'+
 															'<div class="info">'+
+																'<div style="display:flex;margin-left: 80px;">'+
 																'<span class="theater" title="극장">'+
-																	scheduleList[i].theaterId+"관"+'</span>'+
+																	scheduleList[i].theaterId+'</span>'+
+																'<span style="display:block;">'+"관"+'</span>'+
+																'</div>'+
 																'<span class="seat">'+
 																'<strong class="now" title="잔여 좌석">83</strong>'+
 																'<span>/</span>'+
@@ -673,30 +675,6 @@
 								<a style="text-decoration: none; color:white;" href="/booking2">좌석 선택</a></div>
 						</button>
 					</div>
-					<script>
-						/*const seatChoiceBtn = document.querySelector('.seat_choice_btn');
-						seatChoiceBtn.addEventListener('click', function(){
-							$.ajax({
-								url: "/booking2",
-								async: false,
-								method: "GET",
-								data: {
-									dateFinal: dateFinal,
-									movieTitleFinal: movieTitleFinal,
-									cinemaFinal: cinemaFinal,
-									theaterFinal: theaterFinal,
-									startTimeFinal: startTimeFinal,
-									endTimeFinal: endTimeFinal
-								},
-								success: function(data){
-									console.log("good");
-								},
-								error: function(error){
-									console.log("error: ", error)
-								}
-							});
-						});*/
-				</script>
 				</form>
 			</div>
 		</div>

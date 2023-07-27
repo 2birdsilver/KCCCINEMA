@@ -1,5 +1,7 @@
 package com.example.kcccinema.service.book;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +17,27 @@ public class Booking2Service implements IBooking2Service {
 	private IBooking2Repository booking2Repository;
 	
 	@Override
-	public MovieVO getMovie(String movieTitleFinal) {
-		return booking2Repository.getMovie(movieTitleFinal);
+	public MovieVO getMovie(String movieTitle) {
+		return booking2Repository.getMovie(movieTitle);
 	}
 
 	@Override
-	public CinemaVO getCinema(int cinemaId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer getMaxTicketId() {
+		return booking2Repository.getMaxTicketId();
 	}
 
 	@Override
-	public TheaterVO getTheater(int theaterId) {
-		// TODO Auto-generated method stub
-		return null;
+	public CinemaVO getCinema(String cinema) {
+		return booking2Repository.getCinema(cinema);
 	}
 
 	@Override
-	public String getDate(String date) {
-		// TODO Auto-generated method stub
-		return null;
+	public TheaterVO getTheater(int cinemaId, int theaterNo) {
+		return booking2Repository.getTheater(cinemaId, theaterNo);
 	}
 
-
+	@Override
+	public int getScheduleId(Date date, int timeId, int movieId, int cinemaId, int theaterNo) {
+		return booking2Repository.getScheduleId(date, timeId, movieId, cinemaId, theaterNo);
+	}
 }

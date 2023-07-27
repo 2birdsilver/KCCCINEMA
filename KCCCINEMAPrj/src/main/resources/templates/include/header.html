@@ -42,9 +42,10 @@
 				        <li><a href="/booking1">예매</a></li>
 				        <li><a href="#">이벤트</a></li>
 				        <li th:if="${session.userId == null}"><a href="/login">로그인</a></li>
-            <li th:if="${session.userId != null}"><a href="/logout">로그아웃</a></li>
-            <li th:if="${session.userId == null}"><a href="/signup">회원가입</a></li>
-            <li th:if="${session.userId != null}"><a href="/mypage">마이페이지</a></li>
+			            <li th:if="${session.userId != null}"><a href="/logout">로그아웃</a></li>
+			            <li th:if="${session.userId == null}"><a href="/signup">회원가입</a></li>
+			            <li th:if="${session.userId != null && session.userId ne 'admin@admin.com'}"><a href="/mypage">내 정보</a></li>
+			            <li th:if="${session.userId eq 'admin@admin.com'}"><a href="/admin/movies">관리자</a></li>
 				      </ul>
 				    </div>
                     <nav class="nav">
@@ -52,16 +53,17 @@
                             <li><a href="/movies">영화</a></li>
                             <li><a href="/booking1">예매</a></li>
                             <li><a href="#">이벤트</a></li>
-                           <li th:if="${session.userId == null}"><a href="/login">로그인</a></li>
-            <li th:if="${session.userId != null}"><a href="/logout">로그아웃</a></li>
-            <li th:if="${session.userId == null}"><a href="/signup">회원가입</a></li>
-            <li th:if="${session.userId != null}"><a href="/mypage">마이페이지</a></li>
+                            <li th:if="${session.userId == null}"><a href="/login">로그인</a></li>
+				            <li th:if="${session.userId != null}"><a href="/logout">로그아웃</a></li>
+				            <li th:if="${session.userId == null}"><a href="/signup">회원가입</a></li>
+				            <li th:if="${session.userId != null && session.userId ne 'admin@admin.com'}"><a href="/mypage">내 정보</a></li>
+			            	<li th:if="${session.userId eq 'admin@admin.com'}"><a href="/admin/movies">관리자</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div>
     </header>
-    <!-- //header -->   
+    <!-- //header -->
 </body>
 </html>

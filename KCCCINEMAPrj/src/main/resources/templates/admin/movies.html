@@ -1768,36 +1768,6 @@ $(function(){
 		</section>
 		<!--  ko_KR -->
 
-
-		<script type="text/javascript">
-    $(function(){
-        
-            
-            
-            	$('#header .right-link .before').hide();
-            	$('#header .right-link .after').show();
-            
-        
-
-        // 웹에서만 실행 -> facebook을 로드하지 않는 템플릿에서 반복적인 오류 발생으로 hreader로 이전
-        if(!MegaboxUtil.Common.isMobile() && !MegaboxUtil.Common.isApp())
-            MegaboxUtil.Share.init();
-    });
-
-    //로그인 버튼
-    $(document).on('click', '#moveLogin', function() {
-
-        fn_viewLoginPopup('default','pc');
-
-    });
-
-    var sysCd = 'ON';
-
-  	//넷퍼넬 스킨 타입 지정
-	//NetfunnelChk.setting( sysCd, MegaboxUtil.Common.isApp() );
-
-</script>
-
 		<!-- 베네피아 배너 접근 시 노출 -->
 
 
@@ -1902,17 +1872,6 @@ $(function(){
 			</div>
 		</div>
 
-		<script type="text/javascript">
-        $(document).ready(function() {
-            var filmCheck = MegaboxUtil.Common.moveMovieFilmCheckGnb(); // 영화제 존재여부 체크
-            if(filmCheck == true){
-                $("#festivalArea").show();
-            }else{
-                $("#festivalArea").hide();
-            }
-        });
-    </script>
-
 
 		<div class="container has-lnb">
 			<!-- 			<div class="page-util fixed">
@@ -1929,28 +1888,6 @@ $(function(){
 			</div> -->
 
 			<div class="inner-wrap">
-
-
-
-				<script type="text/javascript">
-$(function(){
-	var url = location.pathname + location.search;
-    $("div.lnb-area > nav#lnb a").filter(function(i,o) { return $(o).attr("href") == url;}).last().parent().addClass("on");
-
-	$.get('/on/oh/ohh/MyScnBoard/selectCponMbNoCount.do')
-			.done(function (data) {
-				if (data.todayPubOthcomCponCnt > 0) {
-					var i = $('<span>메가박스/제휴쿠폰 </span><i class="iconset ico-theater-new"></i>');
-
-					$('#discountCoupon')
-							.empty()
-							.append(i);
-				} else {
-					// do nothing
-				}
-			});
-});
-</script>
 
 
 				<div class="lnb-area location-fixed">
@@ -1972,323 +1909,6 @@ $(function(){
 						</ul>
 					</nav>
 				</div>
-
-
-
-
-
-
-
-
-				<script type="text/javascript">
-	var selectBrchList = [ {}, {}, {} ];
-	var selectGenreList = [];
-
-	$(function() {
-
-		// 취소 버튼
-/* 		$('#cancelBtn').on('click', function(e) {
-			e.preventDefault();
-
-			location.href = '/mypage';
-		}); */
-
-		// 수정 버튼
-		$('#updateBtn').on('click', function() {
-			var value;
-			var favorBrchStr = '';
-			var favorGenreStr = '';
-			var favorTime = $('[name=favorTime]:checked').val() ? $('[name=favorTime]:checked').val() : '';
-
-			// 마케팅 개인정보 수집 동의 여부
-			if($('[name=personInfoUtilAgreeAt]:checked').length == 0)
-				return gfn_alertMsgBox('마케팅 활용을 위한 개인정보 수집 이용 안내에 대한 동의여부를 선택해주세요.');
-
-			// 이메일 마케팅정보 수신 동의 여부
-			if($('[name=marketEmailRcvAgreeAt]:checked').length == 0)
-				return gfn_alertMsgBox('이메일 마케팅정보 수신 정보에 대한 동의여부를 선택해주세요.');
-
-			// SMS 마케팅정보 수신 동의 여부
-			if($('[name=marketSmsRcvAgreeAt]:checked').length == 0)
-				return gfn_alertMsgBox('SMS 마케팅정보 수신 정보에 대한 동의여부를 선택해주세요.');
-
-			// PUSH 마케팅정보 수신 동의 여부
-			//if($('[name=marketPushRcvAgreeAt]:checked').length == 0)
-			//	return gfn_alertMsgBox('PUSH 마케팅정보 수신 정보에 대한 동의여부를 선택해주세요.');
-
-			// 선호지점값 설정
-			//$.each($('select.favorBrch'), function(i, v) {
-			$.each($('select.favorBrch2'), function(i, v) {
-				value = $(v).find('option:selected').attr('value');
-
-				if(value != '' && value != undefined) {
-					favorBrchStr += value;
-
-					if(i < 2) favorBrchStr += ',';				}
-			});
-
-			// 선호장르값 설정
-			$.each($('select.favorGenre'), function(i, v) {
-				value = $(v).find('option:selected').attr('value');
-
-				if(value != '' && value != undefined) {
-					favorGenreStr += value;
-
-					if(i < 2) favorGenreStr += ',';
-				}
-			});
-
-			$.ajaxMegaBox({
-			 	url: '/on/oh/ohh/Mypage/updateUserAddit.do',
-			 	data: JSON.stringify({
-			 		personInfoUtilAgreeAt: $('[name=personInfoUtilAgreeAt]:checked').val(),
-			 		marketEmailRcvAgreeAt: $('[name=marketEmailRcvAgreeAt]:checked').val(),
-			 		marketSmsRcvAgreeAt: $('[name=marketSmsRcvAgreeAt]:checked').val(),
-			 		//marketPushRcvAgreeAt: $('[name=marketPushRcvAgreeAt]:checked').val(),
-			 		favorBrchStr: favorBrchStr,
-			 		favorGenreStr: favorGenreStr,
-			 		favorTime: favorTime
-		 		}),
-		 		clickLmtChk: true, //중복클릭 방지 실행
-			 	success: function(d) {
-
-					var msg = "메가박스에(" + getToday() + ")요청하신\n";
-					    msg += "마케팅 수신정보가 수정되었습니다.\n";
-					    msg += "개인정보수집 : " + ($('[name=personInfoUtilAgreeAt]:checked').val() == "Y" ? "동의" : "미동의") + "\n";
-					    msg += "이메일 : " + ($('[name=marketEmailRcvAgreeAt]:checked').val() == "Y" ? "수신동의" : "수신거부") + "\n";
-					    msg += "SMS : " + ($('[name=marketSmsRcvAgreeAt]:checked').val() == "Y" ? "수신동의" : "수신거부");
-
-			 		gfn_alertMsgBox({ msg: msg, callback: fn_reload });
-
-			  	},complete: function(xhr){
-					//중복제한 초기화
-					clearLmt();
-				}
-			});
-		});
-
-		// 지역선택
-		$('.favorBrch').on('change', function() {
-			var target = $(this).parent().next().find('select');
-
-			if($(this).val() != '') {
-			 	$.ajaxMegaBox({
-				 	url: '/on/oh/ohj/Company/theaterCdList.do',
-				 	data: JSON.stringify({ areaCd: $(this).val() }),
-				 	success: function(d) {
-				 		var list = d.theaterCdList;
-				 		var option;
-
-				 		target.find('option').remove();
-						target.append($('<option>').val('').text('극장선택'));
-
-						MegaboxUtil.Common.refreshSelectBox(target); // 셀렉트박스 데이터 초기화
-
-				 		$.each(list, function(i, v) {
-				 			option = $('<option>').val(v.brchNo).html(v.brchNm);
-
-				 			target.append(option);
-				 		});
-
-				 		selectBrchList[target.prev().parent().index() - 1] = {};
-
-				 		//fn_favorBrchDisabled();
-
-				 		MegaboxUtil.Common.refreshSelectBox(target); // 셀렉트박스 데이터 초기화
-				  	}
-				});
-			} else {
-				target.find('option').remove();
-				target.append($('<option>').val('').text('극장선택'));
-
-				MegaboxUtil.Common.refreshSelectBox(target); // 셀렉트박스 데이터 초기화
-			}
-		});
-
-		// 극장선택
-		$('.favorBrch').next().on('change', function(e) {
-			var bSelectedBrch = false;
-
-			if($(this).val() != '') {
-				var selBrch = $(this).val();
-				var iCnt = 0;
-
-				//fn_favorBrchDisabled($(this));
-
-				$.each($('select.favorBrch2'), function(i, v) {
-					value = $(v).find('option:selected').attr('value');
-
-					if (selBrch == value) {
-						iCnt++;
-					}
-					if (iCnt > 1) {
-						bSelectedBrch = true;
-					}
-				});
-
-				if (bSelectedBrch == true) {
-					gfn_alertMsgBox('이미 선택한 극장입니다. 다시 선택해 주세요.');
-					$(this).val($.data(this, 'current'));
-					return false;
-				}
-			}
-			$.data(this, 'current', $(this).val());
-		});
-
-		// 장르선택
-		$('.favorGenre').on('change', function() {
-			var bSelectedGenre = false;
-
-			if($(this).val() != '') {
-				//fn_favorGenreDisabled($(this));
-
-				var selGenre = $(this).val();
-				var iCnt = 0;
-
-				$.each($('select.favorGenre'), function(i, v) {
-					value = $(v).find('option:selected').attr('value');
-
-					if (selGenre == value) {
-						iCnt++;
-					}
-					if (iCnt > 1) {
-						bSelectedGenre = true;
-					}
-				});
-
-				if (bSelectedGenre == true) {
-					gfn_alertMsgBox('이미 선택한 장르입니다. 다시 선택해 주세요.');
-					$(this).val($.data(this, 'current2'));
-					return false;
-				}
-			}
-			$.data(this, 'current2', $(this).val());
-		});
-
-		// 마케팅 활용 개인정보 미동의시 마케팅정보 수신동의 disabled 처리
-		$('[name=personInfoUtilAgreeAt]').on('click', function() {
-			var personInfoAgreeAt = $('[name=personInfoUtilAgreeAt]:checked').val();
-
-			if (personInfoAgreeAt == "Y") {
-				$('[name=marketEmailRcvAgreeAt]').removeAttr("disabled");
-				$('[name=marketSmsRcvAgreeAt]').removeAttr("disabled");
-				//$('[name=marketPushRcvAgreeAt]').removeAttr("disabled");
-			} else {
-				$('[name="marketEmailRcvAgreeAt"]:radio[value="N"]').prop('checked', true);
-				$('[name="marketSmsRcvAgreeAt"]:radio[value="N"]').prop('checked', true);
-				//$('[name="marketPushRcvAgreeAt"]:radio[value="N"]').prop('checked', true);
-
-				$('[name="marketEmailRcvAgreeAt"]').attr('disabled', true);
-				$('[name=marketSmsRcvAgreeAt]').attr('disabled', true);
-				//$('[name=marketPushRcvAgreeAt]').attr('disabled', true);
-			}
-		});
-
-		var personInfoAgreeAt = $('[name=personInfoUtilAgreeAt]:checked').val();
-		if (personInfoAgreeAt != "Y") {
-			$('[name="marketEmailRcvAgreeAt"]').attr('disabled', true);
-			$('[name=marketSmsRcvAgreeAt]').attr('disabled', true);
-		}
-
-
-		MegaboxUtil.Common.bindSelectBox(); // 셀렉트 박스 라이브러리 적용
-	});
-
-	// 오늘 날자
-	function getToday(){
-	    var date = new Date();
-	    var year = date.getFullYear();
-	    var month = ("0" + (1 + date.getMonth())).slice(-2);
-	    var day = ("0" + date.getDate()).slice(-2);
-
-	    return year + "." + month + "." + day;
-	}
-
-	// 페이지 새로고침
-	function fn_reload() {
-		location.href = '/mypage/additionalinfo';
-	};
-
-	// 극장 선택시 중복을 막기 위해 비활성화 처리
-	function fn_favorBrchDisabled(target) {
-		var selectBrchData;
-
-		if(target) {
-			selectBrchData = fn_fn_favorBrchCheck(target);
-
-			if(selectBrchData == null) return;
-		}
-
-		$('.favorBrch').next().find('.on').removeClass('on').attr('disabled', false);
-
-		$.each($('.favorBrch'), function(i, v) {
-			$.each(selectBrchList, function(si, sv) {
-
-				if(sv && sv.aIdx == $(v).find('option:selected').index()) {
-					alert('ok');
-					$(v).next().find('option').eq(sv.bIdx).addClass('on').attr('disabled', true);
-				}
-			});
-		});
-	};
-
-	// 극장 선택시 중복된 선택이 있는지 체크 후 오브젝트 리턴
-	function fn_fn_favorBrchCheck(target) {
-		var pIdx = target.parent().index() - 1;
-		var aIdx = target.prev().find('option:selected').index();
-		var bIdx = target.find('option:selected').index();
-		var result = true;
-
-		//console.log(pIdx + ", " + aIdx + ", " + bIdx);
-
-		//console.log(selectBrchList);
-
-
-		$.each(selectBrchList, function(i, v) {
-
-
-			if(v && pIdx == v.pIdx && aIdx == v.aIdx && bIdx == v.bIdx)
-				return result = false;
-		});
-
-		if(result) return selectBrchList[pIdx] = { pIdx: pIdx, aIdx: aIdx, bIdx: bIdx };
-		else return null;
-	}
-
-	// 장르 선택시 중복을 막기 위해 비활성화 처리
-	function fn_favorGenreDisabled(target) {
-		var selectBrchData;
-
-		if(target) {
-			selectBrchData = fn_fn_favorGenreCheck(target);
-
-			if(selectBrchData == null) return;
-		}
-
-		$('.favorGenre').next().find('.on').removeClass('on').attr('disabled', false);
-
-		$.each($('.favorGenre'), function(i, v) {
-			$.each(selectGenreList, function(si, sv) {
-				$(v).find('option').eq(sv).addClass('on').attr('disabled', true);
-			});
-		});
-	};
-
-	// 장르 선택시 중복된 선택이 있는지 체크 후 오브젝트 리턴
-	function fn_fn_favorGenreCheck(target) {
-		var pIdx = target.index();
-		var cIdx = target.find('option:selected').index();
-		var result = true;
-
-		$.each(selectGenreList, function(i, v) {
-			if(v && pIdx == v.pIdx && cIdx == v.cIdx)
-				return result = false;
-		});
-
-		if(result) return selectGenreList[pIdx] = cIdx;
-		else return null;
-	}
-</script>
 
 				<form id="moveFrm" method="post"></form>
 
@@ -2395,9 +2015,9 @@ $(function(){
 					<div class="table-wrap">
 						<table id="movieTable" class="board-list">
 							<colgroup>
-								<col style="width: 100px;">
-								<col style="width: 100px;">
-								<col style="width: 300px;">
+								<col style="width: 80px;">
+								<col style="width: 80px;">
+								<col style="width: 250px;">
 							</colgroup>
 							<thead>
 								<tr>
@@ -2407,6 +2027,9 @@ $(function(){
 									<th data-field-name="openingDate" scope="col">상영 시작일</th>
 									<th data-field-name="closingDate" scope="col">상영 종료일</th>
 									<th data-field-name="Screening" scope="col">현재 상태</th>
+									<!-- 체크박스 -->
+									 <th data-field-name="checkbox" scope="col">전체 선택<input
+										type="checkbox" id="selectAllCheckbox"></th> 
 								</tr>
 							</thead>
 
@@ -2424,10 +2047,17 @@ $(function(){
 										th:data-id="${movie.movieId}" data-field-name="closingDate"></td>
 									<td th:text="${movie.Screening}" th:data-id="${movie.movieId}"
 										data-field-name="Screening"></td>
+									<!-- 체크박스 -->
+									<td><input type="checkbox" class="checkbox-row"
+										th:data-id="${movie.movieId}"></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
+
+					 <div class="button-wrapper">
+						<button id="deleteButton">삭제</button>
+					</div> 
 
 					<!-- 상영 상태에 따른 영화 게시 -->
 					<script>
@@ -2480,6 +2110,56 @@ $(function(){
             return '상태 미정';
         } 
     } 
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        // 전체 선택 체크박스
+        const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+        // 삭제 버튼
+        const deleteButton = document.getElementById("deleteButton");
+        // 테이블
+        const movieTable = document.getElementById("movieTable");
+        // 테이블 내의 체크박스들
+        const checkboxes = movieTable.querySelectorAll("tbody input[type='checkbox']");
+
+        // 전체 선택 체크박스 클릭 이벤트 처리
+        selectAllCheckbox.addEventListener("click", function() {
+            const isChecked = selectAllCheckbox.checked;
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = isChecked;
+            });
+        });
+
+        // 삭제 버튼 클릭 이벤트 처리
+        deleteButton.addEventListener("click", function() {
+        	console.log("삭제 버튼 클릭!");
+            const selectedIds = [];
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    selectedIds.push(checkbox.dataset.id);
+                }
+            });
+            console.log("삭제할 영화 목록: " + selectedIds);
+            
+         // 서버로 선택된 영화 ID들을 배열로 전송
+            $.ajax({
+              type: "DELETE",
+              url: "/admin/movies",
+              data: JSON.stringify(selectedIds),
+              contentType: "application/json",
+              success: function(response) {
+                // 서버에서 삭제 성공 시 해당 영화들을 테이블에서도 제거
+
+               selectedIds.forEach(function(movieId) {
+                  $(".checkbox-row[data-id='" + movieId + "']").closest("tr").remove();
+                });
+                alert("선택한 영화가 삭제되었습니다."); 
+              },
+              error: function(xhr, status, error) {
+                alert("영화 삭제 실패: " + error);
+              }
+            });
+        });
+    });
 </script>
 
 

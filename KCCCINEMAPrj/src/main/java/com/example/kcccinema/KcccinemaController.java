@@ -1,5 +1,6 @@
 package com.example.kcccinema;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.kcccinema.dao.IMovieRepository;
+import com.example.kcccinema.dao.IScheduleRepository;
 import com.example.kcccinema.model.MovieVO;
 import com.example.kcccinema.service.movie.MovieService;
 
@@ -16,7 +18,7 @@ import com.example.kcccinema.service.movie.MovieService;
 public class KcccinemaController {
 
 	@Autowired
-	private IMovieRepository movieRepository;
+	private IScheduleRepository scheduleRepository;
 	@Autowired
 	private MovieVO movie;
 	@Autowired

@@ -49,6 +49,7 @@
 		parameterType="scheduleVO">
     <![CDATA[
     SELECT
+    SCHEDULE_ID,
     TIME_ID,
     (SELECT MOVIE_TITLE FROM movie WHERE movie.MOVIE_ID = schedule.MOVIE_ID) AS "MOVIE_TITLE",
     THEATER_ID,
@@ -59,9 +60,12 @@
     ]]>
 	</select>
 
-
-
-
+	<!-- 스케줄 삭제 -->
+	<delete id="deleteSchedule" parameterType="int">
+	<![CDATA[
+	DELETE from schedule WHERE SCHEDULE_ID = #{scheduleId}
+	]]>
+	</delete>
 </mapper>
 
 

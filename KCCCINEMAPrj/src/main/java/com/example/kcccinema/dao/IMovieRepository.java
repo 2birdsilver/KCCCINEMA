@@ -28,6 +28,9 @@ public interface IMovieRepository {
 	public List<MovieVO> selectAllMovieList() throws DataAccessException;
 
 	public List<MovieVO> selectMovieListByDate() throws DataAccessException;
+	
+	/* 영화 삭제 */
+	public void deleteMoviesByIds(List<Integer> ids) throws DataAccessException;
 
 
 }

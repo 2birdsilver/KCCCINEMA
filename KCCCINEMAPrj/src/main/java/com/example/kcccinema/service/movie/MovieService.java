@@ -175,7 +175,7 @@ public class MovieService{
 		}
 		return movieList;
 	}
-	
+
 	/* 영화명 자동완성 */
 	public List<String> searchMoviesTitle(String searchWord) throws Exception {
 		List<MovieVO> movieList = movieRepository.selectMoviesTitle(searchWord);
@@ -184,6 +184,11 @@ public class MovieService{
 			movieTitleList.add(movie.getMovieTitle());
 		}
 		return movieTitleList;
+	}
+
+	/* 영화 삭제 */
+	public void deleteMovies(List<Integer> ids) {
+		movieRepository.deleteMoviesByIds(ids);
 	}
 
 }

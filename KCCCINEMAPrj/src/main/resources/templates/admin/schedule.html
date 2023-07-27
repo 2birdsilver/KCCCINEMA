@@ -3,11 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <!--<![endif]-->
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jQuery와 jQuery UI 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+<!-- jQuery UI CSS 로드 -->
 <link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
 
 <style>
 h2 {
@@ -27,10 +29,6 @@ h2 {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-
-
 
 
 
@@ -153,11 +151,6 @@ h2 {
 		<!-- 로그인 레이어팝업 시작 -->
 		<!-- 화면ID  M-ME-LO-01 -->
 		<!-- 화면ID  M-ME-CC-01 -->
-		<div style="display: none;">
-			<a id="loginPupupATag"
-				href="https://www.megabox.co.kr/mypage/additionalinfo#layer_login_select"
-				class="button active btn-modal-open" w-data="850" h-data="484"></a>
-		</div>
 
 		<section id="layer_login_select" class="modal-layer"
 			style="z-index: 501;">
@@ -1190,8 +1183,8 @@ h2 {
 								<span class="period"></span>
 							</div>
 							<!-- 이전 날짜 보기 버튼 -->
-							<button type="button" title="이전 날짜 보기" class="btn-pre">
-								<i class="iconset ico-cld-pre"></i> <em>이전</em>
+							<button type="button" title="이전 날짜 보기" class="btn-pre" disabled>
+								<div class="black"></div>
 							</button>
 							<!-- 이번 주 날짜 목록 -->
 							<div class="date-list">
@@ -1201,8 +1194,8 @@ h2 {
 
 
 							<!-- 다음 날짜 보기 버튼 -->
-							<button type="button" title="다음 날짜 보기" class="btn-next">
-								<i class="iconset ico-cld-next"></i> <em>다음</em>
+							<button type="button" title="다음 날짜 보기" class="btn-next" disabled>
+								<div class="black"></div>
 							</button>
 							<!-- 달력 모양 클릭시 달력 보기 버튼 -->
 							<div class="bg-line">
@@ -1414,17 +1407,21 @@ h2 {
 						</div>
 
 						<div class="theater-list">
-							<table class="schedule-table">
+							<table class="schedule-table" id="scheduleTable">
 								<thead>
-									<tr>
-										<th>극장</th>
-										<th colspan="6">시간표</th>
+									<tr id="cinema">
+										<th colspan="6"></th>
 									</tr>
 								</thead>
 								<tbody>
 								</tbody>
 							</table>
 						</div>
+					</div>
+
+					<!-- 모달창 HTML -->
+					<div id="confirmDeleteModal" title="스케줄  삭제">
+						<p>삭제하시겠습니까?</p>
 					</div>
 
 					<script>
@@ -1478,7 +1475,22 @@ h2 {
 			                            var $tbody = $(".schedule-table tbody");
 			                            $tbody.empty();
 
+			                            // theaterId를 기준으로 그룹화할 객체를 생성합니다.
+			                            var scheduleGroups = {};
+
+			                            // response를 theaterId를 기준으로 그룹화합니다.
 			                            response.forEach(function(schedule) {
+			                                var theaterId = schedule.theaterId;
+			                                if (!scheduleGroups[theaterId]) {
+			                                    scheduleGroups[theaterId] = [];
+			                                }
+			                                scheduleGroups[theaterId].push(schedule);
+			                            });
+
+			                         // 그룹화한 스케줄을 기반으로 테이블에 <td>를 추가합니다.
+			                            Object.keys(scheduleGroups).forEach(function(theaterId) {
+			                                var groupSchedules = scheduleGroups[theaterId];
+
 			                                var $tr = $("<tr>");
 
 			                                // 극장 타입 정보를 <div>에 추가합니다.
@@ -1492,28 +1504,38 @@ h2 {
 
 			                                var $pTheaterName = $("<p>", {
 			                                    class: "theater-name",
-			                                    text: schedule.theaterId // Insert the theaterId inside the <p> element
+			                                    text: theaterId + "관"
 			                                });
 
 			                                $divTheaterType.append($pTheaterName);
 			                                $divTheaterTypeBox.append($divTheaterType);
 			                                $tr.append($("<td>").append($divTheaterTypeBox));
 
-			                                var timeData = schedule.time;
-			                                var movieTitle = schedule.movieTitle;
+			                                // 스케줄을 기반으로 <td>를 추가합니다.
+			                                groupSchedules.sort(function(a, b) {
+			                                    return a.time - b.time; // time 값을 비교하여 오름차순으로 정렬합니다.
+			                                }).forEach(function(schedule) {
+			                                    // 이하 코드는 이전과 동일합니다.
+			                                    var timeData = schedule.time;
+			                                    var movieTitle = schedule.movieTitle;
+			                                    var time = timeMap[timeData] || '';
+			                                    var scheduleId = schedule.scheduleId; // 스케줄의 scheduleId를 가져옵니다.
 
-			                                // 시간 데이터를 기반으로 시각 정보를 구합니다.
-			                                var time = timeMap[timeData] || '';
+			                                    var $td = $("<td>", {
+			                                        class: '',
+			                                        'data-theater-name': movieTitle,
+			                                        'data-play-time': timeData,
+			                                        'data-schedule-id': scheduleId // 스케줄의 scheduleId를 <td> 요소에 저장합니다.
+			                                    });
 
-			                                // <td> 요소를 생성하고 시간과 영화명 데이터를 추가합니다.
-			                                var $td = $("<td>", {
-			                                    class: '',
-			                                    'data-theater-name': movieTitle,
-			                                    'data-play-time': timeData,
-			                                    text: time + ' ' + movieTitle
+			                                    var $div = $("<div>", {
+			                                        html: time + '<br>' + movieTitle
+			                                    });
+
+			                                    $td.append($div);
+			                                    $tr.append($td);
 			                                });
 
-			                                $tr.append($td);
 			                                $tbody.append($tr);
 			                            });
 			                        },
@@ -1522,6 +1544,60 @@ h2 {
 			                            console.error("에러 발생: ", error);
 			                        }
 			                    });
+			                 // 더블클릭 이벤트 처리
+			                    $(document).on('dblclick', '.schedule-table tbody td', function () {
+			                        var scheduleId = $(this).data('schedule-id');
+			                        console.log("scheduleId: " + scheduleId);
+			                        openModal(scheduleId, $(this));
+			                        if (!scheduleId) return;
+
+			                    });
+								
+						        function openModal(scheduleId, $td) {
+						            // 모달창 열기
+						            $('#confirmDeleteModal').dialog({
+						                resizable: false,
+						                height: 'auto',
+						                width: 200,
+						                modal: true,
+						                buttons: {
+						                    '네': function() {
+						                        // 네 버튼 클릭 시 수행할 동작
+						                        // AJAX 요청 등의 작업을 여기에 추가
+						                        console.log('네 버튼을 눌렀습니다. scheduleId: ' + scheduleId);
+						                        
+						                        // TODO: scheduleId를 이용하여 AJAX 요청 처리
+						                         // AJAX 요청 처리
+                        $.ajax({
+                            type: 'DELETE', // Adjust the method accordingly
+                            url: '/admin/schedule', // Replace with your server endpoint
+                            data: {
+                            	scheduleId: scheduleId // Pass the scheduleIdValue as the value for the scheduleId parameter
+                            },
+                            success: function(response) {
+                                console.log('스케줄 삭제 완료.');
+                                // 화면상에서 <td> 삭제
+                                $td.remove();
+                            },
+                            error: function(error) {
+                                console.error('스케줄 삭제 오류 발생: ', error);
+                            }
+                        });
+
+						                        // 모달창 닫기
+						                        $(this).dialog('close');
+						                        // 화면상에서 <td> 삭제
+						                        $td.remove();
+						                    },
+						                    '아니오': function() {
+						                        // 아니오 버튼 클릭 시 수행할 동작
+						                        console.log('아니오 버튼을 눌렀습니다.');
+						                        // 모달창 닫기
+						                        $(this).dialog('close');
+						                    }
+						                }
+						            });
+						        }
 			                });
 			            });
     </script>
@@ -1531,7 +1607,8 @@ h2 {
 					<h3 class="tit mt40">상영 시간 등록</h3>
 
 					<div class="table-wrap">
-						<form th:action="@{/admin/schedule}" method="post">
+						<form th:action="@{/admin/schedule}" method="post"
+							autocomplete="off">
 							<table class="board-form">
 								<!-- <caption>현재 비밀번호, 새 비밀번호, 새 비밀번호 재입력 순서로 입력해주세요.</caption> -->
 								<colgroup>
@@ -1573,17 +1650,17 @@ h2 {
 												<!-- statMap -->
 
 												<span> <input type="radio" name="time" id="chk01"
-													value="1"> <label for="chk01">오전 1타임</label>
+													value="1"> <label for="chk01">오전 1타임(09:00 ~ 10:30)</label>
 												</span> <span> <input type="radio" name="time" id="chk02"
-													value="2"> <label for="chk02">오전 2타임</label>
+													value="2"> <label for="chk02">오전 2타임(11:00 ~ 12:30)</label>
 												</span> <span> <input type="radio" name="time" id="chk03"
-													value="3"> <label for="chk03">오후 1타임</label>
+													value="3"> <label for="chk03">오후 1타임(13:00 ~ 14:30)</label>
 												</span> <span> <input type="radio" name="time" id="chk04"
-													value="4"> <label for="chk04">오후 2타임</label>
+													value="4"> <label for="chk04">오후 2타임(15:00 ~ 16:30)</label>
 												</span> <span> <input type="radio" name="time" id="chk05"
-													value="5"> <label for="chk05">저녁 1타임</label>
+													value="5"> <label for="chk05">저녁 1타임(17:00 ~ 18:30)</label>
 												</span> <span> <input type="radio" name="time" id="chk06"
-													value="6"> <label for="chk06">저녁 2타임</label>
+													value="6"> <label for="chk06">저녁 2타임(19:00 ~ 20:30)</label>
 												</span>
 
 											</div>
@@ -1594,8 +1671,7 @@ h2 {
 										<th scope="row">영화명</th>
 										<td style="height: 80px;"><input type="text"
 											name="movieTitle" style="width: 250px !important;"
-											id="movieNameInput" autocomplete="off"
-											th:autocomplete="${movieTitleList}">
+											id="movieNameInput" th:autocomplete="${movieTitleList}">
 											<ul id="movieListDropdown">
 											</ul></td>
 									</tr>
@@ -1817,65 +1893,7 @@ h2 {
 
 										});
 					</script>
-
-
-
-
-
-
 				</div>
-			</div>
-
-
-
-
-
-
-			<section id="saw_movie_regi" class="modal-layer">
-				<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-					class="focus">레이어로 포커스 이동 됨</a> <input type="hidden" id="isLogin"
-					value="Y">
-				<div class="wrap">
-					<!-- 				<header class="layer-header">
-					<h3 class="tit">본 영화 등록</h3>
-				</header> -->
-
-					<div class="layer-con">
-						<p class="reset">발권하신 티켓 하단의 거래번호 또는 예매번호를 입력해주세요.</p>
-
-						<div class="pop-gray mt10 mb30">
-							<label for="movie_regi" class="mr10">거래번호 또는 예매번호</label> <input
-								type="text" id="movie_regi" class="input-text w280px numType"
-								maxlength="20" placeholder="숫자만 입력해 주세요" title="티켓 거래번호 입력">
-							<button class="button gray ml05" id="regBtn">등록</button>
-						</div>
-
-						<div class="box-border v1 mt30">
-							<p class="tit-box">이용안내</p>
-
-							<ul class="dot-list">
-								<li>극장에서 예매하신 내역을 본 영화(관람이력)로 등록하실 수 있습니다.</li>
-								<li>예매처를 통해 예매하신 고객님은 극장에서 발권하신 티켓 하단의 온라인 예매번호 <br>12자리를
-									입력해주세요.(Yes24, 네이버, 인터파크, SKT, KT, 다음)
-								</li>
-								<li>본 영화 등록은 관람인원수 만큼 등록가능하며, 동일 계정에 중복등록은 불가합니다.</li>
-								<li>상영시간 종료 이후 등록 가능합니다.</li>
-								<li>본 영화로 수동 등록한 내역은 이벤트 참여 및 포인트 추후 적립이 불가합니다.</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="btn-group-fixed">
-						<button type="button" class="button purple close-layer">닫기</button>
-					</div>
-
-					<button type="button" class="btn-modal-close">레이어 닫기</button>
-				</div>
-			</section>
-
-			<div class="quick-area" style="display: block;">
-				<a href="https://www.megabox.co.kr/mypage/additionalinfo"
-					class="btn-go-top" title="top" style="position: absolute;">top</a>
 			</div>
 
 			<!-- footer -->

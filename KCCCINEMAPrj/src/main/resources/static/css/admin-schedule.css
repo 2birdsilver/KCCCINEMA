@@ -34,6 +34,12 @@ h1 {
 }
 
 /* 캘린더 부분 */
+/* .black {
+	background-color: #503396 !important;
+	width: 50%;
+	height: 100%;
+} */
+
 .time-schedule .wrap {
 	height: 110px !important;
 }
@@ -103,19 +109,8 @@ li.selected {
 }
 
 .theater-type-box {
-	height: 120px;
-}
-
-.theater-type-box {
-	border: 1px solid black;
-	padding: 10px;
-	margin-bottom: 5px;
-}
-
-.theater-type-box {
-	border: 1px solid black;
-	padding: 10px;
-	margin-bottom: 5px;
+	height: 70px;
+	border: none !important;
 }
 
 .schedule-table {
@@ -124,7 +119,7 @@ li.selected {
 }
 
 .schedule-table th, .schedule-table td {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	padding: 8px;
 	text-align: center;
 }
@@ -134,15 +129,35 @@ li.selected {
 }
 
 [data-theater-name] {
-	background-color: #f2f2f2;
 	/* Change the background color to your desired color */
 	margin: 5px !important; /* Change the margin to your desired value */
-	height: 120px;
-	
+	height: 70px;
+}
+
+[data-theater-name]>div {
+	background-color: #f2f2f2;
+	height: 90%;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 .schedule-table td {
-    margin: 5px !important; /* 원하는 간격 크기로 조정합니다 */
+	margin: 5px !important; /* 원하는 간격 크기로 조정합니다 */
+}
+
+.schedule-table tr {
+	border-top: 0.1px solid black;
+	border-bottom: 0.1px solid black;
+}
+
+tr>* {
+	border: none !important; /* 모든 <td>와 <th> 요소에 대해 테두리 없음을 적용합니다. */
+}
+
+#cinema, #cinema th {
+	border: none;
+	background-color: white;
 }
 
 /* 스케줄 등록 부분 */
@@ -151,22 +166,24 @@ li.selected {
 }
 
 #selectedCinema select {
-	margin-right: 30px;
-}
-
-.theater-type-box {
-	background-color: #503396 !important;
+	
 }
 
 .theater-name {
-	color: white !important;
 	text-align: center;
-	width: 100%
+	width: 100%;
+	margin: 0 !important;
+	display: flex; /* Flexbox를 활성화합니다. */
+	justify-content: center; /* 수평 가운데 정렬 */
+	align-items: center; /* 수직 가운데 정렬 */
+	height: -webkit-fill-available;
 }
 
 .theater-type {
 	width: 100% !important;
 	margin: 0 auto !important;
+	height: 100%;
+	top: 0px !important;
 }
 
 #selectedCinema label {
@@ -203,7 +220,16 @@ li.selected {
 	padding: 3px;
 }
 
-/* input 요소에 포커스가 갈 때 드롭다운 메뉴를 보여줍니다 */
-/* #movieNameInput:focus+#movieListDropdown {
-	display: block;
-} */
+/* 모달창 */
+.modal-dialog {
+	margin-top: 10%;
+}
+
+.ui-dialog-buttonset {
+	left: -20px;
+	position: relative;
+}
+
+#confirmDeleteModal {
+	display: none;
+}

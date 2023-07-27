@@ -46,5 +46,24 @@ h1 {
 
 /* 검색창 */
 .board-list-util {
-margin-bottom: 15px !important;	
+	margin-bottom: 15px !important;
+}
+
+/* 체크박스 */
+#selectAllCheckbox {
+	margin: 5px;
+}
+
+.button-wrapper {
+	text-align: right;
+}
+
+#deleteButton {
+	padding: 10px 20px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.table-wrap {
+    border-bottom: 1px solid #555;
 }

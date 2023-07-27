@@ -125,21 +125,15 @@
 		    order by OPENING_DATE desc
 		]]>
 	</select>
+	
+	<!-- 영화 삭제 -->
+	<!-- 아이디 리스트로 행 삭제 -->
+<delete id="deleteMoviesByIds" parameterType="java.util.List">
+    DELETE FROM movie
+    WHERE movie_id IN
+    <foreach collection="list" item="id" open="(" close=")" separator=",">
+        #{id}
+    </foreach>
+</delete>
 
-	<!-- <select id="selectKeywordSearch" resultType="String" parameterType="String"> 
-		<![CDATA[ select goods_title from t_shopping_goods where goods_title like 
-		'%'|| #{keyword} || '%' order by goods_creDate desc ]]> </select> -->
 </mapper>
-
-<!-- INSERT INTO movie (movie_poster) VALUES (#{moviePoster, jdbcType=BLOB}) 
-	WHERE movie_title = #{movieTitle} -->
-
-<!-- <update id="updateCategory" parameterType="com.example.myapp.board.model.BoardCategory"> 
-	<![CDATA[ UPDATE board_category SET category_name = #{categoryName}, category_description 
-	= #{categoryDescription} WHERE category_id = #{categoryId} ]]> </update> 
-	<delete id="deleteCategory" parameterType="int"> <![CDATA[ DELETE board_category 
-	WHERE category_id = #{categoryId} ]]> </delete> -->
-	
-	
-
-

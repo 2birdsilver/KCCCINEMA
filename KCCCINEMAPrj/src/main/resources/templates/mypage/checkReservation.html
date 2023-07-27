@@ -15,14 +15,16 @@
 			<!-- pageTitleContainer div -->
 			<div class="user_inform_container">
 				<div class="user_profile">
-					<img th:src="${imageUrl}" alt="이미지" /> <!-- 컨트롤러에 추가 해야함 imageUrl을 변수로 하는 @Getmapping  -->
+					<img th:src="${moviePoster}" alt="이미지" /> <!-- 컨트롤러에 추가 해야함 imageUrl을 변수로 하는 @Getmapping  -->
 				</div>
 				<div class="user_inform">
-					<div><b>예매영화이름 : </b><span th:text="${session.movieTitle}">영화이름은</span></div>
-					<div><b>예매자이름 : </b><span th:text="${session.userName}">예매자이름이 뭐고</span></div>
-					<div><b>상영날짜 : </b><span th:text="${session.screenDate}">상영하는 날짜가 언젠교</span></div>
-					<div><b>상영관 : </b><span th:text="${session.theaterNumber}">상영관이 어딘교</span></div>
-					<div><b>좌석 : </b><span th:text="${session.seatId}">내자리는 어디고</span></div>
+					<div><b>예매영화이름 : </b><span th:text="${session.movieTitle}">영화이름</span></div>
+					<div><b>상영날짜 : </b><span th:text="${session.screenDate}">상영날짜</span></div>
+					<div><b>상영시간 : </b><span th:text="${session.screenDate}">시작시간,끝시간</span></div>
+					<div><b>영화관 : </b><span th:text="${session.theater}">극장이름(주소)</span></div>
+					<div><b>상영관 : </b><span th:text="${session.theaterNumber}">상영관번호</span></div>
+					<div><b>좌석 : </b><span th:text="${session.seatId}">죄석번호</span></div>
+					
 				</div>
 			</div>
 			<!-- userInformContainer div  -->

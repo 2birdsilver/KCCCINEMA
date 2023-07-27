@@ -2,28 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.example.kcccinema.repository.mypage.ICheckReserveRepository">
-	<select id="selectReserve" parameterType="string"
-		resultType="com.example.kcccinema.vo.mypage.CheckReserveVO">
+
+
+	<delete id="deleteReserve"
+		parameterType="com.example.kcccinema.vo.mypage.CheckReserveVO">
+		<![CDATA[DELETE FROM ticket
+		WHERE user_id = #{userId} cascade
+		]]>
+	</delete>
+
+	<select id="getReservedInfo" resultType="com.example.kcccinema.model.ReservedInfoVO">
 		<![CDATA[
-			select 
-				movie.movie_title		as		"movieTitle", 
-				movie.movie_poster		as		"moviePoster", 
-				seat.seat_no			as		"seatNo", 
-				schedule.screen_date	as		"screenDate", 
-				ticket.start_time		as		"startTime",
-				ticket.end_time			as		"endTime"
-				from ticket
-				join schedule on ticket.schedule_id = schedule.schedule_id
-				join movie on schedule.movie_id = movie.movie_id
-				join reserved_seat on ticket.ticket_id = reserved_seat.ticket_id
-				join seat on reserved_seat.seat_id = seat.seat_id
-				where ticket.user_id = #{userId}
+			select distinct
+    ticket.ticket_id        as "ticketId",
+    movie.movie_id          as "movieId",
+    movie.movie_title       as "movieTitle",
+    schedule.screen_date    as "screenDate",
+    cinema.cinema_name      as "cinemaName",
+    schedule.theater_id     as "theaterId",
+    ticket.start_time       as "startTime",
+    ticket.end_time         as "endTime",
+    (select LISTAGG(reserved_seat.seat, ',') WITHIN GROUP (ORDER BY reserved_seat.seat) from reserved_seat
+    where reserved_seat.schedule_id= schedule.schedule_id and reserved_seat.ticket_id = ticket.ticket_id) as "seat"
+from ticket
+left join schedule on ticket.schedule_id = schedule.schedule_id
+left join cinema on schedule.cinema_id = cinema.cinema_id
+left join movie on schedule.movie_id = movie.movie_id
+left join reserved_seat on reserved_seat.schedule_id = schedule.schedule_id and reserved_seat.ticket_id = ticket.ticket_id
+where ticket.user_id = #{userId}
 		]]>
 	</select>
-
-	<delete id="deleteReserve" parameterType="com.example.kcccinema.vo.mypage.CheckReserveVO">
-		DELETE FROM ticket
-		WHERE user_id = #{userId}
 	
-	</delete>
+
+	<select id="getMovie" resultType="com.example.kcccinema.model.MovieVO">
+	<![CDATA[
+		select
+    		movie_poster  as "moviePoster"
+		from movie
+		where movie_id = #{movieId}
+	]]>
+	</select>
 </mapper>

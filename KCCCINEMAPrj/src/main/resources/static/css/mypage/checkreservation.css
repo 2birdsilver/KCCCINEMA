@@ -107,7 +107,9 @@ ul {
 }
 
 .user_inform {
-	padding-top:5%;
+	
+	padding-top:0%;
+	padding-bottom:5%;
 	padding-left:10%;
 	width: 250px;
 	height: 50%;

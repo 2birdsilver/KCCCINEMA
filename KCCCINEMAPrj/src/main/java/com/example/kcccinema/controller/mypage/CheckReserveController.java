@@ -1,5 +1,9 @@
 package com.example.kcccinema.controller.mypage;
 
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.kcccinema.model.MovieVO;
+import com.example.kcccinema.model.ReservedInfoVO;
 import com.example.kcccinema.service.mypage.CheckReserveService;
 import com.example.kcccinema.service.mypage.ICheckReserveService;
 import com.example.kcccinema.vo.mypage.CheckReserveVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -21,38 +28,38 @@ public class CheckReserveController {
 	@Autowired
 	ICheckReserveService checkReserveService;
 	
-	@RequestMapping(value="/checkreserve", method=RequestMethod.GET)
-	public String login() {
+	@RequestMapping(value="/checkReserve")
+	public String checkReserve(HttpServletRequest request,HttpSession session, Model model) {
+		
+		//reservedInfoVO 리스트로 생성해서 userid로 예매한 정보들 가져오기
+		List<ReservedInfoVO> reservedInfoVOList = new ArrayList<>();
+		reservedInfoVOList =checkReserveService.getReservedInfo(String.valueOf(session.getAttribute("userId")));
+		
+		//System.out.println(reservedInfoVOList.get(0));
+		
+		// for문을 사용하여 각 예매 정보에 해당하는 영화 포스터 이미지를 가져와서 저장
+		for (ReservedInfoVO reservedInfoVO : reservedInfoVOList) {
+		    Long movieId = reservedInfoVO.getMovieId();
+		    
+		    //service.getMoviePoster(movieId)를 호출하여 이미지 byte를 가져와서 setmoviePoster로 저장
+		    
+		    MovieVO movieVO = new MovieVO();
+		    movieVO = checkReserveService.getMovie(movieId);
+		    
+		    byte[] moviePoster = movieVO.getMoviePoster();
+		    reservedInfoVO.setMoviePoster(moviePoster);
+		    
+		    //****reservedInfoVO에 moviePoster byte값 이용해서 String base64Image;여기에 변환해서 저장.
+		    String base64Image = Base64.getEncoder().encodeToString(reservedInfoVO.getMoviePoster());
+		    reservedInfoVO.setBase64Image(base64Image);
+		}
+
+		// model에 reservedInfoVO 리스트를 넣어서 HTML로 보냄
+		model.addAttribute("reservedInfoVOList", reservedInfoVOList);
+
 		return "mypage/checkReservation";
 	}
 	
-	@RequestMapping(value="/checkreserve", method=RequestMethod.POST)
-	public String login(String userid, String password, HttpSession session, Model model) {
-		CheckReserveVO checkreservevo = checkReserveService.selectReserve(userid);
-		if(checkreservevo != null) {
-			String dbPassword = checkreservevo.getPassword();
-			if(dbPassword == null) {
-				model.addAttribute("message","NOT_VALID_USER");
-			}else {
-				if(dbPassword.equals(password)) {
-					session.setAttribute("userId", userid);
-					session.setAttribute("userName",checkreservevo.getUserName());
-					session.setAttribute("moviePoster",checkreservevo.getMoviePoster());
-					session.setAttribute("movieTitle", checkreservevo.getMovieTitle());
-					session.setAttribute("screenDate", checkreservevo.getScreenDate());
-					session.setAttribute("theaterId", checkreservevo.getTheaterId());
-					session.setAttribute("seatId", checkreservevo.getSeatId());
-					return "mypage/checkReservation";
-				}else {
-					model.addAttribute("message","WRONG_PASSWORD");
-				}
-			}
-		}else {
-			model.addAttribute("message","USER_NOT_FOUND");
-		}
-		session.invalidate();
-		return "user/login";
-	}
 	@RequestMapping(value="checkreserve/delete", method=RequestMethod.GET)
 	public String deleteReserve(HttpSession session, Model model) {
 		String userid = (String)session.getAttribute("userId");
@@ -71,7 +78,7 @@ public class CheckReserveController {
 		try {
 			CheckReserveVO checkreservevo = new CheckReserveVO();
 			checkreservevo.setUserId((String)session.getAttribute("userId"));
-			String dbpw = checkReserveService.getPassword(checkreservevo.getUserId());
+			String dbpw = (String)checkReserveService.getPassword(checkreservevo.getUserId());
 			if(password != null && password.equals(dbpw)) {
 				checkreservevo.setPassword(password);
 				checkReserveService.deleteReserve(checkreservevo);

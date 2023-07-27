@@ -2197,13 +2197,10 @@ $(function(){
             console.log("editingCell: " + editingCell);
            console.log("newValue: " + newValue);
         	if (editingCell) {
-        		/* newValue = editingCell.querySelector("input").value; */
         		var sendValue = newValue;
-                // AJAX 요청 보내기
                 var movieId = editingCell.getAttribute('data-id');
                 var fieldName = editingCell.dataset.fieldName;
 
-                // 실제로는 서버 주소와 필요한 데이터 등을 적절하게 수정해야 합니다.
                 $.ajax({
                     url: "/admin/movies/updateMovieData",
                     method: "POST",
@@ -2245,23 +2242,10 @@ $(function(){
             if (editingCell) {
                 editingCell.textContent = originalValue;
             }
-
-            /* 콘솔 테스트 */
-            console.log("cell 생기기 전");
-            console.log(cell);
-            console.log("cell 생기기 후");
-            
             editingCell = cell;
-            
-            console.log("editingCell 생기기 전");
-            console.log("editing: " + editingCell);
-            console.log("editingCell 생긴 후");
-            
-
             originalValue = cell.textContent;
-            /* cell.innerHTML = '<input type="text" id="tempInput" value="' + originalValue + '">'; */
+
             if (cell.getAttribute('data-field-name') === "openingDate" || cell.getAttribute('data-field-name') === "closingDate") {
-      // 만약 data-field-name이 "openingDate"이거나 "closingDate"인 경우, date 타입의 input 태그를 생성
       cell.innerHTML = '<input type="date" id="tempInput" value="' + originalValue + '">';
     } else {
       cell.innerHTML = '<input type="text" id="tempInput" value="' + originalValue + '">';
@@ -2272,9 +2256,7 @@ $(function(){
             /* tempInput.setSelectionRange(0, tempInput.value.length); */
 
             tempInput.addEventListener('keydown', function handleKeyDown(event) {
-            	console.log("tempInput.value: " + tempInput.value);
             	newValue = tempInput.value;
-            	console.log("newValue: " + newValue);
                 if (event.key === 'Enter') {
                     showModal();
                 }
@@ -2292,7 +2274,6 @@ $(function(){
     /* 모든 editable 셀에 더블클릭 이벤트 리스너 등록 */
     document.querySelectorAll('#movieTable tbody td.editable').forEach(function (cell) {
         addEditListener(cell);
-        console.log(cell); // console.log 오타 수정
     });
 </script>
 

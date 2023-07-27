@@ -76,16 +76,11 @@ public class AdminController {
 	@PostMapping("/movies/filterByStatus")
 	@ResponseBody // 응답 데이터를 JSON 형태로 반환
 	public List<MovieVO> filterMoviesByStatus(@RequestParam("status") String status) {
-		System.out.println(status);
 		List<MovieVO> movieList = new ArrayList<MovieVO>();
 		if (status.equals("all-movies")) {
 			movieList = movieService.getAllMovieList();
 		} else {
 			movieList = movieService.getMoviesByStatus(status);
-		}
-		System.out.println("ajax가 요청한 movieList의 길이: " + movieList.size());
-		for(MovieVO movie : movieList) {
-			System.out.println(movie.getScreening());
 		}
 		return movieList;
 	}
@@ -110,19 +105,10 @@ public class AdminController {
 	@ResponseBody
 	public void updateMovieData(@RequestParam("movieId") String movieId,
 			@RequestParam("fieldName") String fieldName,
-			@RequestParam("newValue") String newValue) throws Exception{
+			@RequestParam("newValue") String newValue) throws Exception{ 
 		// movieId int타입으로 형변환
 		int id = Integer.parseInt(movieId);
-
-		System.out.println("fieldName: " + fieldName);
-
-		// newValue의 타입에 따라 처리를 분기
-
 		if (fieldName.equals("openingDate") || fieldName.equals("closingDate")){
-			//			Date dateValue = (Date) newValue;
-			//			movieService.updateMovieData(id, fieldName, dateValue);
-			//			System.out.println("DateValue: " + dateValue);
-
 			// 날짜 포맷을 지정
 			String pattern = "yyyy-MM-dd";
 
@@ -132,14 +118,12 @@ public class AdminController {
 				java.util.Date parsedDate = dateFormat.parse(newValue);
 				Date sqlDate = new Date(parsedDate.getTime());
 				movieService.updateMovieData(id, fieldName, sqlDate);
-				System.out.println("SQL Date: " + sqlDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}  else {
 			String stringValue = (String) newValue;
 			movieService.updateMovieData(id, fieldName, stringValue);
-			System.out.println("StringValue: " + stringValue);
 		}
 	}
 
@@ -157,62 +141,8 @@ public class AdminController {
 
 	// 영화 추가 기능
 	@RequestMapping(value="/movies/registration", method=RequestMethod.POST)
-	public String insertMovie(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception{
-		multipartRequest.setCharacterEncoding("utf-8");
-
-		// 이미지파일 처리
-		if(file!=null && !file.isEmpty()) {
-			try {
-				// 바이트 변환은 임시파일은 .tmp가 사라지기전에 해주어야 하므로 Multipartfile작업 전에 처리
-				byte[] imageData = file.getBytes();
-
-				String filePath = UPLOAD_POSTER + file.getOriginalFilename();
-				file.transferTo(new File(filePath));
-				System.out.println("file: " + file);
-
-
-
-				// ImageEntity 생성 및 데이터 저장
-				movie.setOriginalFilename(file.getOriginalFilename());
-				movie.setContentType(file.getContentType());
-				movie.setMoviePoster(imageData);
-			} catch (IOException e) {
-				System.out.println("로컬 저장 실패!");
-				e.printStackTrace();
-			}
-			/*
-			 * // 1. 아이디
-			 * movie.setMovieId(Integer.parseInt(multipartRequest.getParameter("movieId")));
-			 */
-			// 2. 제목
-			String movieTitle = multipartRequest.getParameter("movieTitle");
-			movie.setMovieTitle(movieTitle);
-			// 3. 카테고리
-			movie.setMovieCategory(multipartRequest.getParameter("movieCategory"));
-			// 4. 상영 시작일
-			Date openingDate = Date.valueOf(multipartRequest.getParameter("openingDate"));
-			movie.setOpeningDate(openingDate);
-			// 5. 상영 종료일
-			Date closingDate = Date.valueOf(multipartRequest.getParameter("closingDate"));
-			movie.setClosingDate(closingDate);
-			// 6. 상영 소요시간
-			movie.setRunningTime(Integer.parseInt(multipartRequest.getParameter("runningTime")));
-			// 7. 영화감독
-			movie.setMovieDirector(multipartRequest.getParameter("movieDirector"));
-			// 8. 영화 줄거리
-			movie.setMovieSynopsis(multipartRequest.getParameter("movieSynopsis"));
-			// 9. 출연진
-			movie.setPerformer(multipartRequest.getParameter("performer"));
-			// 10. 시청연령
-			movie.setIsAdultMovie(multipartRequest.getParameter("isAdultMovie"));
-
-			movieService.insertMovie(movie);
-
-			//			movieRepository.insertMovie(movie);
-			//			movieRepository.insertMoviePoster(movie);
-
-			System.out.println(movie.getMovieTitle() + "영화가 신규 등록되었습니다!");
-		}
+	public String insertMovie(@RequestParam("moviePoster") MultipartFile file, MultipartHttpServletRequest multipartRequest, ModelAndView modelAndView) throws Exception{
+		movieService.insertMovie(file, multipartRequest, modelAndView);
 		return "home";
 	}
 
@@ -227,7 +157,7 @@ public class AdminController {
 	public void deleteMovies(@RequestBody List<Integer> selectedIds)  {
 		System.out.println(selectedIds);
 		movieService.deleteMovies(selectedIds);
-		
+
 	}
 
 
@@ -238,8 +168,8 @@ public class AdminController {
 	@RequestMapping("/schedule")
 	public String movieSchedule() {
 		return "admin/schedule";
-		
-		
+
+
 	}
 
 	/* 스케줄 생성 */
@@ -268,8 +198,8 @@ public class AdminController {
 		System.out.println("스케줄 아이디:" + scheduleId);
 		scheduleService.deleteSchedule(scheduleId);
 		System.out.println("삭제 완료!");
-		
+
 	}
-	
+
 
 }

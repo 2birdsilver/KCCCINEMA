@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -17,6 +18,10 @@ import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.kcccinema.dao.IMovieRepository;
 import com.example.kcccinema.model.MovieVO;
@@ -30,18 +35,56 @@ public class MovieService{
 	MovieVO movie;
 
 	/* 영화 추가 기능 */
-	public void insertMovie(MovieVO movie) throws Exception {
-		insertMovieInfo(movie);
-		uploadPoster(movie);
-	}
+	public void insertMovie(MultipartFile file, MultipartHttpServletRequest  multipartRequest, ModelAndView modelAndView) throws Exception {
+		
+		multipartRequest.setCharacterEncoding("utf-8");
 
-	public void insertMovieInfo(MovieVO movie) throws Exception {
+		// 이미지파일이 있는 경우
+		if(file!=null && !file.isEmpty()) {
+			try {
+				// 바이트 변환은 임시파일은 .tmp가 사라지기전에 해주어야 하므로 Multipartfile작업 전에 처리
+				byte[] imageData = file.getBytes();
+
+				String filePath = UPLOAD_POSTER + file.getOriginalFilename();
+				file.transferTo(new File(filePath));
+				System.out.println("file: " + file);
+
+				// ImageEntity 생성 및 데이터 저장
+				movie.setOriginalFilename(file.getOriginalFilename());
+				movie.setContentType(file.getContentType());
+				movie.setMoviePoster(imageData);
+			} catch (IOException e) {
+				System.out.println("로컬 저장 실패!");
+				e.printStackTrace();
+			}
+		}
+
+			// 2. 제목
+			String movieTitle = multipartRequest.getParameter("movieTitle");
+			movie.setMovieTitle(movieTitle);
+			// 3. 카테고리
+			movie.setMovieCategory(multipartRequest.getParameter("movieCategory"));
+			// 4. 상영 시작일
+			Date openingDate = Date.valueOf(multipartRequest.getParameter("openingDate"));
+			movie.setOpeningDate(openingDate);
+			// 5. 상영 종료일
+			Date closingDate = Date.valueOf(multipartRequest.getParameter("closingDate"));
+			movie.setClosingDate(closingDate);
+			// 6. 상영 소요시간
+			movie.setRunningTime(Integer.parseInt(multipartRequest.getParameter("runningTime")));
+			// 7. 영화감독
+			movie.setMovieDirector(multipartRequest.getParameter("movieDirector"));
+			// 8. 영화 줄거리
+			movie.setMovieSynopsis(multipartRequest.getParameter("movieSynopsis"));
+			// 9. 출연진
+			movie.setPerformer(multipartRequest.getParameter("performer"));
+			// 10. 시청연령
+			movie.setIsAdultMovie(multipartRequest.getParameter("isAdultMovie"));
+			
 		movieRepository.insertMovie(movie);
-	}
-
-	public void uploadPoster(MovieVO movie) {
 		movieRepository.insertMoviePoster(movie);
 	}
+
 
 	/* 전체 영화 조회 */
 	public List<MovieVO> getAllMovieList() {
@@ -192,3 +235,4 @@ public class MovieService{
 	}
 
 }
+	

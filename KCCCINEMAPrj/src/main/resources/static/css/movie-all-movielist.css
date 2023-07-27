@@ -87,3 +87,22 @@ p[name="dbcScrean"], [name="mxScreen"] {
 .movie-list ol li .btn-util .case {
 	width: 95%;
 }
+
+.button.purple.bokdBtn {
+	background-color: #00007f !important;
+}
+
+#topMenu>.on {
+	border: none !important;
+	border-top: 1px black !important;
+	border-bottom: 1px black !important;
+}
+
+.tab-list.fixed {
+	background-color: #00007f !important;
+}
+
+#boxoffice {
+	background-color: #00007f !important;
+	color: white;
+}

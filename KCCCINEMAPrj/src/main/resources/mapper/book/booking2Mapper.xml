@@ -69,7 +69,7 @@
 			and time_id = #{timeId}
 			and movie_id = #{movieId}
 			and cinema_id = #{cinemaId}
-			and theater_no = #{theaterNo}
+			and theater_id = #{theaterNo}
 		]]>
 
 	</select>

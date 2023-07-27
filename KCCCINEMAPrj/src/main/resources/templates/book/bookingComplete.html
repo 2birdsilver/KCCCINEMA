@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/mypage/checkreservation.css}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예매 완료</title>
+<th:block th:replace="~{/include/header :: header}">
+</th:block>
 </head>
-<body>
+<body style="margin-top: 150px; height: 100%; overflow: hidden;">
+	<div style="height: 49vh; overflow: hidden;">
+		<div style="text-align: center;">
+			<div style="font-size: 200%; margin-top: 60px;">예매가 완료되었습니다!</div>
+		</div>
+		<div style="text-align: center;">
+			<button
+				style="background-color: #000042; border-radius: 5px; width: 150px; height: 40px; color: white; margin: 10px; font-size: 120%; font-weight: bold;">
+				<a style="text-decoration: none; color: white;" href="/"> 홈페이지로
+					이동</a>
+			</button>
 
+			<button
+				style="background-color: #000042; border-radius: 5px; width: 150px; height: 40px; color: white; margin: 10px; font-size: 120%; font-weight: bold;">
+				<a href="/mypage" style="text-decoration: none; color: white;">
+					마이페이지로 이동</a>
+			</button>
+		</div>
+
+	</div>
+
+	<footer th:replace="~{/include/footer :: footer}"></footer>
 </body>
 </html>

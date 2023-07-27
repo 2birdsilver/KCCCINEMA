@@ -71,7 +71,7 @@ public class CheckReserveController {
 		checkReserveService.deleteSeat(ticketId);
 		checkReserveService.deleteReserve(ticketId);
 		
-		return "mypage/checkReservation";
+		return "mypage/mypage";
 	}
 
 }

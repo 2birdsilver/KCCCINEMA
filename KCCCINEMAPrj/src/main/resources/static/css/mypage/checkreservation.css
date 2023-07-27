@@ -84,7 +84,7 @@ ul {
 }
 .user_inform_container {
 	width: 500px;
-	height: 250px;
+	height: 100%;
 	float: right;
 	position: relative;
 	top: 50px;

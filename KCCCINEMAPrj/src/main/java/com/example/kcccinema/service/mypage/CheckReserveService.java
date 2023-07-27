@@ -23,8 +23,8 @@ public class CheckReserveService implements ICheckReserveService {
 	}
 
 	@Override
-	public void deleteReserve(CheckReserveVO checkreserve) {
-		checkReserveRepository.deleteReserve(checkreserve);
+	public void deleteReserve(Long ticketId) {
+		checkReserveRepository.deleteReserve(ticketId);
 	}
 
 	@Override
@@ -40,6 +40,11 @@ public class CheckReserveService implements ICheckReserveService {
 	@Override
 	public MovieVO getMovie(Long movieId) {
 		return checkReserveRepository.getMovie(movieId);
+	}
+
+	@Override
+	public void deleteSeat(Long ticketId) {
+		checkReserveRepository.deleteSeat(ticketId);
 	}
 
 }

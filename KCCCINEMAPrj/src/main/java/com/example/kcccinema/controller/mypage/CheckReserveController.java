@@ -51,47 +51,27 @@ public class CheckReserveController {
 		    
 		    //****reservedInfoVO에 moviePoster byte값 이용해서 String base64Image;여기에 변환해서 저장.
 		    String base64Image = Base64.getEncoder().encodeToString(reservedInfoVO.getMoviePoster());
-		    reservedInfoVO.setBase64Image(base64Image);
+		    reservedInfoVO.setBase64Image(base64Image); 
+		    
+		    session.setAttribute("reservedInfoVO", reservedInfoVO);
 		}
 
 		// model에 reservedInfoVO 리스트를 넣어서 HTML로 보냄
 		model.addAttribute("reservedInfoVOList", reservedInfoVOList);
-
+		
 		return "mypage/checkReservation";
 	}
 	
-	@RequestMapping(value="checkreserve/delete", method=RequestMethod.GET)
+	
+	@RequestMapping(value="checkreserve/delete")
 	public String deleteReserve(HttpSession session, Model model) {
-		String userid = (String)session.getAttribute("userId");
-		if(userid != null && !userid.equals("")) {
-			CheckReserveVO checkreservevo = checkReserveService.selectReserve(userid);
-			model.addAttribute("userId",userid);
-			model.addAttribute("message", "MEMBER_PW_RE");
-			return "mypage/checkReservation";
-		}else {
-			model.addAttribute("message","NOT_LOGIN_USER");
-			return "user/login";
-		}
-	}
-	@RequestMapping(value="checkreserve/delete", method=RequestMethod.POST)
-	public String deleteReserve(String password, HttpSession session, Model model) {
-		try {
-			CheckReserveVO checkreservevo = new CheckReserveVO();
-			checkreservevo.setUserId((String)session.getAttribute("userId"));
-			String dbpw = (String)checkReserveService.getPassword(checkreservevo.getUserId());
-			if(password != null && password.equals(dbpw)) {
-				checkreservevo.setPassword(password);
-				checkReserveService.deleteReserve(checkreservevo);
-				return "mypage/checkReservation";
-			}else {
-				model.addAttribute("message","WRONG_PASSWORD");
-				return "mypage/checkReservation";
-			}
-		}catch(Exception e) {
-			model.addAttribute("messsage", "DELETE_FAIL");
-			e.printStackTrace();
-			return "mypage/checkReservation";
-		}
+		ReservedInfoVO reservedInfoVO = (ReservedInfoVO) session.getAttribute("reservedInfoVO");
+		Long ticketId = reservedInfoVO.getTicketId();
+		
+		checkReserveService.deleteSeat(ticketId);
+		checkReserveService.deleteReserve(ticketId);
+		
+		return "mypage/checkReservation";
 	}
 
 }

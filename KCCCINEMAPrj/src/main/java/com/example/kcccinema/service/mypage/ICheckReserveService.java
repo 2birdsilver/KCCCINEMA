@@ -8,9 +8,10 @@ import com.example.kcccinema.vo.mypage.CheckReserveVO;
 
 public interface ICheckReserveService {
 	CheckReserveVO	selectReserve(String movieTitle);
-	void 			deleteReserve(CheckReserveVO checkreserve);
+	void 			deleteReserve(Long ticketId);
 	String			getPassword(String userId);
 	List<ReservedInfoVO> getReservedInfo(String userid);
 	MovieVO getMovie(Long movieId);
+	void deleteSeat(Long ticketId);
 
 }

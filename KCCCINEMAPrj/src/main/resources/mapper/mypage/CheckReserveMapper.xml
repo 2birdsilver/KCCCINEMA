@@ -5,9 +5,18 @@
 
 
 	<delete id="deleteReserve"
-		parameterType="com.example.kcccinema.vo.mypage.CheckReserveVO">
-		<![CDATA[DELETE FROM ticket
-		WHERE user_id = #{userId} cascade
+		parameterType="long">
+		<![CDATA[
+		DELETE FROM ticket
+		WHERE ticket_id = #{ticketId}
+		]]>
+	</delete>
+	
+	<delete id="deleteSeat"
+		parameterType="long">
+		<![CDATA[
+		DELETE FROM reserved_seat
+		WHERE ticket_id = #{ticketId}
 		]]>
 	</delete>
 

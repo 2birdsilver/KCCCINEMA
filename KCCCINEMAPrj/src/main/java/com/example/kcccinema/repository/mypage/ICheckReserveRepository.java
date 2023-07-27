@@ -13,8 +13,9 @@ import com.example.kcccinema.vo.mypage.CheckReserveVO;
 @Repository
 public interface ICheckReserveRepository {
 	CheckReserveVO	selectReserve(String movieTitle);
-	void 			deleteReserve(CheckReserveVO checkreserve);
+	void 			deleteReserve(Long ticketId);
 	String			getPassword(String userId);
 	List<ReservedInfoVO> getReservedInfo(String userId);
 	MovieVO getMovie(Long movieId);
+	void deleteSeat(Long ticketId);
 }

@@ -13,18 +13,37 @@
 				<h1>내 예매확인</h1>
 			</div>
 			<!-- pageTitleContainer div -->
-			<div class="user_inform_container">
-				<div class="user_profile">
-					<img th:src="${moviePoster}" alt="이미지" /> <!-- 컨트롤러에 추가 해야함 imageUrl을 변수로 하는 @Getmapping  -->
-				</div>
-				<div class="user_inform">
-					<div><b>예매영화이름 : </b><span th:text="${session.movieTitle}">영화이름</span></div>
-					<div><b>상영날짜 : </b><span th:text="${session.screenDate}">상영날짜</span></div>
-					<div><b>상영시간 : </b><span th:text="${session.screenDate}">시작시간,끝시간</span></div>
-					<div><b>영화관 : </b><span th:text="${session.theater}">극장이름(주소)</span></div>
-					<div><b>상영관 : </b><span th:text="${session.theaterNumber}">상영관번호</span></div>
-					<div><b>좌석 : </b><span th:text="${session.seatId}">죄석번호</span></div>
-					
+			<div th:each="reservedInfoVO : ${reservedInfoVOList}">
+				<div class="user_inform_container">
+					<div class="user_profile">
+						<img
+							th:src="'data:image/jpeg;base64,' + ${reservedInfoVO.base64Image}"
+							alt="Image">
+					</div>
+					<div class="user_inform">
+						<div>
+							<b>극장이름 : </b><span th:text="${reservedInfoVO.cinemaName}">영화이름</span>
+						</div>
+						<div>
+							<b>영화이름 : </b><span th:text="${reservedInfoVO.movieTitle}">상영날짜</span>
+						</div>
+						<div>
+							<b>상영날짜 : </b><span th:text="${reservedInfoVO.screenDate}">시작시간,끝시간</span>
+						</div>
+						<div>
+							<b>시작시간 : </b><span th:text="${reservedInfoVO.startTime}"></span>
+						</div>
+						<div>
+							<b>끝시간 : </b><span th:text="${reservedInfoVO.endTime}">상영관번호</span>
+						</div>
+						<div>
+							<b>상영관 : </b><span th:text="${reservedInfoVO.theaterId}">죄석번호</span>
+						</div>
+						<div>
+							<b>좌석 : </b><span th:text="${reservedInfoVO.seat}">죄석번호</span>
+						</div>
+
+					</div>
 				</div>
 			</div>
 			<!-- userInformContainer div  -->
@@ -48,8 +67,8 @@
 			</div>
 			<!-- 좌측 세로메뉴바 div -->
 			<div class="button_container">
-				<button class="button1" onclick="location.href='#' ">예매취소</button>
-				
+				<button class="button1" onclick="location.href='/checkreserve/delete' ">예매취소</button>
+
 			</div>
 			<!-- button_container div  -->
 		</div>
